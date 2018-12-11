@@ -1,0 +1,31 @@
+########## JS ##########
+yarn-debug.log
+yarn-error.log
+node_modules
+.env
+
+#### Compiled source ###
+########################
+*.dll
+
+####### Packages #######
+*.7z
+*.dmg
+*.exe
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+###### databases #######
+db/*
+
+## OS generated files ##
+.DS_Store
+
+##### miscellaneous ####
+########################
+!.keep # track .keep file even in ignored directory
+build
