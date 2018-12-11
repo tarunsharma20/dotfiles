@@ -29,3 +29,4 @@ db/*
 ########################
 !.keep # track .keep file even in ignored directory
 build
+dist
