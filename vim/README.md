@@ -1,7 +1,7 @@
 # Quick Start
 Open your terminal and run
 ```sh
-wget https://gitlab.com/tarunsharma20/dotfiles/raw/master/vim/.vimrc -o ~/.vimrc
+wget https://gitlab.com/tarunsharma20/dotfiles/raw/master/vim/.vimrc -P ~/
 ```
 It'll download .vimrc file in your home directory.
 
