@@ -11,8 +11,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
-Plugin 'micha/vim-colors-solarized'
-Plugin 'dracula/vim'
+Plugin 'flazz/vim-colorschemes'
 Plugin 'rust-lang/rust.vim'
 
 call vundle#end()
@@ -54,28 +53,32 @@ set backspace=indent,eol,start                                            " Make
 " ==============================================================================
 set statusline=
 
-set statusline+=%f
+set statusline+=%#DiffAdd#%{(mode()=='n')?'\ \ NORMAL\ ':''}
+set statusline+=%#DiffChange#%{(mode()=='i')?'\ \ INSERT\ ':''}
+set statusline+=%#DiffDelete#%{(mode()=='r')?'\ \ RPLACE\ ':''}
+set statusline+=%#Cursor#%{(mode()=='v')?'\ \ VISUAL\ ':''}
+set statusline+=\ %f
 set statusline+=\ %h%m%r%w
 
 set statusline+=%=
 
 set statusline+=\ %{strlen(&ft)?&ft:'none'}
-set statusline+=\ \ \
-set statusline+=%{&fileformat}
+set statusline+=\ \
+set statusline+=\ %{&fileformat}
 set statusline+=[
 set statusline+=%{strlen(&fileencoding)?&fileencoding:&encoding}
 set statusline+=]
-set statusline+=\ \ \
-set statusline+=Ln:
+set statusline+=\ \
+set statusline+=\ Ln:
 set statusline+=%l
 set statusline+=,\ Col:
 set statusline+=%c
-set statusline+=\ -\
-set statusline+=%L
+set statusline+=\ \
+set statusline+=\ %L
 set statusline+=\ Lines
-set statusline+=\ \ \
-set statusline+=%p%%
-set statusline+=\
+set statusline+=\ \
+set statusline+=\ %p%%
+set statusline+=\ 
 
 " set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L] " statusline example: ~\myfile[+] [FORMAT=format] [TYPE=type] [ASCII=000] [HEX=00] [POS=0000,0000][00%] [LEN=000]
 " set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
@@ -111,17 +114,15 @@ set foldmethod=indent          " Fold based on indent level
 " ================================== Colors ====================================
 " ==============================================================================
 syntax enable                  " Enable syntax processing
+set t_Co=256
 
-" set background=dark
+if has('gui_running')
+  set background=light
+else
+  set background=dark
+endif
 
-" if has('gui_running')
-"   set background=light
-" else
-"   set background=dark
-" endif
-
-" colorscheme solarized
-colorscheme dracula
+colorscheme railscasts
 
 " ==============================================================================
 " ================================== Search ====================================
