@@ -7,12 +7,29 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-" ------------------------------ Vundle bundles --------------------------------
+" ============================== Vundle bundles ================================
+
+" ------------------------------ Miscellaneous ---------------------------------
 Plugin 'VundleVim/Vundle.vim'
+Plugin 'tpope/vim-commentary'
 Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
-Plugin 'flazz/vim-colorschemes'
+Plugin 'mattn/emmet-vim'
+Plugin 'w0rp/ale'
+
+" ------------------------------- Color Scheme ---------------------------------
+Plugin 'jpo/vim-railscasts-theme'
+Plugin 'tomasr/molokai'
+
+" ---------------------------- Syntax Highlighting -----------------------------
 Plugin 'rust-lang/rust.vim'
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
+
+" ----------------------------------- Git --------------------------------------
+Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
+
 
 call vundle#end()
 
@@ -183,6 +200,10 @@ let g:ctrlp_working_path_mode = 'ra'                  " Unless a starting direct
 " Use a custom file listing command
 let g:ctrlp_user_command = 'find %s -type f'          " MacOSX/Linux
 " let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d'  " Windows
+
+" ---------------------------------- Emmet -------------------------------------
+let g:user_emmet_leader_key='<Tab>'
+let g:user_emmet_setting = { 'javascript.jsx' : { 'extends': 'jsx', }, }
 
 " ==============================================================================
 " ============================ Keyboard Shortcuts ==============================
