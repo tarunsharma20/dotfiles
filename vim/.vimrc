@@ -72,7 +72,7 @@ set statusline=
 
 set statusline+=%#DiffAdd#%{(mode()=='n')?'\ \ NORMAL\ ':''}
 set statusline+=%#DiffChange#%{(mode()=='i')?'\ \ INSERT\ ':''}
-set statusline+=%#DiffDelete#%{(mode()=='r')?'\ \ RPLACE\ ':''}
+set statusline+=%#DiffDelete#%{(mode()=='r')?'\ \ REPLACE\ ':''}
 set statusline+=%#Cursor#%{(mode()=='v')?'\ \ VISUAL\ ':''}
 set statusline+=\ %f
 set statusline+=\ %h%m%r%w
@@ -80,20 +80,20 @@ set statusline+=\ %h%m%r%w
 set statusline+=%=
 
 set statusline+=\ %{strlen(&ft)?&ft:'none'}
-set statusline+=\ \
+set statusline+=\ \|
 set statusline+=\ %{&fileformat}
 set statusline+=[
 set statusline+=%{strlen(&fileencoding)?&fileencoding:&encoding}
 set statusline+=]
-set statusline+=\ \
+set statusline+=\ \|
 set statusline+=\ Ln:
 set statusline+=%l
 set statusline+=,\ Col:
 set statusline+=%c
-set statusline+=\ \
+set statusline+=\ \|
 set statusline+=\ %L
 set statusline+=\ Lines
-set statusline+=\ \
+set statusline+=\ \|
 set statusline+=\ %p%%
 set statusline+=\ 
 
@@ -104,7 +104,8 @@ set statusline+=\
 " =============================== Indentation ==================================
 " ==============================================================================
 filetype indent on             " Enable specific file based indentation
-set textwidth=79               " Lines longer than 79 columns will be broken
+set textwidth=80               " Lines longer than 79 columns will be broken
+set colorcolumn=-1             " Display line at the edge of textwidth
 set shiftwidth=2               " Allow >> and << indent/unindent 2 visual spaces
 set tabstop=2                  " Number of visual spaces per tab
 set expandtab                  " Turns tab into spaces
