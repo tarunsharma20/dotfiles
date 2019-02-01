@@ -44,7 +44,7 @@ set visualbell            " Turn off sounds
 " ============================== User Interface ================================
 " ==============================================================================
 set title                                                                 " Set the terminal's title
-set number                                                                " Show line numbers
+"set number                                                                " Show line numbers
 set lsp=0                                                                 " Number of space between lines (line spacing)
 set cursorline                                                            " Highlight  current line
 set showmatch                                                             " highlight matching brackets
@@ -64,6 +64,18 @@ set wildmenu                                                              " Visu
 set wildmode=list:longest,full                                            " wildmenu in special format (long format)
 set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,*.swp,*.jpg,*.gif,*.png  " Ignore formats in wildmenu
 set backspace=indent,eol,start                                            " Make backspace behave as it is
+
+" ==============================================================================
+" =============================== Line Number ==================================
+" ==============================================================================
+set number relativenumber                                                 " Show relative line numbers
+
+" Show absolute line number in insert mode, and hybrid(absolute + relative) in normal mode
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
 
 " ==============================================================================
 " ================================ Status Bar ==================================
