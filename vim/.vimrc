@@ -16,6 +16,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
 Plugin 'mattn/emmet-vim'
 Plugin 'w0rp/ale'
+Plugin 'godlygeek/tabular'
 
 " ------------------------------- Color Scheme ---------------------------------
 Plugin 'jpo/vim-railscasts-theme'
