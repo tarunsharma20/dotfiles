@@ -13,8 +13,9 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-commentary'
 Plugin 'scrooloose/nerdtree'
-Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'mattn/emmet-vim'
+Plugin 'ryanoasis/vim-devicons'
 Plugin 'w0rp/ale'
 Plugin 'godlygeek/tabular'
 
@@ -45,6 +46,7 @@ set visualbell            " Turn off sounds
 " ============================== User Interface ================================
 " ==============================================================================
 set title                                                                 " Set the terminal's title
+set guifont=menlo:h11                                                     " Set font for GUI
 "set number                                                                " Show line numbers
 set lsp=0                                                                 " Number of space between lines (line spacing)
 set cursorline                                                            " Highlight  current line
