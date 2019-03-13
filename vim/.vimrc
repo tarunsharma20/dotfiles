@@ -11,8 +11,8 @@ call vundle#begin()
 
 " ------------------------------ Miscellaneous ---------------------------------
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'tpope/vim-commentary'
 Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdcommenter'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'mattn/emmet-vim'
 "Plugin 'ryanoasis/vim-devicons'
