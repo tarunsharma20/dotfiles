@@ -13,6 +13,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
+Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'mattn/emmet-vim'
 "Plugin 'ryanoasis/vim-devicons'
@@ -24,6 +25,7 @@ Plugin 'jpo/vim-railscasts-theme'
 Plugin 'tomasr/molokai'
 
 " ---------------------------- Syntax Highlighting -----------------------------
+Plugin 'scrooloose/syntastic'
 Plugin 'rust-lang/rust.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
@@ -217,6 +219,15 @@ let g:ctrlp_working_path_mode = 'ra'                  " Unless a starting direct
 let g:ctrlp_user_command = 'find %s -type f'          " MacOSX/Linux
 " let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d'  " Windows
 
+" --------------------------------- Syntastic ----------------------------------
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" ------------------------------- Indent Guides --------------------------------
+let g:indent_guides_guide_size = 1
+
 " ---------------------------------- Emmet -------------------------------------
 let g:user_emmet_leader_key='<Tab>'
 let g:user_emmet_setting = { 'javascript.jsx' : { 'extends': 'jsx', }, }
@@ -231,4 +242,5 @@ let mapleader=","
 nnoremap gV '[v']                           " highlight last inserted text
 nnoremap <space> za                         " Space open/closes folds
 nnoremap <leader><space> :nohlsearch<CR>    " turn off search highlight
+nnoremap <leader> g :IndentGuidesToggle<CR> " toggle indent guides
 map <C-n> :NERDTreeToggle<CR>               "To open NERDTree with Ctrl+n
