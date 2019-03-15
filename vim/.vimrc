@@ -33,6 +33,7 @@ Plugin 'mxw/vim-jsx'
 " ----------------------------------- Git --------------------------------------
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 
 
 call vundle#end()
@@ -237,10 +238,27 @@ let g:user_emmet_setting = { 'javascript.jsx' : { 'extends': 'jsx', }, }
 " ==============================================================================
 
 let mapleader=","
-" nnoremap j gj                               " move down by visual line
-" nnoremap k gk                               " move up by visual line
-nnoremap gV '[v']                           " highlight last inserted text
-nnoremap <space> za                         " Space open/closes folds
-nnoremap <leader><space> :nohlsearch<CR>    " turn off search highlight
-nnoremap <leader> g :IndentGuidesToggle<CR> " toggle indent guides
-map <C-n> :NERDTreeToggle<CR>               "To open NERDTree with Ctrl+n
+
+" move down by visual line
+" nnoremap j gj
+
+" move up by visual line
+" nnoremap k gk
+
+" highlight last inserted text
+nnoremap gV '[v']
+
+" Space open/closes folds
+nnoremap <space> za
+
+" turn off search highlight
+nnoremap <leader><space> :nohlsearch<CR>
+
+" toggle indent guides
+map <leader>ig :IndentGuidesToggle<CR>
+
+" To open NERDTree with Ctrl+n
+map <C-n> :NERDTreeToggle<CR>
+
+" List buffer and prepare :b
+nnoremap <Leader>b :ls<CR>:b<Space>
