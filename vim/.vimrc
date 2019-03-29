@@ -262,3 +262,11 @@ map <C-n> :NERDTreeToggle<CR>
 
 " List buffer and prepare :b
 nnoremap <Leader>b :ls<CR>:b<Space>
+
+" Move current line or selected block up and down with Alt+j and Alt+k
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
+inoremap <A-j> <Esc>:m .+1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==gi
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
