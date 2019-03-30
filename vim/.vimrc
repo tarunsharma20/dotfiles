@@ -49,7 +49,7 @@ set visualbell            " Turn off sounds
 " ============================== User Interface ================================
 " ==============================================================================
 set title                                                                 " Set the terminal's title
-set guifont=menlo:h11                                                     " Set font for GUI
+set guifont=Menlo:h14                                                     " Set font for GUI
 "set number                                                                " Show line numbers
 set lsp=0                                                                 " Number of space between lines (line spacing)
 set cursorline                                                            " Highlight  current line
@@ -122,8 +122,10 @@ set statusline+=\
 " =============================== Indentation ==================================
 " ==============================================================================
 filetype indent on             " Enable specific file based indentation
+set spell                      " spell checking on
 set textwidth=80               " Lines longer than 79 columns will be broken
 set colorcolumn=-1             " Display line at the edge of textwidth
+set lines=35 columns=150       " Vim to open with a given size
 set shiftwidth=2               " Allow >> and << indent/unindent 2 visual spaces
 set tabstop=2                  " Number of visual spaces per tab
 set expandtab                  " Turns tab into spaces
@@ -206,7 +208,11 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 "Close vim if only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
-let NERDTreeShowHidden=1 " show hidden files in NERDTree
+" show hidden files in NERDTree
+let NERDTreeShowHidden=1
+
+" Ignore files in nerdtree
+let NERDTreeIgnore=['\.DS_Store', '\~$', '\.swp', 'node_modules', '.git']
 
 " ---------------------------------- CtrlP -------------------------------------
 
@@ -215,6 +221,12 @@ let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 
 let g:ctrlp_working_path_mode = 'ra'                  " Unless a starting directory specified, CtrlP will set its local working directory
+
+" Exclude files and directories
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+"set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
 " Use a custom file listing command
 let g:ctrlp_user_command = 'find %s -type f'          " MacOSX/Linux
@@ -255,10 +267,14 @@ nnoremap <space> za
 nnoremap <leader><space> :nohlsearch<CR>
 
 " toggle indent guides
-map <leader>ig :IndentGuidesToggle<CR>
+nmap <leader>ig :IndentGuidesToggle<CR>
 
-" To open NERDTree with Ctrl+n
-map <C-n> :NERDTreeToggle<CR>
+" To open NERDTree with ,n
+" map <C-n> :NERDTreeToggle<CR>
+nmap <leader>n :NERDTreeToggle<CR>
+
+" Locate the focused file in NERDTree with ,j
+nmap <leader>j :NERDTreeFind<CR>
 
 " List buffer and prepare :b
 nnoremap <Leader>b :ls<CR>:b<Space>
