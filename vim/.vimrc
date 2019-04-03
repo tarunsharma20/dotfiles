@@ -122,7 +122,7 @@ set statusline+=\
 " =============================== Indentation ==================================
 " ==============================================================================
 filetype indent on             " Enable specific file based indentation
-set spell                      " spell checking on
+"set spell                      " spell checking on
 set textwidth=80               " Lines longer than 79 columns will be broken
 set colorcolumn=-1             " Display line at the edge of textwidth
 set lines=35 columns=150       " Vim to open with a given size
@@ -244,6 +244,18 @@ let g:indent_guides_guide_size = 1
 " ---------------------------------- Emmet -------------------------------------
 let g:user_emmet_leader_key='<Tab>'
 let g:user_emmet_setting = { 'javascript.jsx' : { 'extends': 'jsx', }, }
+
+" ----------------------------------- Ale --------------------------------------
+highlight clear ALEErrorSign " otherwise uses error bg color (typically red)
+highlight clear ALEWarningSign " otherwise uses error bg color (typically red)
+" highlight ALEErrorSign ctermbg=NONE ctermfg=red
+" highlight ALEWarningSign ctermbg=NONE ctermfg=yellow
+let g:ale_sign_error = 'X'
+let g:ale_sign_warning = '?'
+" let g:ale_statusline_format = ['X %d', '? %d', '']
+let g:ale_lint_on_enter=0
+let g:ale_lint_on_text_changed='never'
+let g:ale_echo_msg_format = '%linter% says %s'
 
 " ==============================================================================
 " ============================ Keyboard Shortcuts ==============================
