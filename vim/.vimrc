@@ -66,9 +66,15 @@ set listchars=nbsp:¬,eol:¶,tab:>-,extends:»,precedes:«,trail:·            "
 set mouse=a                                                               " Enable mouse in all modes
 set clipboard=unnamed                                                     " Use system clipboard.
 set lazyredraw                                                            " Redraw only when we need to.
+set path+=**                                                              " Recursively traverse to find something
 set wildmenu                                                              " Visual autocomplete for command menu
 set wildmode=list:longest,full                                            " wildmenu in special format (long format)
-set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,*.swp,*.jpg,*.gif,*.png  " Ignore formats in wildmenu
+
+" Ignore formats in wildmenu
+set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,*.swp,*.jpg,*.gif,*.png
+set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.jpeg,*.png
+set wildignore+=node_modules/*,bower_components/*,.devil/*
+
 set backspace=indent,eol,start                                            " Make backspace behave as it is
 
 " ==============================================================================
@@ -222,10 +228,6 @@ let g:ctrlp_cmd = 'CtrlP'
 
 let g:ctrlp_working_path_mode = 'ra'                  " Unless a starting directory specified, CtrlP will set its local working directory
 
-" Exclude files and directories
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
-"set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
-
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard'] "Ignore files in .gitignore
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
@@ -303,3 +305,8 @@ inoremap <A-j> <Esc>:m .+1<CR>==gi
 inoremap <A-k> <Esc>:m .-2<CR>==gi
 vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
+
+" Find and edit file recursive
+" nnoremap <Leader>p :e **/*
+" nnoremap <Leader>v :vsplit **/*
+" nnoremap <Leader>s :split **/*
