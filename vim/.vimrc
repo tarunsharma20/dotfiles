@@ -125,7 +125,7 @@ filetype indent on             " Enable specific file based indentation
 "set spell                      " spell checking on
 set textwidth=80               " Lines longer than 79 columns will be broken
 set colorcolumn=-1             " Display line at the edge of textwidth
-set lines=35 columns=150       " Vim to open with a given size
+" set lines=35 columns=150       " Vim to open with a given size
 set shiftwidth=2               " Allow >> and << indent/unindent 2 visual spaces
 set tabstop=2                  " Number of visual spaces per tab
 set expandtab                  " Turns tab into spaces
@@ -226,6 +226,7 @@ let g:ctrlp_working_path_mode = 'ra'                  " Unless a starting direct
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 "set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
 
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard'] "Ignore files in .gitignore
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
 " Use a custom file listing command
@@ -246,16 +247,20 @@ let g:user_emmet_leader_key='<Tab>'
 let g:user_emmet_setting = { 'javascript.jsx' : { 'extends': 'jsx', }, }
 
 " ----------------------------------- Ale --------------------------------------
-highlight clear ALEErrorSign " otherwise uses error bg color (typically red)
-highlight clear ALEWarningSign " otherwise uses error bg color (typically red)
+" highlight clear ALEErrorSign " otherwise uses error bg color (typically red)
+" highlight clear ALEWarningSign " otherwise uses error bg color (typically red)
+
 " highlight ALEErrorSign ctermbg=NONE ctermfg=red
 " highlight ALEWarningSign ctermbg=NONE ctermfg=yellow
-let g:ale_sign_error = 'X'
-let g:ale_sign_warning = '?'
+
+" let g:ale_sign_error = 'X'
+" let g:ale_sign_warning = '?'
+
+" let g:ale_lint_on_enter=0
+" let g:ale_lint_on_text_changed='never'
+
 " let g:ale_statusline_format = ['X %d', '? %d', '']
-let g:ale_lint_on_enter=0
-let g:ale_lint_on_text_changed='never'
-let g:ale_echo_msg_format = '%linter% says %s'
+" let g:ale_echo_msg_format = '%linter% says %s'
 
 " ==============================================================================
 " ============================ Keyboard Shortcuts ==============================
