@@ -21,8 +21,7 @@ Plugin 'w0rp/ale'
 Plugin 'godlygeek/tabular'
 
 " ------------------------------- Color Scheme ---------------------------------
-Plugin 'jpo/vim-railscasts-theme'
-Plugin 'tomasr/molokai'
+Plugin 'dracula/vim'
 
 " ---------------------------- Syntax Highlighting -----------------------------
 Plugin 'scrooloose/syntastic'
@@ -168,7 +167,7 @@ else
   set background=dark
 endif
 
-colorscheme railscasts
+colorscheme dracula
 
 " ==============================================================================
 " ================================== Search ====================================
