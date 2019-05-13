@@ -13,7 +13,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 "Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'Yggdroot/indentLine'
 "Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'mattn/emmet-vim'
 "Plugin 'ryanoasis/vim-devicons'
@@ -67,7 +67,7 @@ set laststatus=2    " Always show status line
 
 set list                                           " Show white space characters
 " Define symbols for listchars
-set listchars=nbsp:¬,eol:¶,tab:>-,extends:»,precedes:«,trail:·
+set listchars=nbsp:¬,eol:¶,tab:¦-,extends:»,precedes:«,trail:·
 
 set mouse=a                       " Enable mouse in all modes
 set clipboard=unnamed             " Use system clipboard.
@@ -290,9 +290,6 @@ nnoremap <space> za
 
 " turn off search highlight
 nnoremap <leader><space> :nohlsearch<CR>
-
-" toggle indent guides
-nmap <leader>ig :IndentGuidesToggle<CR>
 
 " List buffer and prepare :b
 nnoremap <Leader>b :ls<CR>:b<Space>
