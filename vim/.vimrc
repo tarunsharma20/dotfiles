@@ -21,9 +21,11 @@ Plugin 'w0rp/ale'
 Plugin 'godlygeek/tabular'
 
 " ------------------------------- Color Scheme ---------------------------------
-Plugin 'dracula/vim'
-Plugin 'nightsense/cosmic_latte'
-Plugin 'nightsense/snow'
+Plugin 'dracula/vim'                         " dracula (dark)
+Plugin 'nightsense/cosmic_latte'             " cosmic_latte (dark|light)
+Plugin 'nightsense/snow'                     " snow (dark|light)
+Plugin 'altercation/vim-colors-solarized'    " solarized (dark|light)
+Plugin 'MvanDiemen/ghostbuster'              " ghostbuster (dark|light)
 
 " ---------------------------- Syntax Highlighting -----------------------------
 Plugin 'scrooloose/syntastic'
@@ -176,9 +178,7 @@ else
   set background=dark
 endif
 
-colorscheme dracula
-"colorscheme cosmic_latte
-"colorscheme snow
+colorscheme ghostbuster
 
 " ==============================================================================
 " ================================== Search ====================================
