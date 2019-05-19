@@ -26,6 +26,8 @@ Plugin 'nightsense/cosmic_latte'             " cosmic_latte (dark|light)
 Plugin 'nightsense/snow'                     " snow (dark|light)
 Plugin 'altercation/vim-colors-solarized'    " solarized (dark|light)
 Plugin 'MvanDiemen/ghostbuster'              " ghostbuster (dark|light)
+Plugin 'Wutzara/vim-materialtheme'
+Plugin 'kristijanhusak/vim-hybrid-material'
 
 " ---------------------------- Syntax Highlighting -----------------------------
 Plugin 'scrooloose/syntastic'
@@ -172,13 +174,14 @@ set foldmethod=indent    " Fold based on indent level
 syntax enable    " Enable syntax processing
 set t_Co=256
 
-if has('gui_running')
-  set background=light
-else
-  set background=dark
-endif
+"if has('gui_running')
+  "set background=light
+"else
+  "set background=dark
+"endif
 
-colorscheme ghostbuster
+set background=dark
+colorscheme dracula
 
 " ==============================================================================
 " ================================== Search ====================================
@@ -276,6 +279,9 @@ let g:user_emmet_setting = { 'javascript.jsx' : { 'extends': 'jsx', }, }
 
 "let g:ale_statusline_format = ['X %d', '? %d', '']
 "let g:ale_echo_msg_format = '%linter% says %s'
+let g:ale_fixers = {
+  \ 'javascript': ['eslint']
+  \ }
 
 " ==============================================================================
 " ============================ Keyboard Shortcuts ==============================
@@ -302,6 +308,12 @@ map <leader>ew :e <C-R>=expand("%:p:h") . "/" <CR>
 map <leader>es :sp <C-R>=expand("%:p:h") . "/" <CR>
 map <leader>ev :vsp <C-R>=expand("%:p:h") . "/" <CR>
 map <leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
+
+" ------------------------ Navigating the quickfix list ------------------------
+nmap <silent> [q :cprevious<CR>zv
+nmap <silent> ]q :cnext<CR>zv
+nmap <silent> [Q :cfirst<CR>zv
+nmap <silent> ]Q :clast<CR>zv
 
 " ---- Move current line or selected block up and down with Alt+j and Alt+k ----
 nnoremap <A-j> :m .+1<CR>==
@@ -342,3 +354,15 @@ vnoremap ~ y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
 "  \ ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget,
 "  \ tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
 "  \ ultricies mi vitae est. Mauris placerat eleifend leo.
+
+" ==============================================================================
+" ============================ Keyboard Shortcuts ==============================
+" ==============================================================================
+" will automatically open the quickfix window whenever you do :vimgrep or other
+" commands that populate the quickfix/location list
+augroup qf
+    autocmd!
+    autocmd QuickFixCmdPost [^l]* cwindow
+    autocmd QuickFixCmdPost l*    cwindow
+    autocmd VimEnter        *     cwindow
+augroup END
