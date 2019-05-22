@@ -23,11 +23,8 @@ Plugin 'godlygeek/tabular'
 " ------------------------------- Color Scheme ---------------------------------
 Plugin 'dracula/vim'                         " dracula (dark)
 Plugin 'nightsense/cosmic_latte'             " cosmic_latte (dark|light)
-Plugin 'nightsense/snow'                     " snow (dark|light)
-Plugin 'altercation/vim-colors-solarized'    " solarized (dark|light)
-Plugin 'MvanDiemen/ghostbuster'              " ghostbuster (dark|light)
-Plugin 'Wutzara/vim-materialtheme'
-Plugin 'kristijanhusak/vim-hybrid-material'
+Plugin 'antlypls/vim-colors-codeschool'      " codeschool
+Plugin 'ayu-theme/ayu-vim'                   " ayu ()
 
 " ---------------------------- Syntax Highlighting -----------------------------
 Plugin 'scrooloose/syntastic'
@@ -54,7 +51,6 @@ set visualbell            " Turn off sounds
 " ============================== User Interface ================================
 " ==============================================================================
 set title                " Set the terminal's title
-set guifont=Menlo:h11    " Set font for GUI
 "set number               " Show line numbers
 set lsp=0                " Number of space between lines (line spacing)
 set cursorline           " Highlight  current line
@@ -86,6 +82,12 @@ set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.jpeg,*.png
 set wildignore+=*/node_modules/*,*/bower_components/*,*/build/*
 
 set backspace=indent,eol,start    " Make backspace behave as it is
+
+" ------------------------------- GUI Options ----------------------------------
+set guifont=Menlo:h11    " Set font for GUI
+set guioptions-=m        " Show/Hide menu bar
+set guioptions-=T        " Show/Hide toolbar
+set guioptions-=r        " Show/Hide scrollbar
 
 " ==============================================================================
 " =============================== Line Number ==================================
@@ -180,8 +182,11 @@ set t_Co=256
   "set background=dark
 "endif
 
-set background=dark
-colorscheme dracula
+set termguicolors     " enable true colors support
+" let ayucolor="light"  " for light version of theme
+" let ayucolor="mirage" " for mirage version of theme
+let ayucolor="dark"   " for dark version of theme
+colorscheme ayu
 
 " ==============================================================================
 " ================================== Search ====================================
