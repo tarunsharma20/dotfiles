@@ -24,7 +24,7 @@ Plugin 'godlygeek/tabular'
 Plugin 'dracula/vim'                         " dracula (dark)
 Plugin 'nightsense/cosmic_latte'             " cosmic_latte (dark|light)
 Plugin 'antlypls/vim-colors-codeschool'      " codeschool
-Plugin 'ayu-theme/ayu-vim'                   " ayu ()
+Plugin 'ayu-theme/ayu-vim'                   " ayu
 
 " ---------------------------- Syntax Highlighting -----------------------------
 Plugin 'scrooloose/syntastic'
@@ -87,7 +87,7 @@ set backspace=indent,eol,start    " Make backspace behave as it is
 set guifont=Menlo:h11    " Set font for GUI
 set guioptions-=m        " Show/Hide menu bar
 set guioptions-=T        " Show/Hide toolbar
-set guioptions-=r        " Show/Hide scrollbar
+"set guioptions-=r        " Show/Hide scrollbar
 
 " ==============================================================================
 " =============================== Line Number ==================================
@@ -183,8 +183,8 @@ set t_Co=256
 "endif
 
 set termguicolors     " enable true colors support
-" let ayucolor="light"  " for light version of theme
-" let ayucolor="mirage" " for mirage version of theme
+"let ayucolor="light"  " for light version of theme
+"let ayucolor="mirage" " for mirage version of theme
 let ayucolor="dark"   " for dark version of theme
 colorscheme ayu
 
@@ -224,6 +224,17 @@ endif
 " ==============================================================================
 " ================================= Plugins ====================================
 " ==============================================================================
+
+" ----------------------------------- NetRW ------------------------------------
+"let g:netrw_banner = 0            " Remove the banner
+"let g:netrw_liststyle = 3         " Changing the directory
+"let g:netrw_browse_split = 4      " To make the selection permanent add
+"let g:netrw_altv = 1
+"let g:netrw_winsize = 25          " Set the width of the directory explorer
+"augroup ProjectDrawer
+  "autocmd!
+  "autocmd VimEnter * :Vexplore
+"augroup END
 
 " --------------------------------- NERDTree -----------------------------------
 
@@ -283,7 +294,7 @@ let g:user_emmet_setting = { 'javascript.jsx' : { 'extends': 'jsx', }, }
 "let g:ale_lint_on_text_changed='never'
 
 "let g:ale_statusline_format = ['X %d', '? %d', '']
-"let g:ale_echo_msg_format = '%linter% says %s'
+let g:ale_echo_msg_format = '%linter% says %s'
 let g:ale_fixers = {
   \ 'javascript': ['eslint']
   \ }
