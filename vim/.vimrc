@@ -69,6 +69,10 @@ set list                                           " Show white space characters
 " Define symbols for listchars
 set listchars=nbsp:¬,eol:¶,tab:¦-,extends:»,precedes:«,trail:·
 
+" Remove conceal feature it's hiding double quotes in JSON
+set conceallevel=0
+set concealcursor=""
+
 set mouse=a                       " Enable mouse in all modes
 set clipboard=unnamed             " Use system clipboard.
 set lazyredraw                    " Redraw only when we need to.
@@ -184,8 +188,8 @@ set t_Co=256
 
 set termguicolors     " enable true colors support
 "let ayucolor="light"  " for light version of theme
-"let ayucolor="mirage" " for mirage version of theme
-let ayucolor="dark"   " for dark version of theme
+let ayucolor="mirage" " for mirage version of theme
+"let ayucolor="dark"   " for dark version of theme
 colorscheme ayu
 
 " ==============================================================================
@@ -313,8 +317,11 @@ nnoremap <space> za
 " turn off search highlight
 nnoremap <leader><space> :nohlsearch<CR>
 
+" --------------------------- Navigating the buffer ---------------------------
 " List buffer and prepare :b
 nnoremap <Leader>b :ls<CR>:b<Space>
+nmap <silent> [b :bnext<CR>
+nmap <silent> ]b :bprevious<CR>
 
 " go to file in vertical split instead of same file
 nnoremap gf :vertical wincmd f<CR>
