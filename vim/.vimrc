@@ -19,7 +19,6 @@ Plugin 'mattn/emmet-vim'
 "Plugin 'ryanoasis/vim-devicons'
 Plugin 'w0rp/ale'
 Plugin 'godlygeek/tabular'
-
 " ------------------------------- Color Scheme ---------------------------------
 Plugin 'dracula/vim'                         " dracula (dark)
 Plugin 'nightsense/cosmic_latte'             " cosmic_latte (dark|light)
@@ -138,6 +137,8 @@ set statusline+=]
 "set statusline+=\ \|
 set statusline+=\ \|
 set statusline+=\ %l:%c
+set statusline+=\ \|
+set statusline+=\ %{LinterStatus()}
 set statusline+=\ %#Visual#
 set statusline+=\ %{FugitiveHead()}
 set statusline+=\ %*
@@ -271,6 +272,10 @@ endif
 "let g:ctrlp_user_command = 'find %s -type f'          " MacOSX/Linux
 "let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d'  " Windows
 
+" ------------------------------ NERD Commenter --------------------------------
+let g:NERDSpaceDelims = 1     " Add spaces after comment delimiters by default
+let g:NERDCompactSexyComs = 1 " Use compact syntax for prettified multi-line comments
+
 " --------------------------------- Syntastic ----------------------------------
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -285,24 +290,38 @@ let g:user_emmet_leader_key='<Tab>'
 let g:user_emmet_setting = { 'javascript.jsx' : { 'extends': 'jsx', }, }
 
 " ----------------------------------- Ale --------------------------------------
-"highlight clear ALEErrorSign " otherwise uses error bg color (typically red)
-"highlight clear ALEWarningSign " otherwise uses error bg color (typically red)
+highlight clear ALEErrorSign " otherwise uses error bg color (typically red)
+highlight clear ALEWarningSign " otherwise uses error bg color (typically red)
 
-"highlight ALEErrorSign ctermbg=NONE ctermfg=red
-"highlight ALEWarningSign ctermbg=NONE ctermfg=yellow
+highlight ALEErrorSign ctermfg=9 ctermbg=NONE guifg=#C30500 guibg=NONE
+highlight ALEWarningSign ctermfg=11 ctermbg=NONE guifg=#ED6237 guibg=NONE
 
-"let g:ale_sign_error = 'X'
-"let g:ale_sign_warning = '?'
+let g:ale_sign_error = 'X'
+let g:ale_sign_warning = '!'
 
-"let g:ale_lint_on_enter=0
-"let g:ale_lint_on_text_changed='never'
+" let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_filetype_changed = 0
+let g:ale_lint_on_enter=0
+"let g:ale_linters_explicit=1
 
 "let g:ale_statusline_format = ['X %d', '? %d', '']
-let g:ale_echo_msg_format = '%linter% says %s'
+let g:ale_echo_msg_format = '%severity%: %linter% says - %s'
 let g:ale_fixers = {
   \ 'javascript': ['eslint']
   \ }
 
+function! LinterStatus() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+
+  return l:counts.total == 0 ? 'OK' : printf(
+        \   '%d W, %d E',
+        \   all_non_errors,
+        \   all_errors
+        \)
+endfunction
 " ==============================================================================
 " ============================ Keyboard Shortcuts ==============================
 " ==============================================================================
@@ -317,7 +336,11 @@ nnoremap <space> za
 " turn off search highlight
 nnoremap <leader><space> :nohlsearch<CR>
 
-" --------------------------- Navigating the buffer ---------------------------
+" ------------------------- Navigating between errors --------------------------
+nmap <silent> ]e <Plug>(ale_previous_wrap)
+nmap <silent> [e <Plug>(ale_next_wrap)
+
+" ------------------------- Navigating between buffer --------------------------
 " List buffer and prepare :b
 nnoremap <Leader>b :ls<CR>:b<Space>
 nmap <silent> [b :bnext<CR>
