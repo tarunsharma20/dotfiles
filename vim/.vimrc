@@ -49,7 +49,6 @@ set visualbell            " Turn off sounds
 " ==============================================================================
 " ============================== User Interface ================================
 " ==============================================================================
-set title                " Set the terminal's title
 "set number               " Show line numbers
 set lsp=0                " Number of space between lines (line spacing)
 set cursorline           " Highlight  current line
@@ -85,6 +84,13 @@ set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.jpeg,*.png
 set wildignore+=*/node_modules/*,*/bower_components/*,*/build/*
 
 set backspace=indent,eol,start    " Make backspace behave as it is
+
+" ------------------------------- Page Title -----------------------------------
+set title  " Set the terminal's title
+
+
+" Showing current file name and current working directory on buffer change
+autocmd BufEnter * let &titlestring = ' ' . expand("%:t") . ' - ' . fnamemodify(getcwd(), ':t')
 
 " ------------------------------- GUI Options ----------------------------------
 set guifont=Menlo:h11    " Set font for GUI
