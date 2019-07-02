@@ -88,7 +88,6 @@ set backspace=indent,eol,start    " Make backspace behave as it is
 " ------------------------------- Page Title -----------------------------------
 set title  " Set the terminal's title
 
-
 " Showing current file name and current working directory on buffer change
 autocmd BufEnter * let &titlestring = ' ' . expand("%:t") . ' - ' . fnamemodify(getcwd(), ':t')
 
@@ -316,6 +315,9 @@ let g:ale_fixers = {
   \ 'javascript': ['eslint']
   \ }
 
+" Will keep gutter open for error sign
+let g:ale_sign_column_always = 1
+
 function! LinterStatus() abort
   let l:counts = ale#statusline#Count(bufnr(''))
 
@@ -356,10 +358,10 @@ nmap <silent> ]b :bprevious<CR>
 nnoremap gf :vertical wincmd f<CR>
 
 " ------------------------ Edit file in same repository ------------------------
-map <leader>ew :e <C-R>=expand("%:p:h") . "/" <CR>
-map <leader>es :sp <C-R>=expand("%:p:h") . "/" <CR>
-map <leader>ev :vsp <C-R>=expand("%:p:h") . "/" <CR>
-map <leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
+nmap <leader>ew :e <C-R>=expand("%:p:h") . "/" <CR>
+nmap <leader>es :sp <C-R>=expand("%:p:h") . "/" <CR>
+nmap <leader>ev :vsp <C-R>=expand("%:p:h") . "/" <CR>
+nmap <leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
 
 " ------------------------ Navigating the quickfix list ------------------------
 nmap <silent> [q :cprevious<CR>zv
@@ -374,6 +376,17 @@ inoremap <A-j> <Esc>:m .+1<CR>==gi
 inoremap <A-k> <Esc>:m .-2<CR>==gi
 vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
+
+" --------------------------------- Auto Pairs ---------------------------------
+inoremap " ""<left>
+inoremap ' ''<left>
+inoremap ` ``<left>
+inoremap ( ()<left>
+inoremap (<CR> (<CR>)<ESC>O
+inoremap [ []<left>
+inoremap [<CR> [<CR>]<ESC>O
+inoremap { {}<left>
+inoremap {<CR> {<CR>}<ESC>O
 
 " ----------- Visually select text then press ~ to change text case ------------
 function! TwiddleCase(str)
@@ -408,7 +421,7 @@ vnoremap ~ y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
 "  \ ultricies mi vitae est. Mauris placerat eleifend leo.
 
 " ==============================================================================
-" ============================ Keyboard Shortcuts ==============================
+" ============================ Miscellaneous Stuff =============================
 " ==============================================================================
 " will automatically open the quickfix window whenever you do :vimgrep or other
 " commands that populate the quickfix/location list
