@@ -342,7 +342,7 @@ nnoremap gV '[v']
 nnoremap <space> za
 
 " turn off search highlight
-nnoremap <leader><space> :nohlsearch<CR>
+nnoremap <silent> <leader><space> :nohlsearch<CR>
 
 " ------------------------- Navigating between errors --------------------------
 nmap <silent> ]e <Plug>(ale_previous_wrap)
@@ -378,15 +378,15 @@ vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
 
 " --------------------------------- Auto Pairs ---------------------------------
-inoremap " ""<left>
-inoremap ' ''<left>
-inoremap ` ``<left>
-inoremap ( ()<left>
-inoremap (<CR> (<CR>)<ESC>O
-inoremap [ []<left>
-inoremap [<CR> [<CR>]<ESC>O
-inoremap { {}<left>
-inoremap {<CR> {<CR>}<ESC>O
+" inoremap " ""<left>
+" inoremap ' ''<left>
+" inoremap ` ``<left>
+" inoremap ( ()<left>
+" inoremap (<CR> (<CR>)<ESC>O
+" inoremap [ []<left>
+" inoremap [<CR> [<CR>]<ESC>O
+" inoremap { {}<left>
+" inoremap {<CR> {<CR>}<ESC>O
 
 " ----------- Visually select text then press ~ to change text case ------------
 function! TwiddleCase(str)
