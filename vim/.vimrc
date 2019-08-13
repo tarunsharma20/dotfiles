@@ -84,6 +84,7 @@ set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.jpeg,*.png
 set wildignore+=*/node_modules/*,*/bower_components/*,*/build/*
 
 set backspace=indent,eol,start    " Make backspace behave as it is
+set splitright                    " Vertical split will open at right side
 
 " ------------------------------- Page Title -----------------------------------
 set title  " Set the terminal's title
