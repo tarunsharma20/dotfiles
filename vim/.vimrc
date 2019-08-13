@@ -213,7 +213,7 @@ set lazyredraw          " Don't redraw while running macros
 set encoding=utf8       " Set utf8 as standard encoding
 set ffs=unix,dos,mac    " Use Unix as the standard file type
 
-set hidden            " Handle multiple buffers
+set hidden            " Switch between buffers buffers without save files
 
 filetype on           " Turn on file type detection.
 filetype off          " Turn off file type detection.
