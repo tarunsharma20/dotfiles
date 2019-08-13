@@ -197,3 +197,62 @@ Selection (Visual Mode)
 
 ```~``` -- Switch case.
 
+Buffers
+------------------------------------------------------------
+
+```:e file-name``` -- Edit a file in a new buffer.
+
+```:bn[ext]``` -- Go to the next buffer.
+
+```:bp[rev]``` -- Go to the previous buffer.
+
+```:ls``` -- list all open buffers.
+
+```:bd[elete]``` -- Delete buffer (Makes the buffer invisible, but leaves it in memory).
+
+```:bd[elete] file1 file2``` -- Delete buffers with matching filenames or numbers.
+
+```:bw[ipeout]``` -- Wipeout buffer from memory.
+
+```:bw[ipeout] file1 file2``` -- Wipeout all buffers with matching filenames or numbers.
+
+```%bw[ipeout]``` -- Wipeout all buffer.
+
+```:b[uffer] buffer-number/buffer-name``` -- Open buffer with a buffer number or name.
+
+```:sb[uffer] buffer-number/buffer-name``` -- Open buffer with a buffer number or name in horizontally split window.
+
+```:vert sb[uffer] buffer-number/buffer-name``` -- Open buffer with a buffer number or name in vertically split window.
+
+window
+------------------------------------------------------------
+
+```:sp[lit] file-name``` -- Open a file in a new buffer and horizontally split window.
+
+```:vsp[lit] file-name``` -- Open a file in a new buffer and vertically split window.
+
+```Ctrl + ws``` -- Split window horizontally.
+
+```Ctrl + wv``` -- Split window vertically.
+
+```Ctrl + ww``` -- Switch windows.
+
+```Ctrl + wh``` -- move cursor to the left window (vertical split).
+
+```Ctrl + wl``` -- move cursor to the right window (vertical split).
+
+```Ctrl + wj``` -- move cursor to the window below (horizontal split).
+
+```Ctrl + wk``` -- move cursor to the window above (horizontal split).
+
+```Ctrl + wq``` -- quit a window
+
+```:q[uit]``` -- Quit window.
+
+```:q[uit]!``` -- Quit  window and through away unsave changes.
+
+```:w[rite]``` -- Write (save) the file.
+
+```:wq``` --- Write (save) and quit.
+
+```:only``` -- Close all window but current.
