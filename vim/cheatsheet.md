@@ -1,8 +1,55 @@
 Vim Cheatsheet
-==============
+============================================================
+
+Add/Edit Text
+------------------------------------------------------------
+
+```i``` -- Insert before the cursor.
+
+```I``` -- Insert at the beginning of the line.
+
+```a``` -- Append after the cursor.
+
+```A``` -- Append at the end of the line.
+
+```o``` -- Open a new line below the current line.
+
+```O``` -- Open a new line above the current line.
+
+```r``` -- Replace single character.
+
+```s``` -- Substitute text (delete character and switch to insert mode).
+
+```S``` -- Substitute line and (same as ```cc```).
+
+```ciw``` -- Change (replace) entire word.
+
+```cw``` -- Change (replace) to the end of the word.
+
+```cc``` -- Change entire line (same as ```S```).
+
+```C``` -- Change to the end of the line (same as ```c$```).
+
+```J``` -- Join line below to the current one with one space in between.
+
+```gJ``` -- Join line below to the current one without space in between.
+
+```gwip``` -- Reflow paragraph.
+
+```u``` -- Undo.
+
+```Ctrl + r``` -- Redo.
+
+```.``` -- Repeat last command.
+
+```~``` -- Switch case of character
+
+```>>``` -- Indent line right.
+
+```<<``` -- Indent line left.
 
 Vim Navigation
---------------
+------------------------------------------------------------
 
 ```k``` -- Move backward one line or ```nk``` to jump backward 'n' line.
 
@@ -101,3 +148,52 @@ Vim Navigation
 ```gt``` -- Go to next tab.
 
 ```gT``` -- Go to previous tab.
+
+Copy/Cut Paste
+------------------------------------------------------------
+```yy``` -- Yank (copy) a line (same as ```Y```).
+
+```nyy``` -- Yank (copy) n lines ( same as ```nY```).
+
+```yw``` -- Yank word from the cursor position to the start of the next word.
+
+```y$``` -- Yank to end of line.
+
+```p``` -- Put (paste) the clipboard after cursor.
+
+```P``` -- put (paste) before cursor.
+
+```dd``` -- Delete a line.
+
+```ndd``` -- Delete n lines.
+
+```dw``` -- Delete the characters of the word from the cursor position to the start of the next word.
+
+```D``` -- Delete to the end of the line (same as ```d$```).
+
+```x``` -- Cut character.
+
+Selection (Visual Mode)
+------------------------------------------------------------
+```v``` -- Start visual mode.
+
+```V``` -- Start linewise visual mode.
+
+```Ctrl + v``` -- Start visual block mode.
+
+```o``` -- Move to other end of marked area.
+
+```O``` -- Move to other corner of block.
+
+> Use Navigation keys like ```h```, ```j```, ```k```, ```l```, ```w```, etc. to make/change selection.
+
+```>``` -- Indent right.
+
+```<``` -- Indent left.
+
+```y``` -- Yank (copy) marked text.
+
+```d``` -- Delete marked text (same as ```x```).
+
+```~``` -- Switch case.
+
