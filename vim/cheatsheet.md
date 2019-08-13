@@ -1,8 +1,6 @@
-Vim Cheatsheet
-============================================================
+# Vim Cheatsheet
 
-Add/Edit Text
-------------------------------------------------------------
+## Add/Edit Text
 
 ```i``` -- Insert before the cursor.
 
@@ -48,8 +46,7 @@ Add/Edit Text
 
 ```<<``` -- Indent line left.
 
-Vim Navigation
-------------------------------------------------------------
+## Vim Navigation
 
 ```k``` -- Move backward one line or ```nk``` to jump backward 'n' line.
 
@@ -101,9 +98,9 @@ Vim Navigation
 
 ```,``` -- Repeat previous f, t, F or T movement, backwards.
 
-```n%``` -- Jump to the nth percentage line of the file.
+```n%``` -- Jump to the ```nth``` percentage line of the file.
 
-```nG``` -- Jump to the nth line of the file.
+```nG``` -- Jump to the ```nth``` line of the file.
 
 ```G``` -- Jump to the end of the file.
 
@@ -149,8 +146,8 @@ Vim Navigation
 
 ```gT``` -- Go to previous tab.
 
-Copy/Cut Paste
-------------------------------------------------------------
+## Copy/Cut Paste
+
 ```yy``` -- Yank (copy) a line (same as ```Y```).
 
 ```nyy``` -- Yank (copy) n lines ( same as ```nY```).
@@ -173,8 +170,8 @@ Copy/Cut Paste
 
 ```x``` -- Cut character.
 
-Selection (Visual Mode)
-------------------------------------------------------------
+## Selection (Visual Mode)
+
 ```v``` -- Start visual mode.
 
 ```V``` -- Start linewise visual mode.
@@ -197,8 +194,9 @@ Selection (Visual Mode)
 
 ```~``` -- Switch case.
 
-Buffers
-------------------------------------------------------------
+## Working with multiple files
+
+### Buffers
 
 ```:e file-name``` -- Edit a file in a new buffer.
 
@@ -224,8 +222,7 @@ Buffers
 
 ```:vert sb[uffer] buffer-number/buffer-name``` -- Open buffer with a buffer number or name in vertically split window.
 
-window
-------------------------------------------------------------
+### window
 
 ```:sp[lit] file-name``` -- Open a file in a new buffer and horizontally split window.
 
@@ -253,6 +250,32 @@ window
 
 ```:w[rite]``` -- Write (save) the file.
 
-```:wq``` --- Write (save) and quit.
+```:wq``` -- Write (save) and quit.
 
 ```:only``` -- Close all window but current.
+
+### Tabs
+
+```:tabnew``` -- Open new Tab.
+
+```:tabnew file``` -- Open file in a new tab.
+
+```Ctrl + wT``` -- Move current split window into its own tab.
+
+```gt``` -- Go to the next tab (same as ```:tabn[ext]```).
+
+```gT``` -- Go to the previous tab (same as or ```:tabp[rev]```).
+
+```ngt``` -- Go to tab ```n``` number tab.
+
+```:tabmove n``` -- move current tab to the ```nth``` position (indexed from 0).
+
+```:tabc[lose]``` -- close the current tab and all its windows.
+
+```:tabo[nly]``` -- close all tabs but the current one.
+
+```:wa``` -- write (save) and on all tabs.
+
+```:qa``` -- Quit all tabs.
+
+```:wqa``` -- write (save) and quit on all tabs.
