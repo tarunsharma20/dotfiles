@@ -266,6 +266,10 @@
 
 ```gT``` -- Go to the previous tab (same as or ```:tabp[rev]```).
 
+```:tabfirst``` -- Go to the first tab.
+
+```:tablast``` -- Go to the last tab.
+
 ```ngt``` -- Go to tab ```n``` number tab.
 
 ```:tabmove n``` -- move current tab to the ```nth``` position (indexed from 0).
@@ -279,3 +283,33 @@
 ```:qa``` -- Quit all tabs.
 
 ```:wqa``` -- write (save) and quit on all tabs.
+
+## Search and Replace
+
+```/pattern``` -- Search for pattern.
+
+```?pattern``` -- Search backward for pattern.
+
+```n``` -- Repeat search in same direction.
+
+```N``` -- Repeat search in opposite direction.
+
+```:%s/old/new/g``` -- Substitute  all old with new in window.
+
+```:%s/old/new/gc``` -- Substitute all old with new in window with confirmations.
+
+```:noh[lsearch]``` -- Remove highlighting of search matches.
+
+### Search in multiple files
+
+```:vimgrep /pattern/ {file}``` -- search for pattern in multiple files (e.g.: ```vimgrep /foo/ **/*```).
+
+```:cn[ext]``` -- Navigate to the next match.
+
+```:cp[revious]``` -- Navigate to the previous match.
+
+```:cfirst``` -- Navigate to the first match.
+
+```:clast``` -- Navigate to the last match.
+
+```:copen``` -- Open a window containing the list of matches.
