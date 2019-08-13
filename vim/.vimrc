@@ -11,14 +11,12 @@ call vundle#begin()
 
 " ------------------------------ Miscellaneous ---------------------------------
 Plugin 'VundleVim/Vundle.vim'
-"Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'Yggdroot/indentLine'
-"Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'mattn/emmet-vim'
-"Plugin 'ryanoasis/vim-devicons'
 Plugin 'w0rp/ale'
 Plugin 'godlygeek/tabular'
+
 " ------------------------------- Color Scheme ---------------------------------
 Plugin 'dracula/vim'                         " dracula (dark)
 Plugin 'nightsense/cosmic_latte'             " cosmic_latte (dark|light)
@@ -35,7 +33,6 @@ Plugin 'wavded/vim-stylus'
 " ----------------------------------- Git --------------------------------------
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
-"Plugin 'Xuyuanp/nerdtree-git-plugin'
 
 call vundle#end()
 
@@ -49,7 +46,7 @@ set visualbell            " Turn off sounds
 " ==============================================================================
 " ============================== User Interface ================================
 " ==============================================================================
-"set number               " Show line numbers
+" set number               " Show line numbers
 set lsp=0                " Number of space between lines (line spacing)
 set cursorline           " Highlight  current line
 set showmatch            " highlight matching brackets
@@ -96,7 +93,7 @@ autocmd BufEnter * let &titlestring = ' ' . expand("%:t") . ' - ' . fnamemodify(
 set guifont=Menlo:h11    " Set font for GUI
 set guioptions-=m        " Show/Hide menu bar
 set guioptions-=T        " Show/Hide toolbar
-"set guioptions-=r        " Show/Hide scrollbar
+" set guioptions-=r        " Show/Hide scrollbar
 
 " ==============================================================================
 " =============================== Line Number ==================================
@@ -131,16 +128,16 @@ set statusline+=\ %{&fileformat}
 set statusline+=[
 set statusline+=%{strlen(&fileencoding)?&fileencoding:&encoding}
 set statusline+=]
-"set statusline+=\ Ln:
-"set statusline+=%l
-"set statusline+=,\ Col:
-"set statusline+=%c
-"set statusline+=\ \|
-"set statusline+=\ %L
-"set statusline+=\ Lines
-"set statusline+=\ \|
-"set statusline+=\ %p%%
-"set statusline+=\ \|
+" set statusline+=\ Ln:
+" set statusline+=%l
+" set statusline+=,\ Col:
+" set statusline+=%c
+" set statusline+=\ \|
+" set statusline+=\ %L
+" set statusline+=\ Lines
+" set statusline+=\ \|
+" set statusline+=\ %p%%
+" set statusline+=\ \|
 set statusline+=\ \|
 set statusline+=\ %l:%c
 set statusline+=\ \|
@@ -153,10 +150,10 @@ set statusline+=\ %*
 " =============================== Indentation ==================================
 " ==============================================================================
 filetype indent on        " Enable specific file based indentation
-"set spell                 " spell checking on
+" set spell                 " spell checking on
 set textwidth=80          " Lines longer than 79 columns will be broken
 set colorcolumn=-1        " Display line at the edge of textwidth
-"set lines=35 columns=150  " Vim to open with a given size
+" set lines=35 columns=150  " Vim to open with a given size
 set shiftwidth=2          " Allow >> and << indent/unindent 2 visual spaces
 set tabstop=2             " Number of visual spaces per tab
 set expandtab             " Turns tab into spaces
@@ -187,16 +184,16 @@ set foldmethod=indent    " Fold based on indent level
 syntax enable    " Enable syntax processing
 set t_Co=256
 
-"if has('gui_running')
-  "set background=light
-"else
-  "set background=dark
-"endif
+" if has('gui_running')
+  " set background=light
+" else
+  " set background=dark
+" endif
 
 set termguicolors     " enable true colors support
-"let ayucolor="light"  " for light version of theme
+" let ayucolor="light"  " for light version of theme
 let ayucolor="mirage" " for mirage version of theme
-"let ayucolor="dark"   " for dark version of theme
+" let ayucolor="dark"   " for dark version of theme
 colorscheme ayu
 
 " ==============================================================================
@@ -237,46 +234,15 @@ endif
 " ==============================================================================
 
 " ----------------------------------- NetRW ------------------------------------
-"let g:netrw_banner = 0            " Remove the banner
-"let g:netrw_liststyle = 3         " Changing the directory
-"let g:netrw_browse_split = 4      " To make the selection permanent add
-"let g:netrw_altv = 1
-"let g:netrw_winsize = 25          " Set the width of the directory explorer
-"augroup ProjectDrawer
-  "autocmd!
-  "autocmd VimEnter * :Vexplore
-"augroup END
-
-" --------------------------------- NERDTree -----------------------------------
-
-"Open NERDTree automatically when vim start up if no files were specified
-"autocmd StdinReadPre * let s:std_in=1
-"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-
-" Close vim if only window left open is a NERDTree
-"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-
-" show hidden files in NERDTree
-"let NERDTreeShowHidden=1
-
-" Ignore files in nerdtree
-"let NERDTreeIgnore=['\.DS_Store', '\~$', '\.swp', 'node_modules', '.git']
-
-" ---------------------------------- CtrlP -------------------------------------
-
-" Change the default mapping and the default command to invoke CtrlP
-"let g:ctrlp_map = '<c-p>'
-"let g:ctrlp_cmd = 'CtrlP'
-
-" Unless a starting directory specified, CtrlP will set its local working directory
-"let g:ctrlp_working_path_mode = 'ra'
-
-"let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard'] "Ignore files in .gitignore
-"let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-
-" Use a custom file listing command
-"let g:ctrlp_user_command = 'find %s -type f'          " MacOSX/Linux
-"let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d'  " Windows
+" let g:netrw_banner = 0            " Remove the banner
+" let g:netrw_liststyle = 3         " Changing the directory
+" let g:netrw_browse_split = 4      " To make the selection permanent add
+" let g:netrw_altv = 1
+" let g:netrw_winsize = 25          " Set the width of the directory explorer
+" augroup ProjectDrawer
+  " autocmd!
+  " autocmd VimEnter * :Vexplore
+" augroup END
 
 " ------------------------------ NERD Commenter --------------------------------
 let g:NERDSpaceDelims = 1     " Add spaces after comment delimiters by default
@@ -308,9 +274,9 @@ let g:ale_sign_warning = '!'
 " let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_filetype_changed = 0
 let g:ale_lint_on_enter=0
-"let g:ale_linters_explicit=1
+" let g:ale_linters_explicit=1
 
-"let g:ale_statusline_format = ['X %d', '? %d', '']
+" let g:ale_statusline_format = ['X %d', '? %d', '']
 let g:ale_echo_msg_format = '%severity%: %linter% says - %s'
 let g:ale_fixers = {
   \ 'javascript': ['eslint']
@@ -402,24 +368,16 @@ function! TwiddleCase(str)
 endfunction
 vnoremap ~ y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
 
-" ---------------------------------- NERDTree ----------------------------------
-" To open NERDTree with ,n
-"map <C-n> :NERDTreeToggle<CR>
-"nmap <leader>n :NERDTreeToggle<CR>
-
-" Locate the focused file in NERDTree with ,j
-"nmap <leader>j :NERDTreeFind<CR>
-
 " ==============================================================================
 " =============================== Abbreviations ================================
 " ==============================================================================
 
 " --------- lipsum<Tab> drops some Lorem ipsum text into the document ----------
-"iabbrev lipsum
-"  \ Pellentesque habitant morbi tristique senectus et netus et malesuada fames
-"  \ ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget,
-"  \ tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
-"  \ ultricies mi vitae est. Mauris placerat eleifend leo.
+" iabbrev lipsum
+"   \ Pellentesque habitant morbi tristique senectus et netus et malesuada fames
+"   \ ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget,
+"   \ tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
+"   \ ultricies mi vitae est. Mauris placerat eleifend leo.
 
 " ==============================================================================
 " ============================ Miscellaneous Stuff =============================
