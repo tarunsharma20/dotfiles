@@ -146,6 +146,8 @@
 
 ```gT``` -- Go to previous tab.
 
+```ngt``` -- Go to ```nth``` next tab.
+
 ## Copy/Cut Paste
 
 ```yy``` -- Yank (copy) a line (same as ```Y```).
