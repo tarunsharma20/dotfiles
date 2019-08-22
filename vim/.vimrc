@@ -85,6 +85,9 @@ set splitright                    " Vertical split will open at right side
 
 " ------------------------------- Page Title -----------------------------------
 set title  " Set the terminal's title
+set guitalabel=\[%N\]\ %t\ %M
+" set tabline=\[%N\]\ %t\ %M
+" set showtabline=1
 
 " Showing current file name and current working directory on buffer change
 autocmd BufEnter * let &titlestring = ' ' . expand("%:t") . ' - ' . fnamemodify(getcwd(), ':t')
@@ -275,11 +278,12 @@ let g:ale_sign_warning = '!'
 let g:ale_lint_on_filetype_changed = 0
 let g:ale_lint_on_enter=0
 " let g:ale_linters_explicit=1
+let g:ale_fix_on_save = 1 "Fix files on same
 
 " let g:ale_statusline_format = ['X %d', '? %d', '']
 let g:ale_echo_msg_format = '%severity%: %linter% says - %s'
-let g:ale_fixers = {
-  \ 'javascript': ['eslint']
+let b:ale_fixers = {
+  \ 'javascript': ['prettier', 'eslint']
   \ }
 
 " Will keep gutter open for error sign
@@ -311,15 +315,17 @@ nnoremap <space> za
 " turn off search highlight
 nnoremap <silent> <leader><space> :nohlsearch<CR>
 
-" ------------------------- Navigating between errors --------------------------
-nmap <silent> ]e <Plug>(ale_previous_wrap)
-nmap <silent> [e <Plug>(ale_next_wrap)
+" -------------------------- Navigating between tabs ---------------------------
+nmap <silent> ]t :tabnext<CR>
+nmap <silent> [t :tabprevious<CR>
+nmap <silent> ]T :tabfirst<CR>
+nmap <silent> [T :tablast<CR>
 
 " ------------------------- Navigating between buffer --------------------------
 " List buffer and prepare :b
 nnoremap <Leader>b :ls<CR>:b<Space>
-nmap <silent> [b :bnext<CR>
-nmap <silent> ]b :bprevious<CR>
+nmap <silent> ]b :bnext<CR>
+nmap <silent> [b :bprevious<CR>
 
 " go to file in vertical split instead of same file
 nnoremap gf :vertical wincmd f<CR>
@@ -331,10 +337,15 @@ nmap <leader>ev :vsp <C-R>=expand("%:p:h") . "/" <CR>
 nmap <leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
 
 " ------------------------ Navigating the quickfix list ------------------------
-nmap <silent> [q :cprevious<CR>zv
 nmap <silent> ]q :cnext<CR>zv
-nmap <silent> [Q :cfirst<CR>zv
-nmap <silent> ]Q :clast<CR>zv
+nmap <silent> [q :cprevious<CR>zv
+nmap <silent> ]Q :cfirst<CR>zv
+nmap <silent> [Q :clast<CR>zv
+
+" ------------------------------------ ALE -------------------------------------
+nnoremap <silent> <leader>f :ALEFix<CR>
+nmap <silent> ]e <Plug>(ale_next_wrap)
+nmap <silent> [e <Plug>(ale_previous_wrap)
 
 " ---- Move current line or selected block up and down with Alt+j and Alt+k ----
 nnoremap <A-j> :m .+1<CR>==
