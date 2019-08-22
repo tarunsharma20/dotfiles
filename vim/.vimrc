@@ -85,7 +85,7 @@ set splitright                    " Vertical split will open at right side
 
 " ------------------------------- Page Title -----------------------------------
 set title  " Set the terminal's title
-set guitalabel=\[%N\]\ %t\ %M
+set guitablabel=\[%N\]\ %t\ %M
 " set tabline=\[%N\]\ %t\ %M
 " set showtabline=1
 
