@@ -81,7 +81,13 @@ set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.jpeg,*.png
 set wildignore+=*/node_modules/*,*/bower_components/*,*/build/*
 
 set backspace=indent,eol,start    " Make backspace behave as it is
-set splitright                    " Vertical split will open at right side
+
+set splitright       " :vsplit will open new window right of the current one
+set splitbelow       " :split will open new window below the current one
+
+if has("windows")
+  set shell=~/AppData/Local/Programs/Git/bin/bash.exe
+endif
 
 " ------------------------------- Page Title -----------------------------------
 set title  " Set the terminal's title
@@ -282,7 +288,7 @@ let g:ale_fix_on_save = 1 "Fix files on same
 
 " let g:ale_statusline_format = ['X %d', '? %d', '']
 let g:ale_echo_msg_format = '%severity%: %linter% says - %s'
-let b:ale_fixers = {
+let g:ale_fixers = {
   \ 'javascript': ['prettier', 'eslint']
   \ }
 
@@ -314,6 +320,9 @@ nnoremap <space> za
 
 " turn off search highlight
 nnoremap <silent> <leader><space> :nohlsearch<CR>
+
+" open terminal
+nnoremap <silent> <leader>t :wincmd b \| bel terminal<CR>
 
 " -------------------------- Navigating between tabs ---------------------------
 nmap <silent> ]t :tabnext<CR>
