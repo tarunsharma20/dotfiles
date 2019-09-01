@@ -85,7 +85,7 @@ set backspace=indent,eol,start    " Make backspace behave as it is
 set splitright       " :vsplit will open new window right of the current one
 set splitbelow       " :split will open new window below the current one
 
-if has("windows")
+if has("win32")
   set shell=~/AppData/Local/Programs/Git/bin/bash.exe
 endif
 
@@ -96,7 +96,7 @@ set guitablabel=\[%N\]\ %t\ %M
 " set showtabline=1
 
 " Showing current file name and current working directory on buffer change
-autocmd BufEnter * let &titlestring = ' ' . expand("%:t") . ' - ' . fnamemodify(getcwd(), ':t')
+autocmd BufEnter * let &titlestring = ' ' . expand("%:f") . ' - ' . fnamemodify(getcwd(), ':t')
 
 " ------------------------------- GUI Options ----------------------------------
 set guifont=Menlo:h11    " Set font for GUI
@@ -126,7 +126,7 @@ set statusline+=%#DiffChange#%{(mode()=='i')?'\ \ INSERT\ ':''}
 set statusline+=%#DiffDelete#%{(mode()=='r')?'\ \ REPLACE\ ':''}
 set statusline+=%#Visual#%{(mode()=='v:')?'\ \ VISUAL\ ':''}
 set statusline+=%#Cursor#
-set statusline+=\ %f
+set statusline+=\ %t
 set statusline+=\ %h%m%r%w
 
 set statusline+=%=
