@@ -315,3 +315,17 @@
 ```:clast``` -- Navigate to the last match.
 
 ```:copen``` -- Open a window containing the list of matches.
+
+## Quickfix list
+
+```:copen``` -- Open the quickfix window.
+
+```:ccl[ose]``` -- Close quickfix window.
+
+```:cn[ext]``` -- Jump to next.
+
+```:cp[revious]``` -- Jump to previous.
+
+```:cfir[st]``` -- Jump to first.
+
+```:cla[st]``` -- Jump to last.
