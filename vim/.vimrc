@@ -89,6 +89,8 @@ if has("win32")
   set shell=~/AppData/Local/Programs/Git/bin/bash.exe
 endif
 
+set noshowmode " Hide vim mode text from last line
+
 " ------------------------------- Page Title -----------------------------------
 set title  " Set the terminal's title
 set guitablabel=\[%N\]\ %t\ %M
@@ -253,6 +255,12 @@ endif
   " autocmd VimEnter * :Vexplore
 " augroup END
 
+let g:netrw_browse_split = 0      " re-use the same window (default)
+" let g:netrw_browse_split = 1      " horizontally split the window
+" let g:netrw_browse_split = 2      " vertically split the window
+" let g:netrw_browse_split = 3      " open file in new tab
+" let g:netrw_browse_split = 4      " act like 'p' (ie. open preview window)
+
 " ------------------------------ NERD Commenter --------------------------------
 let g:NERDSpaceDelims = 1     " Add spaces after comment delimiters by default
 let g:NERDCompactSexyComs = 1 " Use compact syntax for prettified multi-line comments
@@ -312,6 +320,9 @@ endfunction
 " ==============================================================================
 let mapleader=","
 
+" go to file in vertical split instead of same file
+" nnoremap gf :vertical wincmd f<CR>
+
 " highlight last inserted text
 nnoremap gV '[v']
 
@@ -336,14 +347,23 @@ nnoremap <Leader>b :ls<CR>:b<Space>
 nmap <silent> ]b :bnext<CR>
 nmap <silent> [b :bprevious<CR>
 
-" go to file in vertical split instead of same file
-nnoremap gf :vertical wincmd f<CR>
-
 " ------------------------ Edit file in same repository ------------------------
 nmap <leader>ew :e <C-R>=expand("%:p:h") . "/" <CR>
 nmap <leader>es :sp <C-R>=expand("%:p:h") . "/" <CR>
 nmap <leader>ev :vsp <C-R>=expand("%:p:h") . "/" <CR>
 nmap <leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
+
+" Open explorer in same window
+nnoremap <silent> <leader>ew :Explore <CR> 
+
+" Open explorer in horizontal split window
+nnoremap <silent> <leader>es :Sexplore <CR>
+
+" Open explorer in vertical split window
+nnoremap <silent> <leader>ev :Vexplore <CR>
+
+" Open explorer in new tab
+nnoremap <silent> <leader>et :Texplore <CR>
 
 " ------------------------ Navigating the quickfix list ------------------------
 nmap <silent> ]q :cnext<CR>zv
@@ -410,3 +430,9 @@ augroup qf
     autocmd QuickFixCmdPost l*    cwindow
     autocmd VimEnter        *     cwindow
 augroup END
+
+" https://vi.stackexchange.com/questions/84/how-can-i-copy-text-to-the-system-clipboard-from-vim
+" noremap <Leader>y "*y
+" noremap <Leader>p "*p
+" noremap <Leader>Y "+y
+" noremap <Leader>P "+p
