@@ -1,6 +1,130 @@
 # Vim Cheatsheet
 
-## Add/Edit Text
+## Editing
+
+### Operator
+
+```c``` -- Change
+
+```y``` -- Yank
+
+```d``` -- Delete
+
+```p``` -- Put (paste) the clipboard after cursor
+
+```=``` -- Format
+
+```>``` -- Add Indent
+
+```<``` -- Remove Indent
+
+```zf``` -- Define fold
+
+```g~``` -- Togglecase
+
+```gu``` -- Make Lowercase
+
+```gU``` -- Make Uppercase
+
+### Text Objects/Motion
+
+```w``` -- Word
+
+```s``` -- Sentence
+
+```p``` -- Paragraph
+
+```t``` -- Tag
+
+```(``` -- Block surrounded by () (same as ```)``` or ```b```)
+
+```{``` -- Block surrounded by {} (same as ```}``` or ```B```)
+
+```[``` -- Block surrounded by []
+
+```<``` -- Block surrounded by <>
+
+```'``` -- Surrounded by single quotes
+
+```"``` -- Surrounded by double quotes
+
+``` ` ``` -- Surrounded by backtick
+
+#### Can be combine with Objects
+
+```i``` -- Inner
+
+```a``` -- Arround
+
+```t``` -- Till forward exclude
+
+```T``` -- Till backward exclude
+
+```f``` -- Till forward include
+
+```F``` -- Till forward include
+
+## Shorthand syntax
+
+```x``` -- Deletes the character under the cursor same as ```dl```
+
+```X``` -- Deletes the character before the cursor same as ```dh```
+
+```s``` -- Substitute text (delete character and switch to insert mode) same as ```ch```
+
+```S``` -- Substitute line and (same as cc) same as ```cc```
+
+```~``` -- Switch case of character
+
+```r``` -– Replace single character.
+
+```J``` -- Join line below to the current one with one space in between.
+
+```gJ``` -- Join line below to the current one without space in between.
+
+> Double an operator to apply operation on a whole line
+
+```dd``` -- Deletes a whole line
+
+```cc``` -- Changes a whole line
+
+```yy``` -- Yank (copy) a line (same as ```Y```).
+
+```>>``` -- Indent line.
+
+```<<``` -- Remove indent from line.
+
+> Capitalize an operator to have it perform a stronger (or alternate) version of its default behavior
+
+```D``` -- Deletes from the cursor to the end of the line
+
+```C``` -- Changes to the end of a line
+
+```Y``` -- Copies a complete line same as ```yy```
+
+```P``` -- put (paste) before cursor.
+
+> Other useful commands
+
+```.``` -- Repeat last command.
+
+```u``` -- Undo.
+
+```Ctrl + r``` -- Redo.
+
+> Example of using operators with Text Objects/Motion <operator><count><motions>
+
+```ciw``` -- Change inner word
+
+```c2iw``` -- Change two words
+
+```dta``` -- Delete till character 'a'
+
+```ci"``` -- change inside double quotes
+
+```yit``` -- change everything inside xml/html tag in cursor
+
+## Insert Text
 
 ```i``` -- Insert before the cursor.
 
@@ -14,37 +138,7 @@
 
 ```O``` -- Open a new line above the current line.
 
-```r``` -- Replace single character.
-
-```s``` -- Substitute text (delete character and switch to insert mode).
-
-```S``` -- Substitute line and (same as ```cc```).
-
-```ciw``` -- Change (replace) entire word.
-
-```cw``` -- Change (replace) to the end of the word.
-
-```cc``` -- Change entire line (same as ```S```).
-
-```C``` -- Change to the end of the line (same as ```c$```).
-
-```J``` -- Join line below to the current one with one space in between.
-
-```gJ``` -- Join line below to the current one without space in between.
-
-```gwip``` -- Reflow paragraph.
-
-```u``` -- Undo.
-
-```Ctrl + r``` -- Redo.
-
-```.``` -- Repeat last command.
-
-```~``` -- Switch case of character
-
-```>>``` -- Indent line right.
-
-```<<``` -- Indent line left.
+```Esc``` -- Exit insert mode
 
 ## Vim Navigation
 
@@ -55,6 +149,8 @@
 ```l``` -- Move right side or ```nl``` to jump right 'n' columns.
 
 ```h``` -- Move left side or ```nk``` to jump left 'n' columns.
+
+### Words
 
 ```e``` -- Jump to the end of a word.
 
@@ -68,6 +164,8 @@
 
 ```W``` -- Jump forward to beginning of the WORD (any non-whitespace characters).
 
+### Line
+
 ```0``` -- Jump to the beginning of the line.
 
 ```^``` -- Jump to the first non-blank character of the line.
@@ -75,16 +173,6 @@
 ```$``` -- Jump to the end of the line.
 
 ```g_``` -- Jump to the last non blank character of the line.
-
-```%``` -- Jump to the matching braces, or parenthesis.
-
-```{``` -- Jump backward one paragraph.
-
-```}``` -- Jump forward one paragraph.
-
-```)``` -- Jump forward one sentence.
-
-```(``` -- Jump backward one sentence.
 
 ```fx``` -- Jump to next occurrence of character x.
 
@@ -98,6 +186,20 @@
 
 ```,``` -- Repeat previous f, t, F or T movement, backwards.
 
+### Text
+
+```%``` -- Jump to the matching braces, or parenthesis.
+
+```{``` -- Jump backward one paragraph.
+
+```}``` -- Jump forward one paragraph.
+
+```)``` -- Jump forward one sentence.
+
+```(``` -- Jump backward one sentence.
+
+### Document
+
 ```n%``` -- Jump to the ```nth``` percentage line of the file.
 
 ```nG``` -- Jump to the ```nth``` line of the file.
@@ -106,15 +208,33 @@
 
 ```gg``` -- Jump to the start of the file.
 
+```g;``` -- Jump backward in change list.
+
+```g,``` -- Jump forward in change list.
+
+```ctrl-o``` -- Jump backwork in jump list.
+
+```ctrl-i``` -- Jump forward in jump list.
+
 ``` `”``` -- Jump to the position where you were in NORMAL MODE while last closing the file.
 
 ``` `^``` -- Jump to the position where you were in INSERT MODE while last closing the file.
+
+### Window
 
 ```H``` -- Jump to the top (high) of the screen.
 
 ```M``` -- Jump to the middle (medium) of the screen.
 
 ```L``` -- Jump to the bottom (low) of the screen.
+
+```zz``` -- Move current line to the centre of screen.
+
+```zt``` -- Move current line to the top of screen.
+
+```zb``` -- Move current line to the end of screen.
+
+### Page
 
 ```ctrl + f``` -- Move forward one full screen.
 
@@ -128,49 +248,13 @@
 
 ```Ctrl + y``` -- Move viewport down by single line.
 
-```zz``` -- Move current line to the centre of screen.
-
-```zt``` -- Move current line to the top of screen.
-
-```zb``` -- Move current line to the end of screen.
-
-```g;``` -- Jump backward in change list.
-
-```g,``` -- Jump forward in change list.
-
-```ctrl-o``` -- Jump backwork in jump list.
-
-```ctrl-i``` -- Jump forward in jump list.
+### Tabs
 
 ```gt``` -- Go to next tab.
 
 ```gT``` -- Go to previous tab.
 
 ```ngt``` -- Go to ```nth``` next tab.
-
-## Copy/Cut Paste
-
-```yy``` -- Yank (copy) a line (same as ```Y```).
-
-```nyy``` -- Yank (copy) n lines ( same as ```nY```).
-
-```yw``` -- Yank word from the cursor position to the start of the next word.
-
-```y$``` -- Yank to end of line.
-
-```p``` -- Put (paste) the clipboard after cursor.
-
-```P``` -- put (paste) before cursor.
-
-```dd``` -- Delete a line.
-
-```ndd``` -- Delete n lines.
-
-```dw``` -- Delete the characters of the word from the cursor position to the start of the next word.
-
-```D``` -- Delete to the end of the line (same as ```d$```).
-
-```x``` -- Cut character.
 
 ## Selection (Visual Mode)
 
