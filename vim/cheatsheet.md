@@ -2,11 +2,13 @@
 
 ## Editing
 
-### Operator
+### Operator/Actions
+
+The action we want to perform in target
 
 ```c``` -- Change
 
-```y``` -- Yank
+```y``` -- Yank(Copy)
 
 ```d``` -- Delete
 
@@ -18,6 +20,8 @@
 
 ```<``` -- Remove Indent
 
+```v``` -- visually select
+
 ```zf``` -- Define fold
 
 ```g~``` -- Togglecase
@@ -27,6 +31,8 @@
 ```gU``` -- Make Uppercase
 
 ### Text Objects/Motion
+
+Text Objects/Motions are used to define target or range in which we want to act. Apart from Objects/Motions mentioned below, we can use vim navigations as well (e.g.: h, j, k, l, etc.)
 
 ```w``` -- Word
 
@@ -50,19 +56,25 @@
 
 ``` ` ``` -- Surrounded by backtick
 
-#### Can be combine with Objects
+#### Modifiers
+
+Modifiers are used before selection (Text object/Motion)
 
 ```i``` -- Inner
 
-```a``` -- Arround
+```a``` -- Around
 
-```t``` -- Till forward exclude
+```NUM``` -- number (e.g.: 1, 2, 28)
 
-```T``` -- Till backward exclude
+```t``` -- Till forward (Search forward for character and stops before it)
 
-```f``` -- Till forward include
+```T``` -- Till backward (Search backward for character and stops before it)
 
-```F``` -- Till forward include
+```f``` -- Till forward (Search forward for character and lands on it)
+
+```F``` -- Till backward (Search backward for character and lands on it)
+
+```/``` -- Find
 
 ## Shorthand syntax
 
@@ -96,13 +108,15 @@
 
 > Capitalize an operator to have it perform a stronger (or alternate) version of its default behavior
 
-```D``` -- Deletes from the cursor to the end of the line
-
 ```C``` -- Changes to the end of a line
 
 ```Y``` -- Copies a complete line same as ```yy```
 
+```D``` -- Deletes from the cursor to the end of the line
+
 ```P``` -- put (paste) before cursor.
+
+```V``` -- Visually select line
 
 > Other useful commands
 
@@ -112,7 +126,7 @@
 
 ```Ctrl + r``` -- Redo.
 
-> Example of using operators with Text Objects/Motion <operator><count><motions>
+> Example of performing an action in a target <operator><modifiers><motions>
 
 ```ciw``` -- Change inner word
 
@@ -120,9 +134,11 @@
 
 ```dta``` -- Delete till character 'a'
 
-```ci"``` -- change inside double quotes
+```ci"``` -- Change inside double quotes
 
-```yit``` -- change everything inside xml/html tag in cursor
+```yit``` -- Change everything inside xml/html tag in cursor
+
+```d2j``` -- Delete 2 line down
 
 ## Insert Text
 
@@ -156,9 +172,9 @@
 
 ```E``` -- Jump to the end of the WORD (any non-whitespace characters).
 
-```b``` -- Jump backward to beginning of a word.
+```b``` -- Jump backward to the beginning of a word.
 
-```B``` -- Jump backward to beginning of the WORD (any non-whitespace characters).
+```B``` -- Jump backward to the beginning of WORD (any non-whitespace characters).
 
 ```w``` -- Jump forward to beginning of a word.
 
@@ -172,23 +188,23 @@
 
 ```$``` -- Jump to the end of the line.
 
-```g_``` -- Jump to the last non blank character of the line.
+```g_``` -- Jump to the last non-blank character of the line.
 
 ```fx``` -- Jump to next occurrence of character x.
 
 ```tx``` -- Jump to before next occurrence of character x.
 
-```Fx``` -- Jump to previous occurence of character x.
+```Fx``` -- Jump to previous occurrence of character x.
 
-```Tx``` -- Jump to after previous occurence of character x.
+```Tx``` -- Jump to after previous occurrence of character x.
 
 ```;``` -- Repeat previous f, t, F or T movement.
 
-```,``` -- Repeat previous f, t, F or T movement, backwards.
+```,``` -- Repeat previous f, t, F or T movement, backward.
 
 ### Text
 
-```%``` -- Jump to the matching braces, or parenthesis.
+```%``` -- Jump to the matching braces or parenthesis.
 
 ```{``` -- Jump backward one paragraph.
 
@@ -212,7 +228,7 @@
 
 ```g,``` -- Jump forward in change list.
 
-```ctrl-o``` -- Jump backwork in jump list.
+```ctrl-o``` -- Jump backward in jump list.
 
 ```ctrl-i``` -- Jump forward in jump list.
 
@@ -228,7 +244,7 @@
 
 ```L``` -- Jump to the bottom (low) of the screen.
 
-```zz``` -- Move current line to the centre of screen.
+```zz``` -- Move current line to the center of screen.
 
 ```zt``` -- Move current line to the top of screen.
 
@@ -238,7 +254,7 @@
 
 ```ctrl + f``` -- Move forward one full screen.
 
-```ctrl + b``` -- Move backwards one full screen.
+```ctrl + b``` -- Move backward one full screen.
 
 ```ctrl + d``` -- Move forward (down) a half screen.
 
@@ -260,7 +276,7 @@
 
 ```v``` -- Start visual mode.
 
-```V``` -- Start linewise visual mode.
+```V``` -- Start line-wise visual mode.
 
 ```Ctrl + v``` -- Start visual block mode.
 
@@ -332,7 +348,7 @@
 
 ```:q[uit]``` -- Quit window.
 
-```:q[uit]!``` -- Quit  window and through away unsave changes.
+```:q[uit]!``` -- Quit window and through away unsaved changes.
 
 ```:w[rite]``` -- Write (save) the file.
 
@@ -346,7 +362,7 @@
 
 ```:tabnew file``` -- Open file in a new tab.
 
-```Ctrl + wT``` -- Move current split window into its own tab.
+```Ctrl + wT``` -- Move current split window into its a tab.
 
 ```gt``` -- Go to the next tab (same as ```:tabn[ext]```).
 
@@ -376,11 +392,11 @@
 
 ```?pattern``` -- Search backward for pattern.
 
-```n``` -- Repeat search in same direction.
+```n``` -- Repeat search in the same direction.
 
 ```N``` -- Repeat search in opposite direction.
 
-```:%s/old/new/g``` -- Substitute  all old with new in window.
+```:%s/old/new/g``` -- Substitute all old with new in window.
 
 ```:%s/old/new/gc``` -- Substitute all old with new in window with confirmations.
 
@@ -402,7 +418,7 @@
 
 ## Quickfix list
 
-```:copen``` -- Open the quickfix window.
+```:copen``` -- Open the quick fix window.
 
 ```:ccl[ose]``` -- Close quickfix window.
 
