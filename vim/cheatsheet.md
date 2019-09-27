@@ -32,7 +32,7 @@ The action we want to perform in target
 
 ### Text Objects/Motion
 
-Text Objects/Motions are used to define target or range in which we want to act. Apart from Objects/Motions mentioned below, we can use vim navigations as well (e.g.: h, j, k, l, etc.)
+Text Objects/Motions are used to define target or range in which we want to act. Apart from Objects/Motions mentioned below, we can use vim navigations as well (e.g.: ```h```, ```j```, ```k```, ```l```, etc.)
 
 ```w``` -- Word
 
@@ -42,13 +42,15 @@ Text Objects/Motions are used to define target or range in which we want to act.
 
 ```t``` -- Tag
 
+```%``` -- Code block
+
 ```(``` -- Block surrounded by () (same as ```)``` or ```b```)
 
 ```{``` -- Block surrounded by {} (same as ```}``` or ```B```)
 
-```[``` -- Block surrounded by []
+```[``` -- Block surrounded by [] (same as ```]```)
 
-```<``` -- Block surrounded by <>
+```<``` -- Block surrounded by <> (same as ```>```)
 
 ```'``` -- Surrounded by single quotes
 
@@ -64,7 +66,7 @@ Modifiers are used before selection (Text object/Motion)
 
 ```a``` -- Around
 
-```NUM``` -- number (e.g.: 1, 2, 28)
+```NUM``` -- number (e.g.: ```1```, ```2```, ```28```)
 
 ```t``` -- Till forward (Search forward for character and stops before it)
 
@@ -84,15 +86,15 @@ Modifiers are used before selection (Text object/Motion)
 
 ```s``` -- Substitute text (delete character and switch to insert mode) same as ```ch```
 
-```S``` -- Substitute line and (same as cc) same as ```cc```
+```S``` -- Substitute line and (same as ```cc```)
 
 ```~``` -- Switch case of character
 
-```r``` -– Replace single character.
+```r``` -– Replace single character
 
-```J``` -- Join line below to the current one with one space in between.
+```J``` -- Join line below to the current one with one space in between
 
-```gJ``` -- Join line below to the current one without space in between.
+```gJ``` -- Join line below to the current one without space in between
 
 > Double an operator to apply operation on a whole line
 
@@ -100,21 +102,21 @@ Modifiers are used before selection (Text object/Motion)
 
 ```cc``` -- Changes a whole line
 
-```yy``` -- Yank (copy) a line (same as ```Y```).
+```yy``` -- Yank (copy) a line (same as ```Y```)
 
-```>>``` -- Indent line.
+```>>``` -- Indent line
 
-```<<``` -- Remove indent from line.
+```<<``` -- Remove indent from line
 
 > Capitalize an operator to have it perform a stronger (or alternate) version of its default behavior
 
-```C``` -- Changes to the end of a line
+```C``` -- Changes from the cursor to the end of a line
 
 ```Y``` -- Copies a complete line same as ```yy```
 
 ```D``` -- Deletes from the cursor to the end of the line
 
-```P``` -- put (paste) before cursor.
+```P``` -- put (paste) before cursor
 
 ```V``` -- Visually select line
 
@@ -137,6 +139,10 @@ Modifiers are used before selection (Text object/Motion)
 ```ci"``` -- Change inside double quotes
 
 ```yit``` -- Change everything inside xml/html tag in cursor
+
+```dat``` -- Delete around xml/html tag in cursor
+
+```da%``` -- Delete around code block
 
 ```d2j``` -- Delete 2 line down
 
