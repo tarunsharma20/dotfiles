@@ -16,6 +16,8 @@ Plugin 'Yggdroot/indentLine'
 Plugin 'mattn/emmet-vim'
 Plugin 'w0rp/ale'
 Plugin 'godlygeek/tabular'
+Plugin 'jremmen/vim-ripgrep'
+Plugin 'ctrlpvim/ctrlp.vim'
 
 " ------------------------------- Color Scheme ---------------------------------
 Plugin 'dracula/vim'                         " dracula (dark)
@@ -42,6 +44,10 @@ call vundle#end()
 scriptencoding utf-8
 set history=1000          " Number of lines history to remember
 set visualbell            " Turn off sounds
+
+" Use git for search from grep command
+set grepprg=git\ --no-pager\ grep\ --no-color\ -n\ $*
+set grepformat=%f:%l:%m,%m\ %f\ match%ts,%f
 
 " ==============================================================================
 " ============================== User Interface ================================
@@ -87,6 +93,7 @@ set splitbelow       " :split will open new window below the current one
 
 if has("win32")
   set shell=~/AppData/Local/Programs/Git/bin/bash.exe
+  " set shellslash     " Use unix style slash in windows as well
 endif
 
 set noshowmode " Hide vim mode text from last line
@@ -215,6 +222,7 @@ set smartcase     " But case-sensitive if expression contains a capital letter
 set incsearch     " search as characters are entered
 set hlsearch      " highlight matches
 set gdefault      " /g flag on search by default
+"set noautocmd
 
 " ==============================================================================
 " =============================== Files/Backup =================================
@@ -260,6 +268,35 @@ let g:netrw_browse_split = 0      " re-use the same window (default)
 " let g:netrw_browse_split = 2      " vertically split the window
 " let g:netrw_browse_split = 3      " open file in new tab
 " let g:netrw_browse_split = 4      " act like 'p' (ie. open preview window)
+
+" ----------------------------------- ripgrep ----------------------------------
+" use rp to search through ripgrep with smartcase enabled -S
+let g:rg_command = 'rg --vimgrep -S'
+
+if executable('rg')
+  set grepprg=rg\ --vimgrep\ --no-heading
+  set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
+
+" ------------------------------------ ctrlP -----------------------------------
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+
+let g:ctrlp_user_command = 'find %s -type f'        " MacOSX/Linux
+" let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d'  " Windows
+
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+
+" Using ripgrep if avaliable
+" if executable('rg')
+  " set grepprg=rg\ --color=never
+  " let g:ctrlp_user_command = 'rg %s --files --hidden --color=never --glob ""'
+  " let g:ctrlp_use_caching = 0
+" endif
+" let g:ctrlp_max_files=0
 
 " ------------------------------ NERD Commenter --------------------------------
 let g:NERDSpaceDelims = 1     " Add spaces after comment delimiters by default
@@ -407,6 +444,12 @@ function! TwiddleCase(str)
   return result
 endfunction
 vnoremap ~ y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
+
+" ==============================================================================
+" =================================== Macro ====================================
+" ==============================================================================
+" Activating builtin macro matchit to enable jump in xml/html tags
+runtime macros/matchit.vim
 
 " ==============================================================================
 " =============================== Abbreviations ================================
