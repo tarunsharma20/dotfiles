@@ -45,10 +45,6 @@ scriptencoding utf-8
 set history=1000          " Number of lines history to remember
 set visualbell            " Turn off sounds
 
-" Use git for search from grep command
-set grepprg=git\ --no-pager\ grep\ --no-color\ -n\ $*
-set grepformat=%f:%l:%m,%m\ %f\ match%ts,%f
-
 " ==============================================================================
 " ============================== User Interface ================================
 " ==============================================================================
@@ -224,6 +220,16 @@ set hlsearch      " highlight matches
 set gdefault      " /g flag on search by default
 "set noautocmd
 
+" Use git for search from grep command
+set grepprg=git\ --no-pager\ grep\ --no-color\ -n\ $*
+set grepformat=%f:%l:%m,%m\ %f\ match%ts,%f
+
+" Use ripgrep for search if available
+if executable('rg')
+  set grepprg=rg\ --vimgrep\ --no-heading
+  set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
+
 " ==============================================================================
 " =============================== Files/Backup =================================
 " ==============================================================================
@@ -263,7 +269,7 @@ endif
   " autocmd VimEnter * :Vexplore
 " augroup END
 
-let g:netrw_browse_split = 0      " re-use the same window (default)
+" let g:netrw_browse_split = 0      " re-use the same window (default)
 " let g:netrw_browse_split = 1      " horizontally split the window
 " let g:netrw_browse_split = 2      " vertically split the window
 " let g:netrw_browse_split = 3      " open file in new tab
@@ -272,11 +278,6 @@ let g:netrw_browse_split = 0      " re-use the same window (default)
 " ----------------------------------- ripgrep ----------------------------------
 " use rp to search through ripgrep with smartcase enabled -S
 let g:rg_command = 'rg --vimgrep -S'
-
-if executable('rg')
-  set grepprg=rg\ --vimgrep\ --no-heading
-  set grepformat=%f:%l:%c:%m,%f:%l:%m
-endif
 
 " ------------------------------------ ctrlP -----------------------------------
 let g:ctrlp_map = '<c-p>'
