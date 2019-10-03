@@ -279,7 +279,7 @@ endif
 " use rp to search through ripgrep with smartcase enabled -S
 let g:rg_command = 'rg --vimgrep -S'
 
-" ------------------------------------ ctrlP -----------------------------------
+" ------------------------------------ CtrlP -----------------------------------
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 
@@ -381,9 +381,19 @@ nmap <silent> [T :tablast<CR>
 
 " ------------------------- Navigating between buffer --------------------------
 " List buffer and prepare :b
-nnoremap <Leader>b :ls<CR>:b<Space>
+" nnoremap <Leader>b :ls<CR>:b<Space>
 nmap <silent> ]b :bnext<CR>
 nmap <silent> [b :bprevious<CR>
+
+" ------------------------------------ CtrlP -----------------------------------
+" Open fuzzy search filename
+nmap <silent> <leader>f :CtrlP<CR>
+
+" Open fuzzy search most recent files
+nmap <silent> <leader>r :CtrlPMRU<CR>
+
+" Open fuzzy search buffers
+nmap <silent> <leader>b :CtrlPBuffer<CR>
 
 " ------------------------ Edit file in same repository ------------------------
 nmap <leader>ew :e <C-R>=expand("%:p:h") . "/" <CR>
@@ -410,7 +420,7 @@ nmap <silent> ]Q :cfirst<CR>zv
 nmap <silent> [Q :clast<CR>zv
 
 " ------------------------------------ ALE -------------------------------------
-nnoremap <silent> <leader>f :ALEFix<CR>
+" nnoremap <silent> <leader>f :ALEFix<CR>
 nmap <silent> ]e <Plug>(ale_next_wrap)
 nmap <silent> [e <Plug>(ale_previous_wrap)
 
