@@ -78,7 +78,7 @@ set wildmenu                      " Visual autocomplete for command menu
 set wildmode=list:longest,full    " wildmenu in special format (long format)
 
 " Ignore formats in wildmenu
-set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,*.swp,*.jpg,*.gif,*.png
+set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,*.swp,tags
 set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.jpeg,*.png
 set wildignore+=*/node_modules/*,*/bower_components/*,*/build/*
 
@@ -142,18 +142,18 @@ set statusline+=\ %{&fileformat}
 set statusline+=[
 set statusline+=%{strlen(&fileencoding)?&fileencoding:&encoding}
 set statusline+=]
-" set statusline+=\ Ln:
-" set statusline+=%l
-" set statusline+=,\ Col:
-" set statusline+=%c
+set statusline+=\ \|
+set statusline+=\ Ln:
+set statusline+=%l
+set statusline+=,\ Col:
+set statusline+=%c
 " set statusline+=\ \|
-" set statusline+=\ %L
-" set statusline+=\ Lines
+" set statusline+=\ %l:%c
+set statusline+=\ \|
+set statusline+=\ %L
+set statusline+=\ Lines
 " set statusline+=\ \|
 " set statusline+=\ %p%%
-" set statusline+=\ \|
-set statusline+=\ \|
-set statusline+=\ %l:%c
 set statusline+=\ \|
 set statusline+=\ %{LinterStatus()}
 set statusline+=\ %#Visual#
@@ -394,6 +394,9 @@ nmap <silent> <leader>r :CtrlPMRU<CR>
 
 " Open fuzzy search buffers
 nmap <silent> <leader>b :CtrlPBuffer<CR>
+"
+" Open fuzzy search tags
+" nmap <silent> <leader>b :CtrlPTag<CR>
 
 " ------------------------ Edit file in same repository ------------------------
 nmap <leader>ew :e <C-R>=expand("%:p:h") . "/" <CR>
