@@ -20,7 +20,7 @@ The action we want to perform in target
 
 ```<``` -- Remove Indent
 
-```v``` -- visually select
+```v``` -- Visually select
 
 ```zf``` -- Define fold
 
@@ -64,9 +64,9 @@ Modifiers are used before selection (Text object/Motion)
 
 ```i``` -- Inner
 
-```a``` -- Around
+```a``` -- Around/a/an
 
-```NUM``` -- number (e.g.: ```1```, ```2```, ```28```)
+```NUM``` -- Numbers (e.g.: ```1```, ```2```, ```28```)
 
 ```t``` -- Till forward (Search forward for character and stops before it)
 
@@ -122,11 +122,11 @@ Modifiers are used before selection (Text object/Motion)
 
 > Other useful commands
 
-```.``` -- Repeat last command.
+```.``` -- Repeat last command
 
-```u``` -- Undo.
+```u``` -- Undo
 
-```Ctrl + r``` -- Redo.
+```Ctrl + r``` -- Redo
 
 > Example of performing an action in a target <operator><modifiers><motions>
 
@@ -148,65 +148,65 @@ Modifiers are used before selection (Text object/Motion)
 
 ## Insert Text
 
-```i``` -- Insert before the cursor.
+```i``` -- Insert before the cursor
 
-```I``` -- Insert at the beginning of the line.
+```I``` -- Insert at the beginning of the line
 
-```a``` -- Append after the cursor.
+```a``` -- Append after the cursor
 
-```A``` -- Append at the end of the line.
+```A``` -- Append at the end of the line
 
-```o``` -- Open a new line below the current line.
+```o``` -- Open a new line below the current line
 
-```O``` -- Open a new line above the current line.
+```O``` -- Open a new line above the current line
 
 ```Esc``` -- Exit insert mode
 
 ## Vim Navigation
 
-```k``` -- Move backward one line or ```nk``` to jump backward 'n' line.
+```k``` -- Move backward one line or ```nk``` to jump backward 'n' line
 
-```j``` -- Move forward one line or ```nj``` to jump forward 'n' line.
+```j``` -- Move forward one line or ```nj``` to jump forward 'n' line
 
-```l``` -- Move right side or ```nl``` to jump right 'n' columns.
+```l``` -- Move right side or ```nl``` to jump right 'n' columns
 
-```h``` -- Move left side or ```nk``` to jump left 'n' columns.
+```h``` -- Move left side or ```nk``` to jump left 'n' columns
 
 ### Words
 
-```e``` -- Jump to the end of a word.
+```e``` -- Jump to the end of a word
 
-```E``` -- Jump to the end of the WORD (any non-whitespace characters).
+```E``` -- Jump to the end of the WORD (any non-whitespace characters)
 
-```b``` -- Jump backward to the beginning of a word.
+```b``` -- Jump backward to the beginning of a word
 
-```B``` -- Jump backward to the beginning of WORD (any non-whitespace characters).
+```B``` -- Jump backward to the beginning of WORD (any non-whitespace characters)
 
-```w``` -- Jump forward to beginning of a word.
+```w``` -- Jump forward to beginning of next word
 
-```W``` -- Jump forward to beginning of the WORD (any non-whitespace characters).
+```W``` -- Jump forward to beginning of the next WORD (any non-whitespace characters)
 
 ### Line
 
-```0``` -- Jump to the beginning of the line.
+```0``` -- Jump to the beginning of the line or at first column
 
-```^``` -- Jump to the first non-blank character of the line.
+```^``` -- Jump to the first non-blank character of the line
 
-```$``` -- Jump to the end of the line.
+```$``` -- Jump to the end of the line
 
-```g_``` -- Jump to the last non-blank character of the line.
+```g_``` -- Jump to the last non-blank character of the line
 
-```fx``` -- Jump to next occurrence of character x.
+```fx``` -- Jump to next occurrence of character x
 
-```tx``` -- Jump to before next occurrence of character x.
+```tx``` -- Jump to before next occurrence of character x
 
-```Fx``` -- Jump to previous occurrence of character x.
+```Fx``` -- Jump to previous occurrence of character x
 
-```Tx``` -- Jump to after previous occurrence of character x.
+```Tx``` -- Jump to after previous occurrence of character x
 
-```;``` -- Repeat previous f, t, F or T movement.
+```;``` -- Repeat previous f, t, F or T movement
 
-```,``` -- Repeat previous f, t, F or T movement, backward.
+```,``` -- Repeat previous f, t, F or T movement, backward
 
 ### Text
 
@@ -222,85 +222,81 @@ Modifiers are used before selection (Text object/Motion)
 
 ### Document
 
-```n%``` -- Jump to the ```nth``` percentage line of the file.
+```n%``` -- Jump to the ```nth``` percentage line of the file
 
-```nG``` -- Jump to the ```nth``` line of the file.
+```nG``` -- Jump to the ```nth``` line of the file
 
-```G``` -- Jump to the end of the file.
+```G``` -- Jump to the end of the file
 
-```gg``` -- Jump to the start of the file.
+```gg``` -- Jump to the beginning of the file
 
-```g;``` -- Jump backward in change list.
+```g;``` -- Jump backward in change list
 
-```g,``` -- Jump forward in change list.
+```g,``` -- Jump forward in change list
 
-```ctrl-o``` -- Jump backward in jump list.
+```ctrl-o``` -- Jump backward in jump list
 
-```ctrl-i``` -- Jump forward in jump list.
+```ctrl-i``` -- Jump forward in jump list
 
-``` `”``` -- Jump to the position where you were in NORMAL MODE while last closing the file.
+``` `”``` -- Jump to the position where you were in NORMAL MODE while last closing the file
 
-``` `^``` -- Jump to the position where you were in INSERT MODE while last closing the file.
+``` `^``` -- Jump to the position where you were in INSERT MODE while last closing the file
 
 ### Window
 
-```H``` -- Jump to the top (high) of the screen.
+```H``` -- Jump to the top (high) of the screen
 
-```M``` -- Jump to the middle (medium) of the screen.
+```M``` -- Jump to the middle (medium) of the screen
 
-```L``` -- Jump to the bottom (low) of the screen.
+```L``` -- Jump to the bottom (low) of the screen
 
-```zz``` -- Move current line to the center of screen.
+```zz``` -- Move current line to the center of screen
 
-```zt``` -- Move current line to the top of screen.
+```zt``` -- Move current line to the top of screen
 
-```zb``` -- Move current line to the end of screen.
+```zb``` -- Move current line to the end of screen
 
 ### Page
 
-```ctrl + f``` -- Move forward one full screen.
+```ctrl + f``` -- Move forward one full screen
 
-```ctrl + b``` -- Move backward one full screen.
+```ctrl + b``` -- Move backward one full screen
 
-```ctrl + d``` -- Move forward (down) a half screen.
+```ctrl + d``` -- Move forward (down) a half screen
 
-```ctrl + u``` -- Move back (up) one half screen.
+```ctrl + u``` -- Move back (up) one half screen
 
-```Ctrl + e``` -- Move viewport up by single line.
+```Ctrl + e``` -- Move viewport up by single line
 
-```Ctrl + y``` -- Move viewport down by single line.
+```Ctrl + y``` -- Move viewport down by single line
 
 ### Tabs
 
-```gt``` -- Go to next tab.
+```gt``` -- Go to next tab
 
-```gT``` -- Go to previous tab.
+```gT``` -- Go to previous tab
 
-```ngt``` -- Go to ```nth``` next tab.
+```ngt``` -- Go to ```nth``` next tab
 
 ## Selection (Visual Mode)
 
-```v``` -- Start visual mode.
+```v``` -- Start visual mode
 
-```V``` -- Start line-wise visual mode.
+```V``` -- Start line-wise visual mode
 
-```Ctrl + v``` -- Start visual block mode.
+```Ctrl + v``` -- Start visual block mode
 
-```o``` -- Move to other end of marked area.
+```o``` -- Move to other end of marked area
 
-```O``` -- Move to other corner of block.
+```O``` -- Move to other corner of block
 
-> Use Navigation keys like ```h```, ```j```, ```k```, ```l```, ```w```, etc. to make/change selection.
+```x``` -- Delete marked text (same as ```d```)
 
-```>``` -- Indent right.
+```~``` -- Switch case
 
-```<``` -- Indent left.
+Use Navigation keys like ```h```, ```j```, ```k```, ```l```, ```w```, etc. to make/change selection
 
-```y``` -- Yank (copy) marked text.
-
-```d``` -- Delete marked text (same as ```x```).
-
-```~``` -- Switch case.
+Use operators/actions like ```c```, ```y```, ```d```, ```>```, ```<``` to perform opration/actions in selction
 
 ## Working with multiple files
 
@@ -392,6 +388,36 @@ Modifiers are used before selection (Text object/Motion)
 
 ```:wqa``` -- write (save) and quit on all tabs.
 
+### Ctags
+
+```Ctrl + ]``` -- Jump to definition (same as ```Ctrl + Left MouseClick```)
+
+```Ctrl + t``` -- Jump back from definition (same as ```Ctrl + Right MouseClick```)
+
+```Ctrl + W }``` -- Preview Definition
+
+```g]``` -- See all definitions
+
+```Ctrl + W Ctrl + ]``` -- Open the definition in a horizontal split
+
+> Add these lines in vimrc
+>
+> map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+>
+> map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+>
+> ```Ctrl + \``` -- Open the definition in a new tab
+>
+> ```Alt + ]``` -- Open the definition in vertical split
+
+#### Navigating through multiple definitions
+
+```:tn[ext]``` -- Move to next definition
+
+```:tp[revious]``` -- Move to previous definition
+
+```:ts[elect]``` -- List all definitions
+
 ## Search and Replace
 
 ```/pattern``` -- Search for pattern.
@@ -435,3 +461,15 @@ Modifiers are used before selection (Text object/Motion)
 ```:cfir[st]``` -- Jump to first.
 
 ```:cla[st]``` -- Jump to last.
+
+## Autocomplete
+
+```Ctrl + x Ctrl + n``` -- Autocomplete from just this file
+
+```Ctrl + x Ctrl + f``` -- Autocomplete for file name
+
+```Ctrl + x Ctrl + ]``` -- Autocomplete for tags only
+
+```Ctrl + n``` -- Autocomplete for everything
+
+Use ```Ctrl + n``` and ```Ctrl + p``` to got back and forth in the suggestion list
