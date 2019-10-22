@@ -42,6 +42,10 @@ Text Objects/Motions are used to define target or range in which we want to act.
 
 ```t``` -- Tag
 
+```gn``` --  Searches forward for the last used search pattern, like with ```n```, and starts Visual mode to select the match.
+
+```gN``` --  Searches backward for the last used search pattern, like with ```N```, and starts Visual mode to select the match.
+
 ```%``` -- Code block
 
 ```(``` -- Block surrounded by () (same as ```)``` or ```b```)
