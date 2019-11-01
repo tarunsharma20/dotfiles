@@ -11,7 +11,7 @@ call vundle#begin()
 
 " ------------------------------ Miscellaneous ---------------------------------
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'scrooloose/nerdcommenter'
+Plugin 'tpope/vim-commentary'
 Plugin 'Yggdroot/indentLine'
 Plugin 'mattn/emmet-vim'
 Plugin 'w0rp/ale'
@@ -24,13 +24,17 @@ Plugin 'dracula/vim'                         " dracula (dark)
 Plugin 'nightsense/cosmic_latte'             " cosmic_latte (dark|light)
 Plugin 'antlypls/vim-colors-codeschool'      " codeschool
 Plugin 'ayu-theme/ayu-vim'                   " ayu
+Plugin 'gosukiwi/vim-atom-dark'              " atom-dark
+Plugin 'rakr/vim-one'                        " one (dark|light)
+Plugin 'mhartington/oceanic-next'            " OceanicNext | OceanicNextLight
 
 " ---------------------------- Syntax Highlighting -----------------------------
 Plugin 'scrooloose/syntastic'
-Plugin 'rust-lang/rust.vim'
-Plugin 'pangloss/vim-javascript'
-Plugin 'mxw/vim-jsx'
-Plugin 'wavded/vim-stylus'
+Plugin 'sheerun/vim-polyglot'
+" Plugin 'rust-lang/rust.vim'
+" Plugin 'pangloss/vim-javascript'
+" Plugin 'mxw/vim-jsx'
+" Plugin 'wavded/vim-stylus'
 
 " ----------------------------------- Git --------------------------------------
 Plugin 'tpope/vim-fugitive'
@@ -208,7 +212,15 @@ set termguicolors     " enable true colors support
 " let ayucolor="light"  " for light version of theme
 let ayucolor="mirage" " for mirage version of theme
 " let ayucolor="dark"   " for dark version of theme
-colorscheme ayu
+" colorscheme ayu
+
+let schemes = ['one', 'OceanicNext', 'ayu', 'atom-dark', 'dracula', 'cosmic_latte', 'codeschool']
+let seconds = str2nr(strftime('%S'))
+
+execute 'colorscheme '.schemes[seconds%len(schemes)]
+redraw
+
+set background=dark
 
 " ==============================================================================
 " ================================== Search ====================================
@@ -300,8 +312,8 @@ let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standar
 " let g:ctrlp_max_files=0
 
 " ------------------------------ NERD Commenter --------------------------------
-let g:NERDSpaceDelims = 1     " Add spaces after comment delimiters by default
-let g:NERDCompactSexyComs = 1 " Use compact syntax for prettified multi-line comments
+" let g:NERDSpaceDelims = 1     " Add spaces after comment delimiters by default
+" let g:NERDCompactSexyComs = 1 " Use compact syntax for prettified multi-line comments
 
 " --------------------------------- Syntastic ----------------------------------
 let g:syntastic_always_populate_loc_list = 1
@@ -330,7 +342,7 @@ let g:ale_sign_warning = '!'
 let g:ale_lint_on_filetype_changed = 0
 let g:ale_lint_on_enter=0
 " let g:ale_linters_explicit=1
-let g:ale_fix_on_save = 1 "Fix files on same
+let g:ale_fix_on_save = 1 "Fix files on save
 
 " let g:ale_statusline_format = ['X %d', '? %d', '']
 let g:ale_echo_msg_format = '%severity%: %linter% says - %s'
@@ -399,10 +411,10 @@ nmap <silent> <leader>b :CtrlPBuffer<CR>
 " nmap <silent> <leader>b :CtrlPTag<CR>
 
 " ------------------------ Edit file in same repository ------------------------
-nmap <leader>ew :e <C-R>=expand("%:p:h") . "/" <CR>
-nmap <leader>es :sp <C-R>=expand("%:p:h") . "/" <CR>
-nmap <leader>ev :vsp <C-R>=expand("%:p:h") . "/" <CR>
-nmap <leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
+" nmap <leader>ew :e <C-R>=expand("%:p:h") . "/" <CR>
+" nmap <leader>es :sp <C-R>=expand("%:p:h") . "/" <CR>
+" nmap <leader>ev :vsp <C-R>=expand("%:p:h") . "/" <CR>
+" nmap <leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
 
 " Open explorer in same window
 nnoremap <silent> <leader>ew :Explore <CR> 
