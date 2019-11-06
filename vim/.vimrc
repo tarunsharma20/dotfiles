@@ -18,6 +18,8 @@ Plugin 'w0rp/ale'
 Plugin 'godlygeek/tabular'
 Plugin 'jremmen/vim-ripgrep'
 Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'ludovicchabant/vim-gutentags'
+Plugin 'lilydjwg/colorizer'
 
 " ------------------------------- Color Scheme ---------------------------------
 Plugin 'dracula/vim'                         " dracula (dark)
@@ -27,9 +29,14 @@ Plugin 'ayu-theme/ayu-vim'                   " ayu
 Plugin 'gosukiwi/vim-atom-dark'              " atom-dark
 Plugin 'rakr/vim-one'                        " one (dark|light)
 Plugin 'mhartington/oceanic-next'            " OceanicNext | OceanicNextLight
+Plugin 'drewtempelmeyer/palenight.vim'       " palenight (dark)
+Plugin 'arcticicestudio/nord-vim'            " nord
+Plugin 'cocopon/iceberg.vim'                 " iceberg
+Plugin 'flrnd/plastic.vim'                   " plastic (dark)
+Plugin 'haishanh/night-owl.vim'              " night-owl
 
 " ---------------------------- Syntax Highlighting -----------------------------
-Plugin 'scrooloose/syntastic'
+" Plugin 'scrooloose/syntastic'
 Plugin 'sheerun/vim-polyglot'
 " Plugin 'rust-lang/rust.vim'
 " Plugin 'pangloss/vim-javascript'
@@ -209,12 +216,26 @@ set t_Co=256
 " endif
 
 set termguicolors     " enable true colors support
+
 " let ayucolor="light"  " for light version of theme
 let ayucolor="mirage" " for mirage version of theme
 " let ayucolor="dark"   " for dark version of theme
 " colorscheme ayu
 
-let schemes = ['one', 'OceanicNext', 'ayu', 'atom-dark', 'dracula', 'cosmic_latte', 'codeschool']
+let schemes = [
+  \'one',
+  \'OceanicNext',
+  \'ayu',
+  \'atom-dark',
+  \'dracula',
+  \'cosmic_latte',
+  \'codeschool',
+  \'palenight',
+  \'nord',
+  \'iceberg',
+  \'plastic',
+  \'night-owl'
+  \]
 let seconds = str2nr(strftime('%S'))
 
 execute 'colorscheme '.schemes[seconds%len(schemes)]
@@ -304,11 +325,10 @@ let g:ctrlp_user_command = 'find %s -type f'        " MacOSX/Linux
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
 " Using ripgrep if avaliable
-" if executable('rg')
-  " set grepprg=rg\ --color=never
-  " let g:ctrlp_user_command = 'rg %s --files --hidden --color=never --glob ""'
-  " let g:ctrlp_use_caching = 0
-" endif
+if executable('rg')
+  let g:ctrlp_user_command = 'rg -F --files %s'
+  let g:ctrlp_use_caching = 0
+endif
 " let g:ctrlp_max_files=0
 
 " ------------------------------ NERD Commenter --------------------------------
@@ -316,10 +336,10 @@ let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standar
 " let g:NERDCompactSexyComs = 1 " Use compact syntax for prettified multi-line comments
 
 " --------------------------------- Syntastic ----------------------------------
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
 
 " ------------------------------- Indent Guides --------------------------------
 let g:indent_guides_guide_size = 1
@@ -500,7 +520,6 @@ augroup qf
     autocmd VimEnter        *     cwindow
 augroup END
 
-" https://vi.stackexchange.com/questions/84/how-can-i-copy-text-to-the-system-clipboard-from-vim
 " noremap <Leader>y "*y
 " noremap <Leader>p "*p
 " noremap <Leader>Y "+y
