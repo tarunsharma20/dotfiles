@@ -20,6 +20,7 @@ Plugin 'jremmen/vim-ripgrep'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'lilydjwg/colorizer'
+Plugin 'ap/vim-buftabline'
 
 " ------------------------------- Color Scheme ---------------------------------
 Plugin 'dracula/vim'                         " dracula (dark)
@@ -59,12 +60,14 @@ set visualbell            " Turn off sounds
 " ==============================================================================
 " ============================== User Interface ================================
 " ==============================================================================
-" set number               " Show line numbers
-set lsp=0                " Number of space between lines (line spacing)
-set cursorline           " Highlight  current line
-set showmatch            " highlight matching brackets
+" set number                 " Show line numbers
+set lsp=0                  " Number of space between lines (line spacing)
+set cursorline             " Highlight  current line
+set showmatch              " highlight matching brackets
+set spelllang=en_us        " spell checking
+set encoding=utf-8 nobomb  " Set utf8 as standard encoding, BOM often causes trouble
 
-set ruler                                          " Always show cursor position
+set ruler                  " Always show cursor position
 set rulerformat=%=%h%m%r%w\ %(%c%V%),%l/%L\ %P
 
 set showmode        " Show the current mode
@@ -82,8 +85,12 @@ set conceallevel=0
 set concealcursor=""
 
 set mouse=a                       " Enable mouse in all modes
-set clipboard=unnamed             " Use system clipboard.
-set lazyredraw                    " Redraw only when we need to.
+set clipboard=unnamed             " Use system clipboard
+
+set ttyfast                       " Speed up scrolling in vim buffer
+set lazyredraw                    " Don't redraw while running macros in buffer
+set hidden            " Switch between buffers buffers without save files
+	
 set path+=**                      " Recursively traverse to find something
 set wildmenu                      " Visual autocomplete for command menu
 set wildmode=list:longest,full    " wildmenu in special format (long format)
@@ -103,6 +110,10 @@ if has("win32")
   " set shellslash     " Use unix style slash in windows as well
 endif
 
+" set lines=35 columns=150  " Vim to open with a given size
+set textwidth=80          " Lines longer than 79 columns will be broken
+set colorcolumn=-1        " Display line at the edge of textwidth
+	
 set noshowmode " Hide vim mode text from last line
 
 " ------------------------------- Page Title -----------------------------------
@@ -175,10 +186,7 @@ set statusline+=\ %*
 " =============================== Indentation ==================================
 " ==============================================================================
 filetype indent on        " Enable specific file based indentation
-" set spell                 " spell checking on
-set textwidth=80          " Lines longer than 79 columns will be broken
-set colorcolumn=-1        " Display line at the edge of textwidth
-" set lines=35 columns=150  " Vim to open with a given size
+
 set shiftwidth=2          " Allow >> and << indent/unindent 2 visual spaces
 set tabstop=2             " Number of visual spaces per tab
 set expandtab             " Turns tab into spaces
@@ -250,6 +258,7 @@ set ignorecase    " Case-insensitive searching.
 set smartcase     " But case-sensitive if expression contains a capital letter
 set incsearch     " search as characters are entered
 set hlsearch      " highlight matches
+set magic         " Enable extended regexes.
 set gdefault      " /g flag on search by default
 "set noautocmd
 
@@ -266,12 +275,8 @@ endif
 " ==============================================================================
 " =============================== Files/Backup =================================
 " ==============================================================================
-set autoread            " Autoupdate when file changed from outside
-set lazyredraw          " Don't redraw while running macros
-set encoding=utf8       " Set utf8 as standard encoding
-set ffs=unix,dos,mac    " Use Unix as the standard file type
-
-set hidden            " Switch between buffers buffers without save files
+set autoread              " Autoupdate when file changed from outside
+set ffs=unix,dos,mac      " Use Unix as the standard file type
 
 filetype on           " Turn on file type detection.
 filetype off          " Turn off file type detection.
