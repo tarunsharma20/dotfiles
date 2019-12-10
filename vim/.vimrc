@@ -84,16 +84,16 @@ set listchars=nbsp:¬,eol:¶,tab:¦-,extends:»,precedes:«,trail:·
 set conceallevel=0
 set concealcursor=""
 
-set mouse=a                       " Enable mouse in all modes
-set clipboard=unnamed             " Use system clipboard
+set mouse=a                     " Enable mouse in all modes
+set clipboard=unnamed           " Use system clipboard
 
-set ttyfast                       " Speed up scrolling in vim buffer
-set lazyredraw                    " Don't redraw while running macros in buffer
-set hidden            " Switch between buffers buffers without save files
+set ttyfast                     " Speed up scrolling in vim buffer
+set lazyredraw                  " Don't redraw while running macros in buffer
+set hidden                      " Switch between buffers buffers without save files
 	
-set path+=**                      " Recursively traverse to find something
-set wildmenu                      " Visual autocomplete for command menu
-set wildmode=list:longest,full    " wildmenu in special format (long format)
+set path+=**                    " Recursively traverse to find something
+set wildmenu                    " Visual autocomplete for command menu
+set wildmode=list:longest,full  " wildmenu in special format (long format)
 
 " Ignore formats in wildmenu
 set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,*.swp,tags
@@ -126,7 +126,17 @@ set guitablabel=\[%N\]\ %t\ %M
 autocmd BufEnter * let &titlestring = ' ' . expand("%:f") . ' - ' . fnamemodify(getcwd(), ':t')
 
 " ------------------------------- GUI Options ----------------------------------
-set guifont=Menlo:h11    " Set font for GUI
+if has("gui_running")
+  if has("gui_gtk2")
+    set guifont=Inconsolata:h12
+  elseif has("gui_macvim")
+    set guifont=Menlo\ Regular:h14
+  elseif has("gui_win32")
+    set guifont=Consolas:h11:cANSI
+  endif
+endif
+
+" set guifont=Menlo:h11    " Set font for GUI
 set guioptions-=m        " Show/Hide menu bar
 set guioptions-=T        " Show/Hide toolbar
 " set guioptions-=r        " Show/Hide scrollbar
@@ -153,7 +163,8 @@ set statusline+=%#DiffChange#%{(mode()=='i')?'\ \ INSERT\ ':''}
 set statusline+=%#DiffDelete#%{(mode()=='r')?'\ \ REPLACE\ ':''}
 set statusline+=%#Visual#%{(mode()=='v:')?'\ \ VISUAL\ ':''}
 set statusline+=%#Cursor#
-set statusline+=\ %t
+" set statusline+=\ %t
+set statusline+=\ %f
 set statusline+=\ %h%m%r%w
 
 set statusline+=%=
@@ -206,10 +217,13 @@ set scrolloff=3    " show context above/below cursorline.
 " ==============================================================================
 " =============================== Code Folding =================================
 " ==============================================================================
-set foldenable           " Enable folding option
-set foldlevelstart=10    " Open most folds by default
-set foldnestmax=10       " 10 nested fold max
-set foldmethod=indent    " Fold based on indent level
+set foldmethod=manual
+
+" Commenting code below to make linting fast
+" set foldenable           " Enable folding option
+" set foldlevelstart=10    " Open most folds by default
+" set foldnestmax=10       " 10 nested fold max
+" set foldmethod=indent    " Fold based on indent level
 
 " ==============================================================================
 " ================================== Colors ====================================
@@ -354,14 +368,14 @@ let g:user_emmet_leader_key='<Tab>'
 let g:user_emmet_setting = { 'javascript.jsx' : { 'extends': 'jsx', }, }
 
 " ----------------------------------- Ale --------------------------------------
-highlight clear ALEErrorSign " otherwise uses error bg color (typically red)
-highlight clear ALEWarningSign " otherwise uses error bg color (typically red)
+" highlight clear ALEErrorSign " otherwise uses error bg color (typically red)
+" highlight clear ALEWarningSign " otherwise uses error bg color (typically red)
 
-highlight ALEErrorSign ctermfg=9 ctermbg=NONE guifg=#C30500 guibg=NONE
-highlight ALEWarningSign ctermfg=11 ctermbg=NONE guifg=#ED6237 guibg=NONE
+" highlight ALEErrorSign ctermfg=9 ctermbg=NONE guifg=#C30500 guibg=NONE
+" highlight ALEWarningSign ctermfg=11 ctermbg=NONE guifg=#ED6237 guibg=NONE
 
-let g:ale_sign_error = 'X'
-let g:ale_sign_warning = '!'
+" let g:ale_sign_error = 'X'
+" let g:ale_sign_warning = '!'
 
 " let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_filetype_changed = 0
@@ -442,16 +456,19 @@ nmap <silent> <leader>b :CtrlPBuffer<CR>
 " nmap <leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
 
 " Open explorer in same window
-nnoremap <silent> <leader>ew :Explore <CR> 
+nnoremap <silent> - :Explore<CR>
+
+" Open explorer in same window
+" nnoremap <silent> <leader>ew :Explore <CR> 
 
 " Open explorer in horizontal split window
-nnoremap <silent> <leader>es :Sexplore <CR>
+" nnoremap <silent> <leader>es :Sexplore <CR>
 
 " Open explorer in vertical split window
-nnoremap <silent> <leader>ev :Vexplore <CR>
+" nnoremap <silent> <leader>ev :Vexplore <CR>
 
 " Open explorer in new tab
-nnoremap <silent> <leader>et :Texplore <CR>
+" nnoremap <silent> <leader>et :Texplore <CR>
 
 " ------------------------ Navigating the quickfix list ------------------------
 nmap <silent> ]q :cnext<CR>zv
