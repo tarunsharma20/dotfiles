@@ -84,16 +84,16 @@ set listchars=nbsp:¬,eol:¶,tab:¦-,extends:»,precedes:«,trail:·
 set conceallevel=0
 set concealcursor=""
 
-set mouse=a                     " Enable mouse in all modes
-set clipboard=unnamed           " Use system clipboard
+set mouse=a                       " Enable mouse in all modes
+set clipboard=unnamed             " Use system clipboard
 
-set ttyfast                     " Speed up scrolling in vim buffer
-set lazyredraw                  " Don't redraw while running macros in buffer
-set hidden                      " Switch between buffers buffers without save files
-	
-set path+=**                    " Recursively traverse to find something
-set wildmenu                    " Visual autocomplete for command menu
-set wildmode=list:longest,full  " wildmenu in special format (long format)
+set ttyfast                       " Speed up scrolling in vim buffer
+set lazyredraw                    " Don't redraw while running macros in buffer
+set hidden            " Switch between buffers buffers without save files
+
+set path+=**                      " Recursively traverse to find something
+set wildmenu                      " Visual autocomplete for command menu
+set wildmode=list:longest,full    " wildmenu in special format (long format)
 
 " Ignore formats in wildmenu
 set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,*.swp,tags
@@ -113,7 +113,7 @@ endif
 " set lines=35 columns=150  " Vim to open with a given size
 set textwidth=80          " Lines longer than 79 columns will be broken
 set colorcolumn=-1        " Display line at the edge of textwidth
-	
+
 set noshowmode " Hide vim mode text from last line
 
 " ------------------------------- Page Title -----------------------------------
@@ -126,17 +126,46 @@ set guitablabel=\[%N\]\ %t\ %M
 autocmd BufEnter * let &titlestring = ' ' . expand("%:f") . ' - ' . fnamemodify(getcwd(), ':t')
 
 " ------------------------------- GUI Options ----------------------------------
-if has("gui_running")
-  if has("gui_gtk2")
-    set guifont=Inconsolata:h12
-  elseif has("gui_macvim")
-    set guifont=Menlo\ Regular:h14
-  elseif has("gui_win32")
-    set guifont=Consolas:h11:cANSI
-  endif
-endif
+let g:fnt_name = 'Menlo'
+let g:fnt_size = 11
+
+" if has("gui_running")
+"   if has("gui_gtk2") || has("gui_gtk3")
+"     let g:fnt_name = 'Inconsolata'
+"     let g:fnt_size = 12
+"   elseif has("gui_macvim")
+"     let g:fnt_name = 'Menlo\ Regular'
+"     let g:fnt_size = 14
+"   elseif has("gui_win32")
+"     let g:fnt_name = 'Consolas'
+"     let g:fnt_size = 12
+"   endif
+" endif
 
 " set guifont=Menlo:h11    " Set font for GUI
+
+function! SetFont ()
+  if has('gui_running')
+    if has("gui_gtk2") || has("gui_gtk3")
+      exe ':set guifont=' . g:fnt_name . '\ ' . string(g:fnt_size)
+    else
+      exe ':set guifont=' . g:fnt_name . ':h' . string(g:fnt_size)
+    endif
+  endif
+endfunction
+
+function! FontScaleUp ()
+  let g:fnt_size = g:fnt_size + 1
+  call SetFont()
+endfunction
+
+function! FontScaleDown ()
+  let g:fnt_size = g:fnt_size - 1
+  call SetFont()
+endfunction
+
+call SetFont()
+
 set guioptions-=m        " Show/Hide menu bar
 set guioptions-=T        " Show/Hide toolbar
 " set guioptions-=r        " Show/Hide scrollbar
@@ -350,10 +379,6 @@ if executable('rg')
 endif
 " let g:ctrlp_max_files=0
 
-" ------------------------------ NERD Commenter --------------------------------
-" let g:NERDSpaceDelims = 1     " Add spaces after comment delimiters by default
-" let g:NERDCompactSexyComs = 1 " Use compact syntax for prettified multi-line comments
-
 " --------------------------------- Syntastic ----------------------------------
 " let g:syntastic_always_populate_loc_list = 1
 " let g:syntastic_auto_loc_list = 1
@@ -436,6 +461,14 @@ nmap <silent> [T :tablast<CR>
 nmap <silent> ]b :bnext<CR>
 nmap <silent> [b :bprevious<CR>
 
+" ------------------------- Navigating between buffer --------------------------
+nnoremap <silent> <leader>= :call FontScaleUp()<CR>
+nnoremap <silent> <leader>- :call FontScaleDown()<CR>
+
+" ----------------------------------- NetRW ------------------------------------
+nnoremap <silent> - :Explore<CR>
+nnoremap <silent> _ :Ntree<CR>
+
 " ------------------------------------ CtrlP -----------------------------------
 " Open fuzzy search filename
 nmap <silent> <leader>f :CtrlP<CR>
@@ -454,9 +487,6 @@ nmap <silent> <leader>b :CtrlPBuffer<CR>
 " nmap <leader>es :sp <C-R>=expand("%:p:h") . "/" <CR>
 " nmap <leader>ev :vsp <C-R>=expand("%:p:h") . "/" <CR>
 " nmap <leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
-
-" Open explorer in same window
-nnoremap <silent> - :Explore<CR>
 
 " Open explorer in same window
 " nnoremap <silent> <leader>ew :Explore <CR> 
