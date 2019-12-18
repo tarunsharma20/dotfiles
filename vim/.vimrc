@@ -461,7 +461,7 @@ nmap <silent> [T :tablast<CR>
 nmap <silent> ]b :bnext<CR>
 nmap <silent> [b :bprevious<CR>
 
-" ------------------------- Navigating between buffer --------------------------
+" ------------------------------ Change fontsize -------------------------------
 nnoremap <silent> <leader>= :call FontScaleUp()<CR>
 nnoremap <silent> <leader>- :call FontScaleDown()<CR>
 
