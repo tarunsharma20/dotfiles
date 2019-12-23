@@ -11,16 +11,12 @@ call vundle#begin()
 
 " ------------------------------ Miscellaneous ---------------------------------
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'tpope/vim-commentary'
 Plugin 'Yggdroot/indentLine'
 Plugin 'mattn/emmet-vim'
-Plugin 'w0rp/ale'
 Plugin 'godlygeek/tabular'
-Plugin 'jremmen/vim-ripgrep'
-Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'ludovicchabant/vim-gutentags'
-Plugin 'lilydjwg/colorizer'
 Plugin 'ap/vim-buftabline'
+Plugin 'tpope/vim-commentary'
 
 " ------------------------------- Color Scheme ---------------------------------
 Plugin 'dracula/vim'                         " dracula (dark)
@@ -37,12 +33,16 @@ Plugin 'flrnd/plastic.vim'                   " plastic (dark)
 Plugin 'haishanh/night-owl.vim'              " night-owl
 
 " ---------------------------- Syntax Highlighting -----------------------------
-" Plugin 'scrooloose/syntastic'
 Plugin 'sheerun/vim-polyglot'
-" Plugin 'rust-lang/rust.vim'
-" Plugin 'pangloss/vim-javascript'
-" Plugin 'mxw/vim-jsx'
-" Plugin 'wavded/vim-stylus'
+Plugin 'lilydjwg/colorizer'
+"
+" --------------------------------- Linting ------------------------------------
+Plugin 'w0rp/ale'
+Plugin 'prettier/vim-prettier'
+
+" ----------------------------- File Management --------------------------------
+Plugin 'jremmen/vim-ripgrep'
+Plugin 'ctrlpvim/ctrlp.vim'
 
 " ----------------------------------- Git --------------------------------------
 Plugin 'tpope/vim-fugitive'
@@ -379,12 +379,6 @@ if executable('rg')
 endif
 " let g:ctrlp_max_files=0
 
-" --------------------------------- Syntastic ----------------------------------
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 0
-
 " ------------------------------- Indent Guides --------------------------------
 let g:indent_guides_guide_size = 1
 
@@ -402,16 +396,20 @@ let g:user_emmet_setting = { 'javascript.jsx' : { 'extends': 'jsx', }, }
 " let g:ale_sign_error = 'X'
 " let g:ale_sign_warning = '!'
 
-" let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_filetype_changed = 0
-let g:ale_lint_on_enter=0
-" let g:ale_linters_explicit=1
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_save = 1
 let g:ale_fix_on_save = 1 "Fix files on save
+let g:ale_linters_explicit = 1
 
 " let g:ale_statusline_format = ['X %d', '? %d', '']
 let g:ale_echo_msg_format = '%severity%: %linter% says - %s'
+let g:ale_linters = {
+  \ 'javascript': ['eslint']
+  \ }
 let g:ale_fixers = {
-  \ 'javascript': ['prettier', 'eslint']
+  \ 'javascript': ['prettier']
   \ }
 
 " Will keep gutter open for error sign
@@ -471,13 +469,13 @@ nnoremap <silent> _ :Ntree<CR>
 
 " ------------------------------------ CtrlP -----------------------------------
 " Open fuzzy search filename
-nmap <silent> <leader>f :CtrlP<CR>
+" nmap <silent> <leader>f :CtrlP<CR>
 
 " Open fuzzy search most recent files
-nmap <silent> <leader>r :CtrlPMRU<CR>
+" nmap <silent> <leader>r :CtrlPMRU<CR>
 
 " Open fuzzy search buffers
-nmap <silent> <leader>b :CtrlPBuffer<CR>
+" nmap <silent> <leader>b :CtrlPBuffer<CR>
 "
 " Open fuzzy search tags
 " nmap <silent> <leader>b :CtrlPTag<CR>
@@ -507,9 +505,13 @@ nmap <silent> ]Q :cfirst<CR>zv
 nmap <silent> [Q :clast<CR>zv
 
 " ------------------------------------ ALE -------------------------------------
-" nnoremap <silent> <leader>f :ALEFix<CR>
+nnoremap <silent> <leader>af :ALEFix<CR>
 nmap <silent> ]e <Plug>(ale_next_wrap)
 nmap <silent> [e <Plug>(ale_previous_wrap)
+
+" --------------------------------- Git Gutter ---------------------------------
+nnoremap <silent> ]h :GitGutterNextHunk<CR>
+nnoremap <silent> [h :GitGutterPrevHunk<CR>
 
 " ---- Move current line or selected block up and down with Alt+j and Alt+k ----
 nnoremap <A-j> :m .+1<CR>==
