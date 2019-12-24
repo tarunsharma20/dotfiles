@@ -116,6 +116,10 @@ set colorcolumn=-1        " Display line at the edge of textwidth
 
 set noshowmode " Hide vim mode text from last line
 
+" Omni completion provides smart autocompletion for program use <C-x><C-o>
+" filetype plugin on
+" set omnifunc=syntaxcomplete#Complete
+
 " ------------------------------- Page Title -----------------------------------
 set title  " Set the terminal's title
 set guitablabel=\[%N\]\ %t\ %M
