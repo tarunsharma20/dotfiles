@@ -4,51 +4,51 @@
 set nocompatible
 filetype on
 filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+
+call plug#begin('~/.vim/plugged')
 
 " ============================== Vundle bundles ================================
 
 " ------------------------------ Miscellaneous ---------------------------------
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'Yggdroot/indentLine'
-Plugin 'mattn/emmet-vim'
-Plugin 'godlygeek/tabular'
-Plugin 'ludovicchabant/vim-gutentags'
-Plugin 'ap/vim-buftabline'
-Plugin 'tpope/vim-commentary'
+Plug 'VundleVim/Vundle.vim'
+Plug 'Yggdroot/indentLine'
+Plug 'mattn/emmet-vim'
+Plug 'godlygeek/tabular'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'ap/vim-buftabline'
+Plug 'tpope/vim-commentary'
 
 " ------------------------------- Color Scheme ---------------------------------
-Plugin 'dracula/vim'                         " dracula (dark)
-Plugin 'nightsense/cosmic_latte'             " cosmic_latte (dark|light)
-Plugin 'antlypls/vim-colors-codeschool'      " codeschool
-Plugin 'ayu-theme/ayu-vim'                   " ayu
-Plugin 'gosukiwi/vim-atom-dark'              " atom-dark
-Plugin 'rakr/vim-one'                        " one (dark|light)
-Plugin 'mhartington/oceanic-next'            " OceanicNext | OceanicNextLight
-Plugin 'drewtempelmeyer/palenight.vim'       " palenight (dark)
-Plugin 'arcticicestudio/nord-vim'            " nord
-Plugin 'cocopon/iceberg.vim'                 " iceberg
-Plugin 'flrnd/plastic.vim'                   " plastic (dark)
-Plugin 'haishanh/night-owl.vim'              " night-owl
+Plug 'dracula/vim'                         " dracula (dark)
+Plug 'nightsense/cosmic_latte'             " cosmic_latte (dark|light)
+Plug 'antlypls/vim-colors-codeschool'      " codeschool
+Plug 'ayu-theme/ayu-vim'                   " ayu
+Plug 'gosukiwi/vim-atom-dark'              " atom-dark
+Plug 'rakr/vim-one'                        " one (dark|light)
+Plug 'mhartington/oceanic-next'            " OceanicNext | OceanicNextLight
+Plug 'drewtempelmeyer/palenight.vim'       " palenight (dark)
+Plug 'arcticicestudio/nord-vim'            " nord
+Plug 'cocopon/iceberg.vim'                 " iceberg
+Plug 'flrnd/plastic.vim'                   " plastic (dark)
+Plug 'haishanh/night-owl.vim'              " night-owl
 
 " ---------------------------- Syntax Highlighting -----------------------------
-Plugin 'sheerun/vim-polyglot'
-Plugin 'lilydjwg/colorizer'
-"
+Plug 'sheerun/vim-polyglot'
+Plug 'lilydjwg/colorizer'
+
 " --------------------------------- Linting ------------------------------------
-Plugin 'w0rp/ale'
-Plugin 'prettier/vim-prettier'
+Plug 'w0rp/ale'
+Plug 'prettier/vim-prettier'
 
 " ----------------------------- File Management --------------------------------
-Plugin 'jremmen/vim-ripgrep'
-Plugin 'ctrlpvim/ctrlp.vim'
+Plug 'jremmen/vim-ripgrep'
+Plug 'ctrlpvim/ctrlp.vim'
 
 " ----------------------------------- Git --------------------------------------
-Plugin 'tpope/vim-fugitive'
-Plugin 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 
-call vundle#end()
+call plug#end()
 
 " ==============================================================================
 " ================================== General ===================================
