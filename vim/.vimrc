@@ -10,7 +10,6 @@ call plug#begin('~/.vim/plugged')
 " ============================== Vundle bundles ================================
 
 " ------------------------------ Miscellaneous ---------------------------------
-Plug 'VundleVim/Vundle.vim'
 Plug 'Yggdroot/indentLine'
 Plug 'mattn/emmet-vim'
 Plug 'godlygeek/tabular'
