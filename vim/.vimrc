@@ -508,7 +508,11 @@ nmap <silent> [T :tablast<CR>
 
 " ------------------------- Navigating between buffer --------------------------
 " List buffer and prepare :b
-nnoremap <Leader>b :ls<CR>:b<Space>
+nnoremap <Leader>bs :ls<CR>:b<Space>
+
+" Delete all buffers but current
+nnoremap <silent> <Leader>bo :%bd\|e#\|bd<CR>
+
 nmap <silent> ]b :bnext<CR>
 nmap <silent> [b :bprevious<CR>
 
