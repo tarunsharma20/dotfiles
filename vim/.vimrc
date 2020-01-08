@@ -117,6 +117,15 @@ set noshowmode " Hide vim mode text from last line
 " filetype plugin on
 " set omnifunc=syntaxcomplete#Complete
 
+" Time Vim waits after you stop typing before it triggers the plugin.
+" Default updatetime is 4000 milliseconds
+" set updatetime=300
+" set signcolumn=yes    " always show signcolumns
+" signcolumn no/yes/auto to disappear/appear/auto
+set scl=no
+set scl=yes
+set scl=auto
+
 " ------------------------------- Page Title -----------------------------------
 set title  " Set the terminal's title
 set guitablabel=\[%N\]\ %t\ %M
@@ -140,7 +149,7 @@ if has("gui_running")
   elseif has("gui_win32")
     " let g:fnt_name = 'Consolas'
     let g:fnt_name = 'Menlo'
-    let g:fnt_size = 12
+    let g:fnt_size = 11
   endif
 endif
 
@@ -336,6 +345,8 @@ if exists("&undodir")
   set undodir=$HOME/.vim/undo      " undo history directory
 endif
 
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
 
 " ==============================================================================
 " ================================= Plugins ====================================
@@ -495,7 +506,7 @@ nmap <silent> [T :tablast<CR>
 
 " ------------------------- Navigating between buffer --------------------------
 " List buffer and prepare :b
-" nnoremap <Leader>b :ls<CR>:b<Space>
+nnoremap <Leader>b :ls<CR>:b<Space>
 nmap <silent> ]b :bnext<CR>
 nmap <silent> [b :bprevious<CR>
 
