@@ -442,6 +442,8 @@ function! LinterStatus() abort
 endfunction
 
 " ----------------------------------- COC --------------------------------------
+" https://github.com/neoclide/coc.nvim/wiki/Using-coc-extensions
+
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
