@@ -511,7 +511,7 @@ nmap <silent> [T :tablast<CR>
 nnoremap <Leader>bs :ls<CR>:b<Space>
 
 " Delete all buffers but current
-nnoremap <silent> <Leader>bo :%bd\|e #\|normal `<CR>
+nnoremap <silent> <Leader>bo :%bd\|e#\|bd# <CR>
 
 nmap <silent> ]b :bnext<CR>
 nmap <silent> [b :bprevious<CR>
