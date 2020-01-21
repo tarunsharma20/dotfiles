@@ -16,17 +16,17 @@ Plug 'tpope/vim-commentary'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " ------------------------------- Color Scheme ---------------------------------
-Plug 'dracula/vim'                         " dracula (dark)
-Plug 'nightsense/cosmic_latte'             " cosmic_latte (dark|light)
-Plug 'antlypls/vim-colors-codeschool'      " codeschool
-Plug 'ayu-theme/ayu-vim'                   " ayu
-Plug 'gosukiwi/vim-atom-dark'              " atom-dark
-Plug 'rakr/vim-one'                        " one (dark|light)
-Plug 'mhartington/oceanic-next'            " OceanicNext | OceanicNextLight
-Plug 'drewtempelmeyer/palenight.vim'       " palenight (dark)
-Plug 'arcticicestudio/nord-vim'            " nord
-Plug 'cocopon/iceberg.vim'                 " iceberg
-Plug 'flrnd/plastic.vim'                   " plastic (dark)
+" Plug 'dracula/vim'                         " dracula (dark)
+" Plug 'nightsense/cosmic_latte'             " cosmic_latte (dark|light)
+" Plug 'antlypls/vim-colors-codeschool'      " codeschool
+" Plug 'ayu-theme/ayu-vim'                   " ayu
+" Plug 'gosukiwi/vim-atom-dark'              " atom-dark
+" Plug 'rakr/vim-one'                        " one (dark|light)
+" Plug 'mhartington/oceanic-next'            " OceanicNext | OceanicNextLight
+" Plug 'drewtempelmeyer/palenight.vim'       " palenight (dark)
+" Plug 'arcticicestudio/nord-vim'            " nord
+" Plug 'cocopon/iceberg.vim'                 " iceberg
+" Plug 'flrnd/plastic.vim'                   " plastic (dark)
 Plug 'haishanh/night-owl.vim'              " night-owl
 
 " ---------------------------- Syntax Highlighting -----------------------------
@@ -272,36 +272,37 @@ syntax enable    " Enable syntax processing
 set t_Co=256
 
 " if has('gui_running')
-  " set background=light
+"   set background=light
 " else
-  " set background=dark
+"   set background=dark
 " endif
 
 set termguicolors     " enable true colors support
 
 " let ayucolor="light"  " for light version of theme
-let ayucolor="mirage" " for mirage version of theme
+" let ayucolor="mirage" " for mirage version of theme
 " let ayucolor="dark"   " for dark version of theme
 " colorscheme ayu
+colorscheme night-owl
 
-let schemes = [
-  \'one',
-  \'OceanicNext',
-  \'ayu',
-  \'atom-dark',
-  \'dracula',
-  \'cosmic_latte',
-  \'codeschool',
-  \'palenight',
-  \'nord',
-  \'iceberg',
-  \'plastic',
-  \'night-owl'
-  \]
-let seconds = str2nr(strftime('%S'))
+" let schemes = [
+"   \'one',
+"   \'OceanicNext',
+"   \'ayu',
+"   \'atom-dark',
+"   \'dracula',
+"   \'cosmic_latte',
+"   \'codeschool',
+"   \'palenight',
+"   \'nord',
+"   \'iceberg',
+"   \'plastic',
+"   \'night-owl'
+"   \]
+" let seconds = str2nr(strftime('%S'))
 
-execute 'colorscheme '.schemes[seconds%len(schemes)]
-redraw
+" execute 'colorscheme '.schemes[seconds%len(schemes)]
+" redraw
 
 set background=dark
 
@@ -458,7 +459,7 @@ function! s:show_documentation()
 endfunction
 
 " Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
+" autocmd CursorHold * silent call CocActionAsync('highlight')
 
 augroup mygroup
   autocmd!
@@ -483,6 +484,29 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " ==============================================================================
 " ============================ Keyboard Shortcuts ==============================
 " ==============================================================================
+" map vs noremap
+"
+" map is recursive but noremap is non-recursive. In example below j will mapped
+"
+" to gg, Q will also mapped to qq. However W is mapped to j not gg.
+" map j gg
+" map Q j
+" noremap W j
+"
+"-----------------------------------------------------------------------------------"
+" Commands \ Modes         | Normal | Insert | Command | Visual | Select | Operator |
+"--------------------------|--------|--------|---------|--------|--------|----------|
+" map  / noremap  / unmap  |    @   |   -    |    -    |   @    |   @    |    @     |
+" nmap / nnoremap / nunmap |    @   |   -    |    -    |   -    |   -    |    -     |
+" vmap / vnoremap / vunmap |    -   |   -    |    -    |   @    |   @    |    -     |
+" omap / onoremap / ounmap |    -   |   -    |    -    |   -    |   -    |    @     |
+" xmap / xnoremap / xunmap |    -   |   -    |    -    |   @    |   -    |    -     |
+" smap / snoremap / sunmap |    -   |   -    |    -    |   -    |   @    |    -     |
+" map! / noremap! / unmap! |    -   |   @    |    @    |   -    |   -    |    -     |
+" imap / inoremap / iunmap |    -   |   @    |    -    |   -    |   -    |    -     |
+" cmap / cnoremap / cunmap |    -   |   -    |    @    |   -    |   -    |    -     |
+"-----------------------------------------------------------------------------------"
+
 let mapleader=","
 
 " go to file in vertical split instead of same file
@@ -507,10 +531,10 @@ nmap <silent> ]T :tabfirst<CR>
 nmap <silent> [T :tablast<CR>
 
 " ------------------------- Navigating between buffer --------------------------
-" List buffer and prepare :b
+" List buffer and prepare (buffer switch)
 nnoremap <Leader>bs :ls<CR>:b<Space>
 
-" Delete all buffers but current
+" Delete all buffers but current (buffer only)
 nnoremap <silent> <Leader>bo :%bd\|e#\|bd# <CR>
 
 nmap <silent> ]b :bnext<CR>
@@ -571,12 +595,12 @@ nnoremap <silent> ]h :GitGutterNextHunk<CR>
 nnoremap <silent> [h :GitGutterPrevHunk<CR>
 
 " ---- Move current line or selected block up and down with Alt+j and Alt+k ----
-nnoremap <A-j> :m .+1<CR>==
-nnoremap <A-k> :m .-2<CR>==
-inoremap <A-j> <Esc>:m .+1<CR>==gi
-inoremap <A-k> <Esc>:m .-2<CR>==gi
-vnoremap <A-j> :m '>+1<CR>gv=gv
-vnoremap <A-k> :m '<-2<CR>gv=gv
+nnoremap <M-j> :m .+1<CR>==
+nnoremap <M-k> :m .-2<CR>==
+inoremap <M-j> <Esc>:m .+1<CR>==gi
+inoremap <M-k> <Esc>:m .-2<CR>==gi
+vnoremap <M-j> :m '>+1<CR>gv=gv
+vnoremap <M-k> :m '<-2<CR>gv=gv
 
 " ------------------------------------ COC -------------------------------------
 " Use tab for trigger completion with characters ahead and navigate.
