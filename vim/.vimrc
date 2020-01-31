@@ -61,7 +61,8 @@ set visualbell            " Turn off sounds
 set lsp=0                  " Number of space between lines (line spacing)
 set cursorline             " Highlight  current line
 set showmatch              " highlight matching brackets
-set spelllang=en_us        " spell checking
+set spell                  " spell checking
+set spelllang=en_us
 set encoding=utf-8 nobomb  " Set utf8 as standard encoding, BOM often causes trouble
 
 set ruler                  " Always show cursor position
