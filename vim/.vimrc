@@ -14,6 +14,7 @@ Plug 'godlygeek/tabular'
 Plug 'ap/vim-buftabline'
 Plug 'tpope/vim-commentary'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 
 " ------------------------------- Color Scheme ---------------------------------
 " Plug 'dracula/vim'                         " dracula (dark)
@@ -110,7 +111,7 @@ endif
 
 " set lines=35 columns=150  " Vim to open with a given size
 set textwidth=80          " Lines longer than 79 columns will be broken
-set colorcolumn=-1        " Display line at the edge of textwidth
+set colorcolumn=+1        " Display line at the edge of textwidth
 
 set noshowmode " Hide vim mode text from last line
 
@@ -261,10 +262,10 @@ set scrolloff=3    " show context above/below cursorline.
 set foldmethod=manual
 
 " Commenting code below to make linting fast
-" set foldenable           " Enable folding option
-" set foldlevelstart=10    " Open most folds by default
-" set foldnestmax=10       " 10 nested fold max
-" set foldmethod=indent    " Fold based on indent level
+set foldenable           " Enable folding option
+set foldlevelstart=10    " Open most folds by default
+set foldnestmax=10       " 10 nested fold max
+set foldmethod=indent    " Fold based on indent level
 
 " ==============================================================================
 " ================================== Colors ====================================
@@ -548,6 +549,9 @@ nnoremap <silent> <leader>- :call FontScaleDown()<CR>
 " ----------------------------------- NetRW ------------------------------------
 nnoremap <silent> - :Explore<CR>
 nnoremap <silent> _ :Ntree<CR>
+
+" ---------------------------------- Vim clap ----------------------------------
+" nnoremap <silent> <leader>f :Clap<CR>
 
 " ------------------------------------ CtrlP -----------------------------------
 " Open fuzzy search filename
