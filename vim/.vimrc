@@ -1,22 +1,32 @@
-" ==============================================================================
-" ============================ Plugin Configuration ============================
-" ==============================================================================
-set nocompatible
+set nocompatible " Set compatibility to Vim only
+
+" Helps force plug-ins to load correctly when it is turned back on below
 filetype on
 filetype off
 
+" ==============================================================================
+" ============================ Plugin Configuration ============================
+" ==============================================================================
+ " Call the .vimrc.plug file
+ " if filereadable(expand("~/.vimrc.plug"))
+ "     source ~/.vimrc.plug
+ " endif
 call plug#begin('~/.vim/plugged')
 
-" ------------------------------ Miscellaneous ---------------------------------
+" ------------------------------------------------------------------------------
+" ------------------------------- Miscellaneous --------------------------------
+" ------------------------------------------------------------------------------
 Plug 'Yggdroot/indentLine'
 Plug 'mattn/emmet-vim'
 Plug 'godlygeek/tabular'
 Plug 'ap/vim-buftabline'
 Plug 'tpope/vim-commentary'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 
-" ------------------------------- Color Scheme ---------------------------------
+" ------------------------------------------------------------------------------
+" -------------------------------- Color Scheme --------------------------------
+" ------------------------------------------------------------------------------
 " Plug 'dracula/vim'                         " dracula (dark)
 " Plug 'nightsense/cosmic_latte'             " cosmic_latte (dark|light)
 " Plug 'antlypls/vim-colors-codeschool'      " codeschool
@@ -30,163 +40,113 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'flrnd/plastic.vim'                   " plastic (dark)
 Plug 'haishanh/night-owl.vim'              " night-owl
 
+" ------------------------------------------------------------------------------
 " ---------------------------- Syntax Highlighting -----------------------------
+" ------------------------------------------------------------------------------
 Plug 'sheerun/vim-polyglot'
 Plug 'lilydjwg/colorizer'
 
-" --------------------------------- Linting ------------------------------------
+" ------------------------------------------------------------------------------
+" ---------------------------------- Linting -----------------------------------
+" ------------------------------------------------------------------------------
 Plug 'w0rp/ale'
 Plug 'prettier/vim-prettier'
 
-" ----------------------------- File Management --------------------------------
+" ------------------------------------------------------------------------------
+" ------------------------------ File Management -------------------------------
+" ------------------------------------------------------------------------------
 Plug 'jremmen/vim-ripgrep'
 Plug 'ctrlpvim/ctrlp.vim'
 
-" ----------------------------------- Git --------------------------------------
+" ------------------------------------------------------------------------------
+" ------------------------------------ Git -------------------------------------
+" ------------------------------------------------------------------------------
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
 call plug#end()
 
 " ==============================================================================
-" ================================== General ===================================
+" ================================= Behavioural ================================
 " ==============================================================================
-scriptencoding utf-8
-set history=1000          " Number of lines history to remember
-set visualbell            " Turn off sounds
 
-" ==============================================================================
-" ============================== User Interface ================================
-" ==============================================================================
-" set number                 " Show line numbers
-set lsp=0                  " Number of space between lines (line spacing)
-set cursorline             " Highlight  current line
-set showmatch              " highlight matching brackets
-set spell                  " spell checking
-set spelllang=en_us
-set encoding=utf-8 nobomb  " Set utf8 as standard encoding, BOM often causes trouble
+" ------------------------------------------------------------------------------
+" -------------------------------- Files/Backup --------------------------------
+" ------------------------------------------------------------------------------
+set nobackup                       " Don't make backup before overwriting a file
+set noswapfile                     " Disable file swapping
+set nowritebackup                  " And again
+set backupdir=$HOME/.vim/backups   " backup files directory
+set directory=$HOME/.vim/swaps     " temp files directory
+if exists("&undodir")
+  set undodir=$HOME/.vim/undo      " undo history directory
+endif
 
-set ruler                  " Always show cursor position
-set rulerformat=%=%h%m%r%w\ %(%c%V%),%l/%L\ %P
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
 
-set showmode        " Show the current mode
-set showcmd         " Show the last used command at bottom right of VIM
-set cmdheight=1     " Height of commandbar
-set wrap            " Turn on line wrapping.
-set laststatus=2    " Always show status line
-
-set list                                           " Show white space characters
-" Define symbols for listchars
-set listchars=nbsp:¬,eol:¶,tab:¦-,extends:»,precedes:«,trail:·
-
+" ------------------------------------------------------------------------------
+" ------------------------------- Miscellaneous --------------------------------
+" ------------------------------------------------------------------------------
+set clipboard=unnamed             " Use system clipboard
+"
 " Remove conceal feature it's hiding double quotes in JSON
 set conceallevel=0
 set concealcursor=""
 
-set mouse=a                       " Enable mouse in all modes
-set clipboard=unnamed             " Use system clipboard
+set spell                 " spell checking
+set spelllang=en_us
+set encoding=utf-8 nobomb " Set utf8 as standard encoding, BOM often causes trouble
+scriptencoding utf-8
 
-set ttyfast                       " Speed up scrolling in vim buffer
-set lazyredraw                    " Don't redraw while running macros in buffer
-set hidden            " Switch between buffers buffers without save files
+set history=1000          " Number of lines history to remember
 
-set path+=**                      " Recursively traverse to find something
-set wildmenu                      " Visual autocomplete for command menu
-set wildmode=list:longest,full    " wildmenu in special format (long format)
+set visualbell " Turn off sounds
+set ttyfast    " Speed up scrolling in vim buffer
+set lazyredraw " Don't redraw while running macros in buffer
+set hidden     " Switch between buffers buffers without save files
 
-" Ignore formats in wildmenu
-set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,*.swp,tags
-set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.jpeg,*.png
-set wildignore+=*/node_modules/*,*/bower_components/*,*/build/*
+set noshowmode " Hide vim mode text from last line
 
-set backspace=indent,eol,start    " Make backspace behave as it is
+set autoread         " Autoupdate when file changed from outside
+set ffs=unix,dos,mac " Use Unix as the standard file type
 
-set splitright       " :vsplit will open new window right of the current one
-set splitbelow       " :split will open new window below the current one
+filetype on        " Turn on file type detection.
+filetype off       " Turn off file type detection.
+filetype plugin on " Turn on file type plugins.
 
 if has("win32")
   set shell=~/AppData/Local/Programs/Git/bin/bash.exe
   " set shellslash     " Use unix style slash in windows as well
 endif
 
-" set lines=35 columns=150  " Vim to open with a given size
-set textwidth=80          " Lines longer than 79 columns will be broken
-set colorcolumn=+1        " Display line at the edge of textwidth
-
-set noshowmode " Hide vim mode text from last line
-
-" Omni completion provides smart autocompletion for program use <C-x><C-o>
-" filetype plugin on
-" set omnifunc=syntaxcomplete#Complete
-
-" Time Vim waits after you stop typing before it triggers the plugin.
-" Default updatetime is 4000 milliseconds
-" set updatetime=300
-" set signcolumn=yes    " always show signcolumns
-" signcolumn no/yes/auto to disappear/appear/auto
-set scl=no
-set scl=yes
-set scl=auto
-
-" ------------------------------- Page Title -----------------------------------
-set title  " Set the terminal's title
-set guitablabel=\[%N\]\ %t\ %M
-" set tabline=\[%N\]\ %t\ %M
-" set showtabline=1
-
-" Showing current file name and current working directory on buffer change
-autocmd BufEnter * let &titlestring = ' ' . expand("%:f") . ' - ' . fnamemodify(getcwd(), ':t')
-
-" ------------------------------- GUI Options ----------------------------------
-" let g:fnt_name = 'Menlo'
-" let g:fnt_size = 13
-
-if has("gui_running")
-  if has("gui_gtk2") || has("gui_gtk3")
-    let g:fnt_name = 'Inconsolata'
-    let g:fnt_size = 12
-  elseif has("gui_macvim")
-    let g:fnt_name = 'Menlo\ Regular'
-    let g:fnt_size = 13
-  elseif has("gui_win32")
-    " let g:fnt_name = 'Consolas'
-    let g:fnt_name = 'Menlo'
-    let g:fnt_size = 11
-  endif
-endif
-
-" set guifont=Menlo:h11    " Set font for GUI
-
-function! SetFont ()
-  if has('gui_running')
-    if has("gui_gtk2") || has("gui_gtk3")
-      exe ':set guifont=' . g:fnt_name . '\ ' . string(g:fnt_size)
-    else
-      exe ':set guifont=' . g:fnt_name . ':h' . string(g:fnt_size)
-    endif
-  endif
-endfunction
-
-function! FontScaleUp ()
-  let g:fnt_size = g:fnt_size + 1
-  call SetFont()
-endfunction
-
-function! FontScaleDown ()
-  let g:fnt_size = g:fnt_size - 1
-  call SetFont()
-endfunction
-
-call SetFont()
-
-set guioptions-=m        " Show/Hide menu bar
-set guioptions-=T        " Show/Hide toolbar
-" set guioptions-=r        " Show/Hide scrollbar
+" will automatically open the quickfix window whenever you do :vimgrep or other
+" commands that populate the quickfix/location list
+augroup qf
+    autocmd!
+    autocmd QuickFixCmdPost [^l]* cwindow
+    autocmd QuickFixCmdPost l*    cwindow
+    autocmd VimEnter        *     cwindow
+augroup END
 
 " ==============================================================================
-" =============================== Line Number ==================================
+" ============================== User Interface ================================
 " ==============================================================================
-set number relativenumber    " Show relative line numbers
+
+" ------------------------------------------------------------------------------
+" ----------------------------------- Ruler ------------------------------------
+" ------------------------------------------------------------------------------
+set ruler        " Always show cursor position
+set rulerformat=%=%h%m%r%w\ %(%c%V%),%l/%L\ %P
+set showmode     " Show the current mode
+set showcmd      " Show the last used command at bottom right of VIM
+set cmdheight=1  " Height of commandbar
+set laststatus=2 " Always show status line
+
+" ------------------------------------------------------------------------------
+" --------------------------------- Line Number --------------------------------
+" ------------------------------------------------------------------------------
+set number relativenumber " Show relative line numbers
 
 " Show absolute line number in insert mode, and hybrid(absolute + relative) in normal mode
 augroup numbertoggle
@@ -195,9 +155,25 @@ augroup numbertoggle
   autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 augroup END
 
-" ==============================================================================
-" ================================ Status Bar ==================================
-" ==============================================================================
+" ------------------------------------------------------------------------------
+" --------------------------------- Indentation --------------------------------
+" ------------------------------------------------------------------------------
+filetype indent on        " Enable specific file based indentation
+
+set shiftwidth=2          " Allow >> and << indent/unindent 2 visual spaces
+set tabstop=2             " Number of visual spaces per tab
+set expandtab             " Turns tab into spaces
+set softtabstop=2         " Number of spaces in tab when editing
+set shiftround            " Round indent to multiple of 'shiftwidth'
+set autoindent            " Align the new line indent match with previous line
+set smartindent           " Automatically inserts one extra level of indentation
+
+" Use the 'shiftwidth' setting for inserting tabs instead of 'tabstop'
+set smarttab
+
+" ------------------------------------------------------------------------------
+" --------------------------------- Status Bar ---------------------------------
+" ------------------------------------------------------------------------------
 set statusline=
 
 set statusline+=%#DiffAdd#%{(mode()=='n')?'\ \ NORMAL\ ':''}
@@ -235,41 +211,63 @@ set statusline+=\ %#Visual#
 set statusline+=\ %{FugitiveHead()}
 set statusline+=\ %*
 
-" ==============================================================================
-" =============================== Indentation ==================================
-" ==============================================================================
-filetype indent on        " Enable specific file based indentation
+" ------------------------------------------------------------------------------
+" ------------------------------ Page Title & Tabs -----------------------------
+" ------------------------------------------------------------------------------
+set title  " Set the terminal's title
+set guitablabel=\[%N\]\ %t\ %M
+" set tabline=\[%N\]\ %t\ %M
+" set showtabline=1
 
-set shiftwidth=2          " Allow >> and << indent/unindent 2 visual spaces
-set tabstop=2             " Number of visual spaces per tab
-set expandtab             " Turns tab into spaces
-set softtabstop=2         " Number of spaces in tab when editing
-set shiftround            " Round indent to multiple of 'shiftwidth'
-set autoindent            " Align the new line indent match with previous line
-set smartindent           " Automatically inserts one extra level of indentation
+" Showing current file name and current working directory on buffer change
+autocmd BufEnter * let &titlestring = ' ' . expand("%:f") . ' - ' . fnamemodify(getcwd(), ':t')
 
-" Use the 'shiftwidth' setting for inserting tabs instead of 'tabstop'
-set smarttab
+" ------------------------------------------------------------------------------
+" ------------------------------ Font Name & Size ------------------------------
+" ------------------------------------------------------------------------------
+" let g:fnt_name = 'Menlo'
+" let g:fnt_size = 13
+" set guifont=Menlo:h11    " Set font for GUI
 
-" ==============================================================================
-" ================================= Movement ===================================
-" ==============================================================================
-set scrolloff=3    " show context above/below cursorline.
+if has("gui_running")
+  if has("gui_gtk2") || has("gui_gtk3")
+    let g:fnt_name = 'Inconsolata'
+    let g:fnt_size = 12
+  elseif has("gui_macvim")
+    let g:fnt_name = 'Menlo\ Regular'
+    let g:fnt_size = 13
+  elseif has("gui_win32")
+    " let g:fnt_name = 'Consolas'
+    let g:fnt_name = 'Menlo'
+    let g:fnt_size = 11
+  endif
+endif
 
-" ==============================================================================
-" =============================== Code Folding =================================
-" ==============================================================================
-set foldmethod=manual
+function! SetFont ()
+  if has('gui_running')
+    if has("gui_gtk2") || has("gui_gtk3")
+      exe ':set guifont=' . g:fnt_name . '\ ' . string(g:fnt_size)
+    else
+      exe ':set guifont=' . g:fnt_name . ':h' . string(g:fnt_size)
+    endif
+  endif
+endfunction
 
-" Commenting code below to make linting fast
-set foldenable           " Enable folding option
-set foldlevelstart=10    " Open most folds by default
-set foldnestmax=10       " 10 nested fold max
-set foldmethod=indent    " Fold based on indent level
+function! FontScaleUp ()
+  let g:fnt_size = g:fnt_size + 1
+  call SetFont()
+endfunction
 
-" ==============================================================================
-" ================================== Colors ====================================
-" ==============================================================================
+function! FontScaleDown ()
+  let g:fnt_size = g:fnt_size - 1
+  call SetFont()
+endfunction
+
+call SetFont()
+
+" ------------------------------------------------------------------------------
+" -------------------------------- Color Scheme --------------------------------
+" ------------------------------------------------------------------------------
 syntax enable    " Enable syntax processing
 set t_Co=256
 
@@ -308,15 +306,61 @@ colorscheme night-owl
 
 set background=dark
 
+" ------------------------------------------------------------------------------
+" ------------------------------- Miscellaneous --------------------------------
+" ------------------------------------------------------------------------------
+set lsp=0      " Number of space between lines (line spacing)
+set cursorline " Highlight  current line
+set wrap       " Turn on line wrapping.
+
+set list       " Show white space characters
+" Define symbols for listchars
+" set listchars=nbsp:¬,eol:¶,tab:¦-,extends:»,precedes:«,trail:·
+let &showbreak = '↳ '
+set listchars=nbsp:¬,eol:¶,tab:-→,extends:»,precedes:«,trail:•
+
+set guioptions-=m   " Show/Hide menu bar
+set guioptions-=T   " Show/Hide toolbar
+" set guioptions-=r   " Show/Hide scrollbar
+
+
+" set lines=35 columns=150  " Vim to open with a given size
+set textwidth=80          " Lines longer than 79 columns will be broken
+set colorcolumn=+1        " Display line at the edge of textwidth
+
 " ==============================================================================
-" ================================== Search ====================================
+" ============================= User Interaction ===============================
 " ==============================================================================
-set ignorecase    " Case-insensitive searching.
-set smartcase     " But case-sensitive if expression contains a capital letter
-set incsearch     " search as characters are entered
-set hlsearch      " highlight matches
-set magic         " Enable extended regexes.
-set gdefault      " /g flag on search by default
+
+" ------------------------------------------------------------------------------
+" -------------------------------- Code Folding --------------------------------
+" ------------------------------------------------------------------------------
+set foldmethod=manual
+
+" Commenting code below to make linting fast
+set foldenable           " Enable folding option
+set foldlevelstart=10    " Open most folds by default
+set foldnestmax=10       " 10 nested fold max
+set foldmethod=indent    " Fold based on indent level
+
+" ------------------------------------------------------------------------------
+" ----------------------------------- Search -----------------------------------
+" ------------------------------------------------------------------------------
+set path+=**                   " Recursively traverse to find something
+set wildmenu                   " Visual autocomplete for command menu
+set wildmode=list:longest,full " wildmenu in special format (long format)
+
+" Ignore formats in wildmenu
+set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,*.swp,tags
+set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.jpeg,*.png
+set wildignore+=*/node_modules/*,*/bower_components/*,*/build/*
+
+set ignorecase " Case-insensitive searching.
+set smartcase  " But case-sensitive if expression contains a capital letter
+set incsearch  " search as characters are entered
+set hlsearch   " highlight matches
+set magic      " Enable extended regexes.
+set gdefault   " /g flag on search by default
 "set noautocmd
 
 " Use git for search from grep command
@@ -329,33 +373,41 @@ if executable('rg')
   set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
 
-" ==============================================================================
-" =============================== Files/Backup =================================
-" ==============================================================================
-set autoread              " Autoupdate when file changed from outside
-set ffs=unix,dos,mac      " Use Unix as the standard file type
+" ------------------------------------------------------------------------------
+" ------------------------------- Miscellaneous --------------------------------
+" ------------------------------------------------------------------------------
 
-filetype on           " Turn on file type detection.
-filetype off          " Turn off file type detection.
-filetype plugin on    " Turn on file type plugins.
+set showmatch  " highlight matching brackets
+set splitright " :vsplit will open new window right of the current one
+set splitbelow " :split will open new window below the current one
 
-set nobackup                       " Don't make backup before overwriting a file
-set noswapfile                     " Disable file swapping
-set nowritebackup                  " And again
-set backupdir=$HOME/.vim/backups   " backup files directory
-set directory=$HOME/.vim/swaps     " temp files directory
-if exists("&undodir")
-  set undodir=$HOME/.vim/undo      " undo history directory
-endif
+set mouse=a                    " Enable mouse in all modes
+set backspace=indent,eol,start " Make backspace behave as it is
 
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
+" Omni completion provides smart autocompletion for program use <C-x><C-o>
+" filetype plugin on
+" set omnifunc=syntaxcomplete#Complete
+
+" Time Vim waits after you stop typing before it triggers the plugin.
+" Default updatetime is 4000 milliseconds
+" set updatetime=300
+" set signcolumn=yes    " always show signcolumns
+" signcolumn no/yes/auto to disappear/appear/auto
+set scl=no
+set scl=yes
+set scl=auto
+set scrolloff=3    " show context above/below cursorline.
+
+" Activating builtin macro matchit to enable jump in xml/html tags
+runtime macros/matchit.vim
 
 " ==============================================================================
 " ================================= Plugins ====================================
 " ==============================================================================
 
+" ------------------------------------------------------------------------------
 " ----------------------------------- NetRW ------------------------------------
+" ------------------------------------------------------------------------------
 " let g:netrw_banner = 0            " Remove the banner
 " let g:netrw_liststyle = 3         " Changing the directory
 " let g:netrw_browse_split = 4      " To make the selection permanent add
@@ -372,19 +424,27 @@ set shortmess+=c
 " let g:netrw_browse_split = 3      " open file in new tab
 " let g:netrw_browse_split = 4      " act like 'p' (ie. open preview window)
 
+" ------------------------------------------------------------------------------
 " ----------------------------------- ripgrep ----------------------------------
-" use rp to search through ripgrep with smartcase enabled -S
+" ------------------------------------------------------------------------------
+" use rg to search through ripgrep with smartcase enabled -S
 let g:rg_command = 'rg --vimgrep -S'
+let g:rg_highlight = 'true'
 
+" ------------------------------------------------------------------------------
 " ------------------------------------ CtrlP -----------------------------------
+" ------------------------------------------------------------------------------
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
-let g:ctrlp_user_command = 'find %s -type f'        " MacOSX/Linux
-" let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d'  " Windows
+if has('win32')
+  let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d' " Windows
+else
+  let g:ctrlp_user_command = 'find %s -type f' " MacOSX/Linux
+endif
 
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
@@ -395,14 +455,20 @@ if executable('rg')
 endif
 " let g:ctrlp_max_files=0
 
+" ------------------------------------------------------------------------------
 " ------------------------------- Indent Guides --------------------------------
+" ------------------------------------------------------------------------------
 let g:indent_guides_guide_size = 1
 
-" ---------------------------------- Emmet -------------------------------------
+" ------------------------------------------------------------------------------
+" ----------------------------------- Emmet ------------------------------------
+" ------------------------------------------------------------------------------
 let g:user_emmet_leader_key='<Tab>'
 let g:user_emmet_setting = { 'javascript.jsx' : { 'extends': 'jsx', }, }
 
-" ----------------------------------- Ale --------------------------------------
+" ------------------------------------------------------------------------------
+" ------------------------------------ Ale -------------------------------------
+" ------------------------------------------------------------------------------
 " highlight clear ALEErrorSign " otherwise uses error bg color (typically red)
 " highlight clear ALEWarningSign " otherwise uses error bg color (typically red)
 
@@ -411,6 +477,8 @@ let g:user_emmet_setting = { 'javascript.jsx' : { 'extends': 'jsx', }, }
 
 " let g:ale_sign_error = 'X'
 " let g:ale_sign_warning = '!'
+
+"📄💡"🚸📄💡⚠️❌▲✘
 
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_filetype_changed = 0
@@ -444,7 +512,9 @@ function! LinterStatus() abort
         \)
 endfunction
 
-" ----------------------------------- COC --------------------------------------
+" ------------------------------------------------------------------------------
+" ------------------------------------ COC -------------------------------------
+" ------------------------------------------------------------------------------
 " https://github.com/neoclide/coc.nvim/wiki/Using-coc-extensions
 
 function! s:check_back_space() abort
@@ -484,7 +554,7 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " ==============================================================================
-" ============================ Keyboard Shortcuts ==============================
+" ================================== Mappings ==================================
 " ==============================================================================
 " map vs noremap
 "
@@ -526,15 +596,27 @@ nnoremap <silent> <leader><space> :nohlsearch<CR>
 " open terminal
 nnoremap <silent> <leader>t :wincmd b \| bel terminal<CR>
 
-" -------------------------- Navigating between tabs ---------------------------
+" ------------------------------------------------------------------------------
+" --------------------------- Navigating between tabs --------------------------
+" ------------------------------------------------------------------------------
 nmap <silent> ]t :tabnext<CR>
 nmap <silent> [t :tabprevious<CR>
 nmap <silent> ]T :tabfirst<CR>
 nmap <silent> [T :tablast<CR>
 
-" ------------------------- Navigating between buffer --------------------------
+" ------------------------------------------------------------------------------
+" ------------------------ Navigating the quickfix list ------------------------
+" ------------------------------------------------------------------------------
+nmap <silent> ]q :cnext<CR>zv
+nmap <silent> [q :cprevious<CR>zv
+nmap <silent> ]Q :cfirst<CR>zv
+nmap <silent> [Q :clast<CR>zv
+
+" ------------------------------------------------------------------------------
+" -------------------------- Navigating between buffer -------------------------
+" ------------------------------------------------------------------------------
 " List buffer and prepare (buffer switch)
-nnoremap <Leader>bs :ls<CR>:b<Space>
+" nnoremap <Leader>bs :ls<CR>:b<Space>
 
 " Delete all buffers but current (buffer only)
 nnoremap <silent> <Leader>bo :%bd\|e#\|bd# <CR>
@@ -542,31 +624,15 @@ nnoremap <silent> <Leader>bo :%bd\|e#\|bd# <CR>
 nmap <silent> ]b :bnext<CR>
 nmap <silent> [b :bprevious<CR>
 
+" ------------------------------------------------------------------------------
 " ------------------------------ Change fontsize -------------------------------
+" ------------------------------------------------------------------------------
 nnoremap <silent> <leader>= :call FontScaleUp()<CR>
 nnoremap <silent> <leader>- :call FontScaleDown()<CR>
 
-" ----------------------------------- NetRW ------------------------------------
-nnoremap <silent> - :Explore<CR>
-nnoremap <silent> _ :Ntree<CR>
-
-" ---------------------------------- Vim clap ----------------------------------
-" nnoremap <silent> <leader>f :Clap<CR>
-
-" ------------------------------------ CtrlP -----------------------------------
-" Open fuzzy search filename
-" nmap <silent> <leader>f :CtrlP<CR>
-
-" Open fuzzy search most recent files
-" nmap <silent> <leader>r :CtrlPMRU<CR>
-
-" Open fuzzy search buffers
-" nmap <silent> <leader>b :CtrlPBuffer<CR>
-"
-" Open fuzzy search tags
-" nmap <silent> <leader>b :CtrlPTag<CR>
-
+" ------------------------------------------------------------------------------
 " ------------------------ Edit file in same repository ------------------------
+" ------------------------------------------------------------------------------
 " nmap <leader>ew :e <C-R>=expand("%:p:h") . "/" <CR>
 " nmap <leader>es :sp <C-R>=expand("%:p:h") . "/" <CR>
 " nmap <leader>ev :vsp <C-R>=expand("%:p:h") . "/" <CR>
@@ -584,22 +650,71 @@ nnoremap <silent> _ :Ntree<CR>
 " Open explorer in new tab
 " nnoremap <silent> <leader>et :Texplore <CR>
 
-" ------------------------ Navigating the quickfix list ------------------------
-nmap <silent> ]q :cnext<CR>zv
-nmap <silent> [q :cprevious<CR>zv
-nmap <silent> ]Q :cfirst<CR>zv
-nmap <silent> [Q :clast<CR>zv
+" ------------------------------------------------------------------------------
+" ----------------------------------- NetRW ------------------------------------
+" ------------------------------------------------------------------------------
+" Toggle Vexplore
+" function! ToggleVExplorer()
+"   if exists("t:expl_buf_num")
+"     let expl_win_num = bufwinnr(t:expl_buf_num)
+"     let cur_win_num = winnr()
 
-" ------------------------------------ ALE -------------------------------------
-nnoremap <silent> <leader>af :ALEFix<CR>
-nmap <silent> ]e <Plug>(ale_next_wrap)
-nmap <silent> [e <Plug>(ale_previous_wrap)
+"     if expl_win_num != -1
+"       while expl_win_num != cur_win_num
+"         exec "wincmd w"
+"         let cur_win_num = winnr()
+"       endwhile
 
-" --------------------------------- Git Gutter ---------------------------------
-nnoremap <silent> ]h :GitGutterNextHunk<CR>
-nnoremap <silent> [h :GitGutterPrevHunk<CR>
+"       close
+"     endif
 
+"     unlet t:expl_buf_num
+"   else
+"     Vexplore
+"     let t:expl_buf_num = bufnr("%")
+"   endif
+" endfunction
+
+" Open exlorer in sidebar
+" map <silent> <leader>n :call ToggleVExplorer()<CR>
+
+" Open parent directory
+nnoremap <silent> - :Explore<CR>
+
+" Open root directory
+nnoremap <silent> _ :Ntree<CR>
+
+" ------------------------------------------------------------------------------
+" --------------------------------- Auto Pairs ---------------------------------
+" ------------------------------------------------------------------------------
+" inoremap " ""<left>
+" inoremap ' ''<left>
+" inoremap ` ``<left>
+" inoremap ( ()<left>
+" inoremap (<CR> (<CR>)<ESC>O
+" inoremap [ []<left>
+" inoremap [<CR> [<CR>]<ESC>O
+" inoremap { {}<left>
+" inoremap {<CR> {<CR>}<ESC>O
+
+" ------------------------------------------------------------------------------
+" ----------- Visually select text then press ~ to change text case ------------
+" ------------------------------------------------------------------------------
+function! TwiddleCase(str)
+  if a:str ==# toupper(a:str)
+    let result = tolower(a:str)
+  elseif a:str ==# tolower(a:str)
+    let result = substitute(a:str,'\(\<\w\+\>\)', '\u\1', 'g')
+  else
+    let result = toupper(a:str)
+  endif
+  return result
+endfunction
+vnoremap ~ y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
+
+" ------------------------------------------------------------------------------
 " ---- Move current line or selected block up and down with Alt+j and Alt+k ----
+" ------------------------------------------------------------------------------
 nnoremap <M-j> :m .+1<CR>==
 nnoremap <M-k> :m .-2<CR>==
 inoremap <M-j> <Esc>:m .+1<CR>==gi
@@ -607,7 +722,48 @@ inoremap <M-k> <Esc>:m .-2<CR>==gi
 vnoremap <M-j> :m '>+1<CR>gv=gv
 vnoremap <M-k> :m '<-2<CR>gv=gv
 
+" ------------------------------------------------------------------------------
+" ----------------------------------- Popups -----------------------------------
+" ------------------------------------------------------------------------------
+nnoremap <leader>cd :call popup_clear() <CR>
+
+" ------------------------------------------------------------------------------
+" ---------------------------------- Vim clap ----------------------------------
+" ------------------------------------------------------------------------------
+nnoremap <silent> <leader>f :Clap<CR>
+nnoremap <Leader>bs :Clap buffers<CR>
+
+" ------------------------------------------------------------------------------
+" ------------------------------------ CtrlP -----------------------------------
+" ------------------------------------------------------------------------------
+" Open fuzzy search filename
+" nmap <silent> <leader>f :CtrlP<CR>
+
+" Open fuzzy search most recent files
+" nmap <silent> <leader>r :CtrlPMRU<CR>
+
+" Open fuzzy search buffers
+" nmap <silent> <leader>b :CtrlPBuffer<CR>
+"
+" Open fuzzy search tags
+" nmap <silent> <leader>b :CtrlPTag<CR>
+
+" ------------------------------------------------------------------------------
+" ------------------------------------ ALE -------------------------------------
+" ------------------------------------------------------------------------------
+nnoremap <silent> <leader>af :ALEFix<CR>
+nmap <silent> ]e <Plug>(ale_next_wrap)
+nmap <silent> [e <Plug>(ale_previous_wrap)
+
+" ------------------------------------------------------------------------------
+" --------------------------------- Git Gutter ---------------------------------
+" ------------------------------------------------------------------------------
+nnoremap <silent> ]h :GitGutterNextHunk<CR>
+nnoremap <silent> [h :GitGutterPrevHunk<CR>
+
+" ------------------------------------------------------------------------------
 " ------------------------------------ COC -------------------------------------
+" ------------------------------------------------------------------------------
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
@@ -683,39 +839,6 @@ nnoremap <silent> <leader>ck  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <leader>cp  :<C-u>CocListResume<CR>
 
-" --------------------------------- Auto Pairs ---------------------------------
-" inoremap " ""<left>
-" inoremap ' ''<left>
-" inoremap ` ``<left>
-" inoremap ( ()<left>
-" inoremap (<CR> (<CR>)<ESC>O
-" inoremap [ []<left>
-" inoremap [<CR> [<CR>]<ESC>O
-" inoremap { {}<left>
-" inoremap {<CR> {<CR>}<ESC>O
-
-" ----------- Visually select text then press ~ to change text case ------------
-function! TwiddleCase(str)
-  if a:str ==# toupper(a:str)
-    let result = tolower(a:str)
-  elseif a:str ==# tolower(a:str)
-    let result = substitute(a:str,'\(\<\w\+\>\)', '\u\1', 'g')
-  else
-    let result = toupper(a:str)
-  endif
-  return result
-endfunction
-vnoremap ~ y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
-
-" ------------------------------ Miscellaneous ---------------------------------
-nnoremap <leader>cd :call popup_clear() <CR>
-
-" ==============================================================================
-" =================================== Macro ====================================
-" ==============================================================================
-" Activating builtin macro matchit to enable jump in xml/html tags
-runtime macros/matchit.vim
-
 " ==============================================================================
 " =============================== Abbreviations ================================
 " ==============================================================================
@@ -726,21 +849,3 @@ runtime macros/matchit.vim
 "   \ ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget,
 "   \ tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
 "   \ ultricies mi vitae est. Mauris placerat eleifend leo.
-
-" ==============================================================================
-" ============================ Miscellaneous Stuff =============================
-" ==============================================================================
-" will automatically open the quickfix window whenever you do :vimgrep or other
-" commands that populate the quickfix/location list
-augroup qf
-    autocmd!
-    autocmd QuickFixCmdPost [^l]* cwindow
-    autocmd QuickFixCmdPost l*    cwindow
-    autocmd VimEnter        *     cwindow
-augroup END
-
-" noremap <Leader>y "*y
-" noremap <Leader>p "*p
-" noremap <Leader>Y "+y
-" noremap <Leader>P "+p
-
