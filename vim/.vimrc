@@ -715,6 +715,9 @@ vnoremap ~ y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
 " ------------------------------------------------------------------------------
 " ---- Move current line or selected block up and down with Alt+j and Alt+k ----
 " ------------------------------------------------------------------------------
+execute "set <M-j>=\ej"
+execute "set <M-k>=\ek"
+
 nnoremap <M-j> :m .+1<CR>==
 nnoremap <M-k> :m .-2<CR>==
 inoremap <M-j> <Esc>:m .+1<CR>==gi
@@ -731,6 +734,7 @@ nnoremap <leader>cd :call popup_clear() <CR>
 " ---------------------------------- Vim clap ----------------------------------
 " ------------------------------------------------------------------------------
 nnoremap <silent> <leader>f :Clap<CR>
+nnoremap <silent> <leader>F :Clap files<CR>
 nnoremap <Leader>bs :Clap buffers<CR>
 
 " ------------------------------------------------------------------------------
