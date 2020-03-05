@@ -4,7 +4,7 @@ You should have git and node installed in your machine.
 Run command below in your terminal if you are in mac or linux, for windows use git bash.
 ```sh
 rm -rf ~/.vim && \
-rm ~/.vimrc ~/.viminfo && \
+rm -f ~/.vimrc ~/.viminfo && \
 mkdir -p ~/.vim/autoload/ && \
 curl -o ~/.vimrc https://gitlab.com/tarunsharma20/dotfiles/raw/master/vim/.vimrc && \
 curl -o ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && \
