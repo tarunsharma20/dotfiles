@@ -1,29 +1,30 @@
 # Quick Start
-Open your terminal and run
+You should have git and node installed in your machine.
+
+Run command below in your terminal if you are in mac or linux, for windows use git bash.
 ```sh
-wget https://gitlab.com/tarunsharma20/dotfiles/raw/master/vim/.vimrc -P ~/
+rm -rf ~/.vim && \
+rm ~/.vimrc ~/.viminfo && \
+mkdir -p ~/.vim/autoload/ && \
+curl -o ~/.vimrc https://gitlab.com/tarunsharma20/dotfiles/raw/master/vim/.vimrc && \
+curl -o ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && \
+vim -c 'PlugInstall'
 ```
-It'll download .vimrc file in your home directory.
+It'll take some time to install plugins in your machine, close vim whenever you are done.
 
-Clone [vim-plug](https://github.com/junegunn/vim-plug/tree/0c5f0b0528a8d7b9ced56b8f177e98f0ba4d7153) to manage your vim plugins.
-```sh
-wget https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim ~/.vim/autoload/
+To improve search performance install [ripgrep](https://github.com/BurntSushi/ripgrep)
 ```
-
-To improve search performance use [ripgrep](https://github.com/BurntSushi/ripgrep)
-
-For UNIX
-```sh
-brew install ripgrep
-```
-
-For Windows
-```sh
-choco install ripgrep
+https://github.com/BurntSushi/ripgrep#installation
 ```
 
-Launch vim and run
-```sh
-:PluginInstall
+To fuzzy find files in vimclap install [fzf](https://github.com/junegunn/fzf). If you are in Windows machine avoid it
 ```
-Restart vim and you are done :)
+https://github.com/junegunn/fzf#installation
+```
+
+If you want to add language servers you can use command below or [click here](https://github.com/neoclide/coc.nvim/wiki/Using-coc-extensions) to find more info.
+```sh
+vim -c 'CocInstall coc-html coc-css coc-tsserver coc-json coc-xml coc-yaml'
+```
+
+You are done :)
