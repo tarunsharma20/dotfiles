@@ -493,7 +493,7 @@ let g:ale_linters = {
   \ 'javascript': ['eslint']
   \ }
 let g:ale_fixers = {
-  \ 'javascript': ['prettier']
+  \ 'javascript': ['eslint']
   \ }
 
 " Will keep gutter open for error sign
@@ -853,3 +853,19 @@ nnoremap <silent> <leader>cp  :<C-u>CocListResume<CR>
 "   \ ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget,
 "   \ tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
 "   \ ultricies mi vitae est. Mauris placerat eleifend leo.
+
+" ==============================================================================
+" ============================ Miscellaneous Stuff =============================
+" ==============================================================================
+
+"if has('win32')
+"  
+"elseif has('mac')
+"  
+"elseif has('unix')
+"  
+"endif
+"if has('nvim')
+"   "something for neovim
+"endif
+"
