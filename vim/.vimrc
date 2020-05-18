@@ -517,6 +517,8 @@ endfunction
 " ------------------------------------------------------------------------------
 " https://github.com/neoclide/coc.nvim/wiki/Using-coc-extensions
 
+" let g:coc_node_path = '~/.nvm/versions/node/v14.2.0/bin/npm'
+
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
@@ -579,7 +581,7 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " cmap / cnoremap / cunmap |    -   |   -    |    @    |   -    |   -    |    -     |
 "-----------------------------------------------------------------------------------"
 
-let mapleader=","
+let mapleader=" "
 
 " go to file in vertical split instead of same file
 " nnoremap gf :vertical wincmd f<CR>
@@ -588,7 +590,7 @@ let mapleader=","
 nnoremap gV '[v']
 
 " Space open/closes folds
-nnoremap <space> za
+" nnoremap <space> za
 
 " turn off search highlight
 nnoremap <silent> <leader><space> :nohlsearch<CR>
@@ -715,15 +717,20 @@ vnoremap ~ y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
 " ------------------------------------------------------------------------------
 " ---- Move current line or selected block up and down with Alt+j and Alt+k ----
 " ------------------------------------------------------------------------------
-execute "set <M-j>=\ej"
-execute "set <M-k>=\ek"
+" execute "set <M-j>=\ej"
+" execute "set <M-k>=\ek"
 
-nnoremap <M-j> :m .+1<CR>==
-nnoremap <M-k> :m .-2<CR>==
-inoremap <M-j> <Esc>:m .+1<CR>==gi
-inoremap <M-k> <Esc>:m .-2<CR>==gi
-vnoremap <M-j> :m '>+1<CR>gv=gv
-vnoremap <M-k> :m '<-2<CR>gv=gv
+" nnoremap <M-j> :move .+1<CR>==
+" nnoremap <M-k> :move .-2<CR>==
+" inoremap <M-j> <Esc>:move .+1<CR>==gi
+" inoremap <M-k> <Esc>:move .-2<CR>==gi
+" vnoremap <M-j> :move '>+1<CR>gv=gv
+" vnoremap <M-k> :move '<-2<CR>gv=gv
+
+nnoremap <space>j :move .+1<CR>==
+nnoremap <space>k :move .-2<CR>==
+vnoremap <space>j :move '>+1<CR>gv=gv
+vnoremap <space>k :move '<-2<CR>gv=gv
 
 " ------------------------------------------------------------------------------
 " ----------------------------------- Popups -----------------------------------
@@ -735,6 +742,7 @@ nnoremap <leader>cd :call popup_clear() <CR>
 " ------------------------------------------------------------------------------
 nnoremap <silent> <leader>f :Clap<CR>
 nnoremap <silent> <leader>F :Clap files<CR>
+nnoremap <silent> <leader>/ :Clap grep<CR>
 nnoremap <Leader>bs :Clap buffers<CR>
 
 " ------------------------------------------------------------------------------
