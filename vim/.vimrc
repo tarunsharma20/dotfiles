@@ -22,7 +22,6 @@ Plug 'godlygeek/tabular'
 Plug 'ap/vim-buftabline'
 Plug 'tpope/vim-commentary'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 
 " ------------------------------------------------------------------------------
 " -------------------------------- Color Scheme --------------------------------
@@ -56,7 +55,8 @@ Plug 'prettier/vim-prettier'
 " ------------------------------ File Management -------------------------------
 " ------------------------------------------------------------------------------
 Plug 'jremmen/vim-ripgrep'
-Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'ctrlpvim/ctrlp.vim'
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 
 " ------------------------------------------------------------------------------
 " ------------------------------------ Git -------------------------------------
@@ -434,26 +434,26 @@ let g:rg_highlight = 'true'
 " ------------------------------------------------------------------------------
 " ------------------------------------ CtrlP -----------------------------------
 " ------------------------------------------------------------------------------
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
+" let g:ctrlp_map = '<c-p>'
+" let g:ctrlp_cmd = 'CtrlP'
 
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+" let g:ctrlp_working_path_mode = 'ra'
+" let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
-if has('win32')
-  let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d' " Windows
-else
-  let g:ctrlp_user_command = 'find %s -type f' " MacOSX/Linux
-endif
+" if has('win32')
+"   let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d' " Windows
+" else
+"   let g:ctrlp_user_command = 'find %s -type f' " MacOSX/Linux
+" endif
 
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+" let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
-" Using ripgrep if avaliable
-if executable('rg')
-  let g:ctrlp_user_command = 'rg -F --files %s'
-  let g:ctrlp_use_caching = 0
-endif
-" let g:ctrlp_max_files=0
+" " Using ripgrep if avaliable
+" if executable('rg')
+"   let g:ctrlp_user_command = 'rg -F --files %s'
+"   let g:ctrlp_use_caching = 0
+" endif
+" " let g:ctrlp_max_files=0
 
 " ------------------------------------------------------------------------------
 " ------------------------------- Indent Guides --------------------------------
@@ -469,16 +469,16 @@ let g:user_emmet_setting = { 'javascript.jsx' : { 'extends': 'jsx', }, }
 " ------------------------------------------------------------------------------
 " ------------------------------------ Ale -------------------------------------
 " ------------------------------------------------------------------------------
-" highlight clear ALEErrorSign " otherwise uses error bg color (typically red)
-" highlight clear ALEWarningSign " otherwise uses error bg color (typically red)
+highlight clear ALEErrorSign " otherwise uses error bg color (typically red)
+highlight clear ALEWarningSign " otherwise uses error bg color (typically red)
 
 " highlight ALEErrorSign ctermfg=9 ctermbg=NONE guifg=#C30500 guibg=NONE
 " highlight ALEWarningSign ctermfg=11 ctermbg=NONE guifg=#ED6237 guibg=NONE
 
-" let g:ale_sign_error = 'X'
-" let g:ale_sign_warning = '!'
+let g:ale_sign_error = '❌'
+let g:ale_sign_warning = '🚸'
 
-"📄💡"🚸📄💡⚠️❌▲✘
+"📄💡"📄💡▲✘⚠️!X
 
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_filetype_changed = 0
@@ -740,9 +740,11 @@ nnoremap <leader>cd :call popup_clear() <CR>
 " ------------------------------------------------------------------------------
 " ---------------------------------- Vim clap ----------------------------------
 " ------------------------------------------------------------------------------
-nnoremap <silent> <leader>f :Clap<CR>
-nnoremap <silent> <leader>F :Clap files<CR>
+nnoremap <silent> <leader>F :Clap<CR>
+nnoremap <silent> <leader>f :Clap files<CR>
 nnoremap <silent> <leader>/ :Clap grep<CR>
+nnoremap <silent> <leader>* :Clap grep ++query=<cword><CR>
+vnoremap <silent> <leader>* :Clap grep ++query=@visual<CR>
 nnoremap <Leader>bs :Clap buffers<CR>
 
 " ------------------------------------------------------------------------------
