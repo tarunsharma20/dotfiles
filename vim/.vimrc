@@ -174,6 +174,11 @@ set smarttab
 " ------------------------------------------------------------------------------
 " --------------------------------- Status Bar ---------------------------------
 " ------------------------------------------------------------------------------
+function! ShowNewline() abort
+  let s:newline_labels = {'unix': 'LF', 'mac': 'CR', 'dos': 'CRLF'}
+  return get(s:newline_labels, &fileformat, &fileformat)
+endfunction
+
 set statusline=
 
 set statusline+=%#DiffAdd#%{(mode()=='n')?'\ \ NORMAL\ ':''}
@@ -188,12 +193,9 @@ set statusline+=\ %h%m%r%w
 set statusline+=%=
 
 set statusline+=\ %{strlen(&ft)?&ft:'none'}
-set statusline+=\ \|
-set statusline+=\ %{&fileformat}
-set statusline+=[
-set statusline+=%{strlen(&fileencoding)?&fileencoding:&encoding}
-set statusline+=]
-set statusline+=\ %{&expandtab?'Spaces':'Tab'}
+set statusline+=\ \ %{ShowNewline()}
+set statusline+=\ \ %{strlen(&fileencoding)?toupper(&fileencoding):toupper(&encoding)}
+set statusline+=\ \ %{&expandtab?'Spaces':'Tab'}
 set statusline+=:
 set statusline+=%{shiftwidth()}
 " set statusline+=\ \|
@@ -206,12 +208,9 @@ set statusline+=%{shiftwidth()}
 " set statusline+=\ Lines
 " set statusline+=\ \|
 " set statusline+=\ %p%%
-set statusline+=\ \|
-set statusline+=\ %l:%c
-set statusline+=\ \|
-set statusline+=\ %{LinterStatus()}
-set statusline+=\ 
-set statusline+=%#Visual#
+set statusline+=\ \ %l:%c
+set statusline+=\ \ %{LinterStatus()}
+set statusline+=\ %#Visual#
 set statusline+=%{strlen(FugitiveHead())?'\ '.FugitiveHead().'\ ':''}
 set statusline+=%*
 
