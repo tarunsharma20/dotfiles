@@ -186,8 +186,8 @@ set statusline+=%#DiffChange#%{(mode()=='i')?'\ \ INSERT\ ':''}
 set statusline+=%#DiffDelete#%{(mode()=='r')?'\ \ REPLACE\ ':''}
 set statusline+=%#Visual#%{(mode()=='v:')?'\ \ VISUAL\ ':''}
 set statusline+=%#Cursor#
-" set statusline+=\ %t
-set statusline+=\ %f
+set statusline+=\ %t
+" set statusline+=\ %f
 set statusline+=\ %h%m%r%w
 
 set statusline+=%=
@@ -195,9 +195,9 @@ set statusline+=%=
 set statusline+=\ %{strlen(&ft)?&ft:'none'}
 set statusline+=\ \ %{ShowNewline()}
 set statusline+=\ \ %{strlen(&fileencoding)?toupper(&fileencoding):toupper(&encoding)}
-set statusline+=\ \ %{&expandtab?'Spaces':'Tab'}
-set statusline+=:
-set statusline+=%{shiftwidth()}
+" set statusline+=\ \ %{&expandtab?'Spaces':'Tab'}
+" set statusline+=:
+" set statusline+=%{shiftwidth()}
 " set statusline+=\ \|
 " set statusline+=\ Ln:
 " set statusline+=%l
