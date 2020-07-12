@@ -19,7 +19,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'Yggdroot/indentLine'
 Plug 'mattn/emmet-vim'
 Plug 'godlygeek/tabular'
-Plug 'ap/vim-buftabline'
+" Plug 'ap/vim-buftabline'           " Shows only buffers in tabline
+Plug 'pacha/vem-tabline'             " Shows buffers as well as tabs in tabline
 Plug 'tpope/vim-commentary'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
@@ -63,6 +64,7 @@ Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 " ------------------------------------------------------------------------------
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
+Plug 'junegunn/gv.vim'
 
 call plug#end()
 
