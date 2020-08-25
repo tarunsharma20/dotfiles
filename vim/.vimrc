@@ -230,7 +230,7 @@ autocmd BufEnter * let &titlestring = ' ' . expand("%:f") . ' - ' . fnamemodify(
 " ------------------------------------------------------------------------------
 " ------------------------------ Font Name & Size ------------------------------
 " ------------------------------------------------------------------------------
-" let g:fnt_name = 'Menlo'
+" let g:fnt_name = 'Fira\ Code'
 " let g:fnt_size = 13
 " set guifont=Menlo:h11    " Set font for GUI
 
@@ -269,6 +269,7 @@ function! FontScaleDown ()
 endfunction
 
 call SetFont()
+set macligatures  " Enable font ligatures in MacVim
 
 " ------------------------------------------------------------------------------
 " -------------------------------- Color Scheme --------------------------------
@@ -522,7 +523,7 @@ endfunction
 " ------------------------------------------------------------------------------
 " https://github.com/neoclide/coc.nvim/wiki/Using-coc-extensions
 
-" let g:coc_node_path = '~/.nvm/versions/node/v14.2.0/bin/npm'
+" let g:coc_node_path = '/Users/yourname/.nvm/versions/node/v14.8.0/bin/node'
 
 function! s:check_back_space() abort
   let col = col('.') - 1
