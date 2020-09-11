@@ -106,10 +106,11 @@ set history=1000          " Number of lines history to remember
 set visualbell " Turn off sounds
 set ttyfast    " Speed up scrolling in vim buffer
 set lazyredraw " Don't redraw while running macros in buffer
-set hidden     " Switch between buffers buffers without save files
+set hidden     " Switch between buffers without save files
 
 set noshowmode " Hide vim mode text from last line
 
+" set autowrite        " Automatically :write
 set autoread         " Autoupdate when file changed from outside
 set ffs=unix,dos,mac " Use Unix as the standard file type
 
@@ -141,7 +142,7 @@ augroup END
 set ruler        " Always show cursor position
 set rulerformat=%=%h%m%r%w\ %(%c%V%),%l/%L\ %P
 set showmode     " Show the current mode
-set showcmd      " Show the last used command at bottom right of VIM
+set showcmd      " Show the last/incomplete command at bottom right of VIM
 set cmdheight=1  " Height of commandbar
 set laststatus=2 " Always show status line
 
