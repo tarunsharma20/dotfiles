@@ -231,7 +231,7 @@ autocmd BufEnter * let &titlestring = ' ' . expand("%:f") . ' - ' . fnamemodify(
 " ------------------------------ Font Name & Size ------------------------------
 " ------------------------------------------------------------------------------
 " let g:fnt_name = 'Fira\ Code'
-" let g:fnt_size = 13
+" let g:fnt_size = 15
 " set guifont=Menlo:h11    " Set font for GUI
 
 if has("gui_running")
@@ -240,7 +240,7 @@ if has("gui_running")
     let g:fnt_size = 12
   elseif has("gui_macvim")
     let g:fnt_name = 'Menlo\ Regular'
-    let g:fnt_size = 13
+    let g:fnt_size = 15
   elseif has("gui_win32")
     " let g:fnt_name = 'Consolas'
     let g:fnt_name = 'Menlo'
