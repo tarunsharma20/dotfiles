@@ -640,26 +640,6 @@ nnoremap <silent> <leader>= :call FontScaleUp()<CR>
 nnoremap <silent> <leader>- :call FontScaleDown()<CR>
 
 " ------------------------------------------------------------------------------
-" ------------------------ Edit file in same repository ------------------------
-" ------------------------------------------------------------------------------
-" nmap <leader>ew :e <C-R>=expand("%:p:h") . "/" <CR>
-" nmap <leader>es :sp <C-R>=expand("%:p:h") . "/" <CR>
-" nmap <leader>ev :vsp <C-R>=expand("%:p:h") . "/" <CR>
-" nmap <leader>et :tabe <C-R>=expand("%:p:h") . "/" <CR>
-
-" Open explorer in same window
-" nnoremap <silent> <leader>ew :Explore <CR> 
-
-" Open explorer in horizontal split window
-" nnoremap <silent> <leader>es :Sexplore <CR>
-
-" Open explorer in vertical split window
-" nnoremap <silent> <leader>ev :Vexplore <CR>
-
-" Open explorer in new tab
-" nnoremap <silent> <leader>et :Texplore <CR>
-
-" ------------------------------------------------------------------------------
 " ----------------------------------- NetRW ------------------------------------
 " ------------------------------------------------------------------------------
 " Toggle Vexplore
@@ -724,16 +704,6 @@ vnoremap ~ y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
 " ------------------------------------------------------------------------------
 " ---- Move current line or selected block up and down with Alt+j and Alt+k ----
 " ------------------------------------------------------------------------------
-" execute "set <M-j>=\ej"
-" execute "set <M-k>=\ek"
-
-" nnoremap <M-j> :move .+1<CR>==
-" nnoremap <M-k> :move .-2<CR>==
-" inoremap <M-j> <Esc>:move .+1<CR>==gi
-" inoremap <M-k> <Esc>:move .-2<CR>==gi
-" vnoremap <M-j> :move '>+1<CR>gv=gv
-" vnoremap <M-k> :move '<-2<CR>gv=gv
-
 nnoremap <space>j :move .+1<CR>==
 nnoremap <space>k :move .-2<CR>==
 vnoremap <space>j :move '>+1<CR>gv=gv
