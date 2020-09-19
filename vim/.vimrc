@@ -593,6 +593,10 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 
 let mapleader="\<Space>"
 
+" ------------------------------------------------------------------------------
+" -------------------------------- Miscellaneous -------------------------------
+" ------------------------------------------------------------------------------
+
 " Disabling arrow keys
 nmap <Up>    <Nop>
 nmap <Down>  <Nop>
@@ -617,6 +621,12 @@ nnoremap <silent> <leader><space> :nohlsearch<CR>
 
 " open terminal
 nnoremap <silent> <leader>t :wincmd b \| bel terminal<CR>
+
+" Change word under cursor in file with dot and skip with n
+nnoremap <leader>c* *``cgn
+
+" Same as above but in reverse order
+nnoremap <leader>c# *``cgN
 
 " ------------------------------------------------------------------------------
 " -------------------------------- Split window --------------------------------
@@ -902,18 +912,16 @@ nnoremap <silent> <leader>cp  :<C-u>CocListResume<CR>
 " ==============================================================================
 
 "if has('win32')
-"  
+  " windows
 "elseif has('mac')
-"  
+  " for mac user
 "elseif has('unix')
-"  
+  " for unix
 "endif
 "if has('nvim')
-"   "something for neovim
+  " for neovim
 "endif
 
-" nnoremap <Leader>x *``cgn
-" nnoremap <Leader>X #``cgN
 " noremap d "_d
 " noremap c "_c
 " noremap r d
