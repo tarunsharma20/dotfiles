@@ -270,7 +270,10 @@ function! FontScaleDown ()
 endfunction
 
 call SetFont()
-set macligatures  " Enable font ligatures in MacVim
+
+if has("mac") || has("macunix")
+  set macligatures  " Enable font ligatures in MacVim
+endif
 
 " ------------------------------------------------------------------------------
 " -------------------------------- Color Scheme --------------------------------
@@ -588,7 +591,17 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " cmap / cnoremap / cunmap |    -   |   -    |    @    |   -    |   -    |    -     |
 "-----------------------------------------------------------------------------------"
 
-let mapleader=" "
+let mapleader="\<Space>"
+
+" Disabling arrow keys
+nmap <Up>    <Nop>
+nmap <Down>  <Nop>
+nmap <Left>  <Nop>
+nmap <Right> <Nop>
+vmap <Up>    <Nop>
+vmap <Down>  <Nop>
+vmap <Left>  <Nop>
+vmap <Right> <Nop>
 
 " go to file in vertical split instead of same file
 " nnoremap gf :vertical wincmd f<CR>
@@ -604,6 +617,49 @@ nnoremap <silent> <leader><space> :nohlsearch<CR>
 
 " open terminal
 nnoremap <silent> <leader>t :wincmd b \| bel terminal<CR>
+
+" ------------------------------------------------------------------------------
+" -------------------------------- Split window --------------------------------
+" ------------------------------------------------------------------------------
+" Move cursor to right window
+nnoremap <C-l> <C-w>l
+
+" Move cursor to left window
+nnoremap <C-h> <C-w>h
+
+" Move cursor to window below
+nnoremap <C-j> <C-w>j
+
+" Move cursor to window top
+nnoremap <C-k> <C-w>k
+
+" Scale horizontal split window by 3 rows
+if has("gui_macvim")
+  nnoremap <silent> <D-Up> :resize +3<cr>
+else
+  nnoremap <silent> <C-Up> :resize +3<cr>
+endif
+
+" Scale down horizontal split window by 3 rows
+if has("gui_macvim")
+  nnoremap <silent> <D-Down> :resize -3<cr>
+else
+  nnoremap <silent> <C-Down> :resize -3<cr>
+endif
+
+" Scale vertical split window by 3 rows
+if has("gui_macvim")
+  nnoremap <silent> <D-Right> :vertical resize +3<cr>
+else
+  nnoremap <silent> <C-Right> :vertical resize +3<cr>
+endif
+
+" Scale down vertical split window by 3 rows
+if has("gui_macvim")
+  nnoremap <silent> <D-Left> :vertical resize -3<cr>
+else
+  nnoremap <silent> <C-Left> :vertical resize -3<cr>
+endif
 
 " ------------------------------------------------------------------------------
 " --------------------------- Navigating between tabs --------------------------
@@ -704,10 +760,10 @@ vnoremap ~ y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
 " ------------------------------------------------------------------------------
 " ---- Move current line or selected block up and down with Alt+j and Alt+k ----
 " ------------------------------------------------------------------------------
-nnoremap <space>j :move .+1<CR>==
-nnoremap <space>k :move .-2<CR>==
-vnoremap <space>j :move '>+1<CR>gv=gv
-vnoremap <space>k :move '<-2<CR>gv=gv
+nnoremap <silent> <leader>j :move .+1<CR>==
+nnoremap <silent> <leader>k :move .-2<CR>==
+vnoremap <silent> <leader>j :move '>+1<CR>gv=gv
+vnoremap <silent> <leader>k :move '<-2<CR>gv=gv
 
 " ------------------------------------------------------------------------------
 " ----------------------------------- Popups -----------------------------------
@@ -855,4 +911,10 @@ nnoremap <silent> <leader>cp  :<C-u>CocListResume<CR>
 "if has('nvim')
 "   "something for neovim
 "endif
-"
+
+" nnoremap <Leader>x *``cgn
+" nnoremap <Leader>X #``cgN
+" noremap d "_d
+" noremap c "_c
+" noremap r d
+" nnoremap <silent> <C-x><C-=> :call FontScaleUp()<CR>
