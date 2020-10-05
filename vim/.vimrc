@@ -19,10 +19,9 @@ call plug#begin('~/.vim/plugged')
 Plug 'Yggdroot/indentLine'
 Plug 'mattn/emmet-vim'
 Plug 'godlygeek/tabular'
-" Plug 'ap/vim-buftabline'           " Shows only buffers in tabline
-Plug 'pacha/vem-tabline'             " Shows buffers as well as tabs in tabline
+Plug 'ap/vim-buftabline'           " Shows only buffers in tabline
+" Plug 'pacha/vem-tabline'             " Shows buffers as well as tabs in tabline
 Plug 'tpope/vim-commentary'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " ------------------------------------------------------------------------------
 " -------------------------------- Color Scheme --------------------------------
@@ -41,6 +40,14 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'haishanh/night-owl.vim'              " night-owl
 
 " ------------------------------------------------------------------------------
+" ------------------------------------ LSP -------------------------------------
+" ------------------------------------------------------------------------------
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
+" ------------------------------------------------------------------------------
 " ---------------------------- Syntax Highlighting -----------------------------
 " ------------------------------------------------------------------------------
 Plug 'sheerun/vim-polyglot'
@@ -55,9 +62,11 @@ Plug 'prettier/vim-prettier'
 " ------------------------------------------------------------------------------
 " ------------------------------ File Management -------------------------------
 " ------------------------------------------------------------------------------
-Plug 'jremmen/vim-ripgrep'
+" Plug 'jremmen/vim-ripgrep'
 " Plug 'ctrlpvim/ctrlp.vim'
-Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
+" Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 " ------------------------------------------------------------------------------
 " ------------------------------------ Git -------------------------------------
@@ -103,10 +112,11 @@ scriptencoding utf-8
 
 set history=1000          " Number of lines history to remember
 
-set visualbell " Turn off sounds
-set ttyfast    " Speed up scrolling in vim buffer
-set lazyredraw " Don't redraw while running macros in buffer
-set hidden     " Switch between buffers without save files
+set visualbell       " Turn off sounds
+set ttyfast          " Speed up scrolling in vim buffer
+set lazyredraw       " Don't redraw while running macros in buffer
+" set redrawtime=10000 "The time in milliseconds for redrawing the display
+set hidden           " Switch between buffers without save files
 
 set noshowmode " Hide vim mode text from last line
 
@@ -324,10 +334,10 @@ set cursorline " Highlight  current line
 set wrap       " Turn on line wrapping.
 
 set list       " Show white space characters
+
 " Define symbols for listchars
-" set listchars=nbsp:¬,eol:¶,tab:¦-,extends:»,precedes:«,trail:·
+set listchars=nbsp:¤,eol:¶,tab:→\ ,extends:»,precedes:«,trail:·
 let &showbreak = '↳ '
-set listchars=nbsp:¬,eol:¶,tab:-→,extends:»,precedes:«,trail:•
 
 set guioptions-=m   " Show/Hide menu bar
 set guioptions-=T   " Show/Hide toolbar
@@ -395,7 +405,11 @@ set mouse=a                    " Enable mouse in all modes
 set backspace=indent,eol,start " Make backspace behave as it is
 
 " Omni completion provides smart autocompletion for program use <C-x><C-o>
+" <C-x><C-f> completes filepath, <C-x><C-]> completes based on tags,
+" <C-n> invokes keyword completion.
 " filetype plugin on
+" set completeopt=longest,menuone,menu
+" set completeopt=longest,menuone,menu,preview,popup
 " set omnifunc=syntaxcomplete#Complete
 
 " Time Vim waits after you stop typing before it triggers the plugin.
@@ -437,9 +451,34 @@ runtime macros/matchit.vim
 " ------------------------------------------------------------------------------
 " ----------------------------------- ripgrep ----------------------------------
 " ------------------------------------------------------------------------------
-" use rg to search through ripgrep with smartcase enabled -S
-let g:rg_command = 'rg --vimgrep -S'
-let g:rg_highlight = 'true'
+" " use rg to search through ripgrep with smartcase enabled -S
+" let g:rg_command = 'rg --vimgrep -S'
+" let g:rg_highlight = 'true'
+
+" ------------------------------------------------------------------------------
+" ------------------------------------- FZF ------------------------------------
+" ------------------------------------------------------------------------------
+let g:fzf_command_prefix = 'F'
+let $FZF_DEFAULT_OPTS = '--layout=reverse --info=inline'
+
+" Tell FZF to use Rg
+if executable('rg')
+  " --files — List files which ripgrep will search instead of searching them
+  " --hidden — Show hidden (.file) files
+  " --no-ignore-vcs — Show files ignored by your VCS
+  " --vimgrep — Results are returned on a single line in vimgrep format
+  let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
+endif
+
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+command! -nargs=* -bang FRG call RipgrepFzf(<q-args>, <bang>0)
+
 
 " ------------------------------------------------------------------------------
 " ------------------------------------ CtrlP -----------------------------------
@@ -488,7 +527,7 @@ highlight clear ALEWarningSign " otherwise uses error bg color (typically red)
 let g:ale_sign_error = '❌'
 let g:ale_sign_warning = '🚸'
 
-"📄💡"📄💡▲✘⚠️!X
+"📄💡"📄💡▲✘⚠️!X⚠✗✓
 
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_filetype_changed = 0
@@ -523,47 +562,57 @@ function! LinterStatus() abort
 endfunction
 
 " ------------------------------------------------------------------------------
-" ------------------------------------ COC -------------------------------------
+" ------------------------------------ LSP -------------------------------------
 " ------------------------------------------------------------------------------
-" https://github.com/neoclide/coc.nvim/wiki/Using-coc-extensions
-
-" let g:coc_node_path = '/Users/yourname/.nvm/versions/node/v14.8.0/bin/node'
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+function! s:on_lsp_buffer_enabled() abort
+  setlocal omnifunc=lsp#complete
+  setlocal signcolumn=yes
+  if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+  
+  nmap <buffer> <C-]> <plug>(lsp-definition)
+  nmap <buffer> <leader>cr <plug>(lsp-references)
+  nmap <buffer> <leader>ci <plug>(lsp-implementation)
+  nmap <buffer> <leader>t <plug>(lsp-type-definition)
+  nmap <buffer> <leader>rn <plug>(lsp-rename)
+  nmap <buffer> [d <Plug>(lsp-previous-diagnostic)
+  nmap <buffer> ]d <Plug>(lsp-next-diagnostic)
+  nmap <buffer> K <plug>(lsp-hover)
+  
+  " let the language server automatically handle folding for you
+  set foldmethod=expr
+    \ foldexpr=lsp#ui#vim#folding#foldexpr()
+    \ foldtext=lsp#ui#vim#folding#foldtext()
 endfunction
+  
+augroup lsp_install
+  au!
+  " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
 
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
+" let g:lsp_fold_enabled = 0                " To disable folding globally
+" let g:lsp_diagnostics_enabled = 0         " disable diagnostics support
 
-" Highlight symbol under cursor on CursorHold
-" autocmd CursorHold * silent call CocActionAsync('highlight')
+let g:lsp_signs_enabled = 1           " enable signs
+let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
 
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
+" let g:lsp_signs_error = {'text': '✗'}
+" let g:lsp_signs_warning = {'text': '‼', 'icon': '/path/to/some/icon'} " icons require GUI
+" let g:lsp_signs_hint = {'icon': '/path/to/some/other/icon'} " icons require GUI
 
-" Use `:Format` to format current buffer
-command! -nargs=0 Format :call CocAction('format')
+let g:lsp_signs_error = {'text': '✗'}
+let g:lsp_signs_warning = {'text': '⚠'} " icons require GUI
+let g:lsp_signs_hint = {'text': '💡'} " icons require GUI
 
-" Use `:Fold` to fold current buffer
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+" Disable highlighting diagnostics
+" let g:lsp_highlights_enabled = 0
+" let g:lsp_textprop_enabled = 0
 
-" use `:OR` for organize import of current buffer
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+" Highlight references to the symbol under the cursor
+let g:lsp_highlight_references_enabled = 1
 
-" Add status line support, for integration with other plugin, checkout `:h coc-status`
-" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+" To change the style of the highlighting
+" highlight lspReference ctermfg=red guifg=red ctermbg=green guibg=green
 
 " ==============================================================================
 " ================================== Mappings ==================================
@@ -778,7 +827,7 @@ vnoremap <silent> <leader>k :move '<-2<CR>gv=gv
 " ------------------------------------------------------------------------------
 " ----------------------------------- Popups -----------------------------------
 " ------------------------------------------------------------------------------
-nnoremap <leader>cd :call popup_clear() <CR>
+nnoremap <leader>cp :call popup_clear() <CR>
 
 " ------------------------------------------------------------------------------
 " ---------------------------------- Vim clap ----------------------------------
@@ -789,6 +838,17 @@ nnoremap <silent> <leader>/ :Clap grep<CR>
 nnoremap <silent> <leader>* :Clap grep ++query=<cword><CR>
 vnoremap <silent> <leader>* :Clap grep ++query=@visual<CR>
 nnoremap <Leader>bs :Clap buffers<CR>
+
+" ------------------------------------------------------------------------------
+" ------------------------------------ FZF -------------------------------------
+" ------------------------------------------------------------------------------
+nnoremap <leader>F :FFiles<CR>
+nnoremap <silent> <leader>/ :FRG<CR>
+" nnoremap <silent> <Leader>* :FRg <C-R><C-W><CR>
+nnoremap <silent> <Leader>* :exec "FRG ".expand("<cword>")<CR>
+nnoremap <Leader>fb :FBuffers<CR>
+nnoremap <Leader>fl :FLines<CR>
+nnoremap <Leader>fL :FBLines<CR>
 
 " ------------------------------------------------------------------------------
 " ------------------------------------ CtrlP -----------------------------------
@@ -817,84 +877,6 @@ nmap <silent> [e <Plug>(ale_previous_wrap)
 " ------------------------------------------------------------------------------
 nnoremap <silent> ]h :GitGutterNextHunk<CR>
 nnoremap <silent> [h :GitGutterPrevHunk<CR>
-
-" ------------------------------------------------------------------------------
-" ------------------------------------ COC -------------------------------------
-" ------------------------------------------------------------------------------
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-" Or use `complete_info` if your vim support it, like:
-" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" Remap keys for gotos
-nmap <silent> <c-]> <Plug>(coc-definition)
-nmap <silent> <leader>gd <Plug>(coc-definition)
-nmap <silent> <leader>gy <Plug>(coc-type-definition)
-nmap <silent> <leader>gi <Plug>(coc-implementation)
-nmap <silent> <leader>gr <Plug>(coc-references)
-
-" Use ,sd to show documentation in preview window
-nnoremap <silent> <leader>sd :call <SID>show_documentation()<CR>
-
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
-
-" Remap for format selected region
-" xmap <leader>f  <Plug>(coc-format-selected)
-" nmap <leader>f  <Plug>(coc-format-selected)
-
-" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-" xmap <leader>a  <Plug>(coc-codeaction-selected)
-" nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap for do codeAction of current line
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Fix autofix problem of current line
-nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Create mappings for function text object, requires document symbols feature of languageserver.
-" xmap if <Plug>(coc-funcobj-i)
-" xmap af <Plug>(coc-funcobj-a)
-" omap if <Plug>(coc-funcobj-i)
-" omap af <Plug>(coc-funcobj-a)
-
-" Use <TAB> for select selections ranges, needs server support, like: coc-tsserver, coc-python
-" nmap <silent> <TAB> <Plug>(coc-range-select)
-" xmap <silent> <TAB> <Plug>(coc-range-select)
-
-" Show all diagnostics
-nnoremap <silent> <leader>ca  :<C-u>CocList diagnostics<cr>
-" Manage extensions
-nnoremap <silent> <leader>ce  :<C-u>CocList extensions<cr>
-" Show commands
-nnoremap <silent> <leader>cc  :<C-u>CocList commands<cr>
-" Find symbol of current document
-nnoremap <silent> <leader>co  :<C-u>CocList outline<cr>
-" Search workspace symbols
-nnoremap <silent> <leader>cs  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent> <leader>cj  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent> <leader>ck  :<C-u>CocPrev<CR>
-" Resume latest coc list
-nnoremap <silent> <leader>cp  :<C-u>CocListResume<CR>
 
 " ==============================================================================
 " =============================== Abbreviations ================================
