@@ -12,19 +12,19 @@ vim -c 'PlugInstall'
 ```
 It'll take some time to install plugins in your machine, close vim whenever you are done.
 
-To improve search performance install [ripgrep](https://github.com/BurntSushi/ripgrep)
+To search files and text in files install [ripgrep](https://github.com/BurntSushi/ripgrep)
 ```
 https://github.com/BurntSushi/ripgrep#installation
 ```
 
-To fuzzy find files in vimclap install [fzf](https://github.com/junegunn/fzf). If you are in Windows machine avoid it
+To fuzzy find files install [fzf](https://github.com/junegunn/fzf).
 ```
 https://github.com/junegunn/fzf#installation
 ```
 
-If you want to add language servers you can use command below or [click here](https://github.com/neoclide/coc.nvim/wiki/Using-coc-extensions) to find more info.
+If you want syntax highlighting in preview of fzf install [BAT](https://github.com/sharkdp/bat)
 ```sh
-vim -c 'CocInstall coc-html coc-css coc-tsserver coc-json coc-xml coc-yaml'
+https://github.com/sharkdp/bat/#installation
 ```
 
 You are done :)
