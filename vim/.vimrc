@@ -19,7 +19,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'Yggdroot/indentLine'
 Plug 'mattn/emmet-vim'
 Plug 'godlygeek/tabular'
-Plug 'ap/vim-buftabline'           " Shows only buffers in tabline
+Plug 'ap/vim-buftabline'             " Shows only buffers in tabline
 " Plug 'pacha/vem-tabline'             " Shows buffers as well as tabs in tabline
 Plug 'tpope/vim-commentary'
 
@@ -37,7 +37,8 @@ Plug 'tpope/vim-commentary'
 " Plug 'arcticicestudio/nord-vim'            " nord
 " Plug 'cocopon/iceberg.vim'                 " iceberg
 " Plug 'flrnd/plastic.vim'                   " plastic (dark)
-Plug 'haishanh/night-owl.vim'              " night-owl
+" Plug 'haishanh/night-owl.vim'              " night-owl
+Plug 'tarunsharma20/witching-hour'         " witching-hour
 
 " ------------------------------------------------------------------------------
 " ------------------------------------ LSP -------------------------------------
@@ -63,8 +64,6 @@ Plug 'prettier/vim-prettier'
 " ------------------------------ File Management -------------------------------
 " ------------------------------------------------------------------------------
 " Plug 'jremmen/vim-ripgrep'
-" Plug 'ctrlpvim/ctrlp.vim'
-" Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
@@ -117,6 +116,10 @@ set ttyfast          " Speed up scrolling in vim buffer
 set lazyredraw       " Don't redraw while running macros in buffer
 " set redrawtime=10000 "The time in milliseconds for redrawing the display
 set hidden           " Switch between buffers without save files
+
+" Highlight syntax even in big file. It can make vim slow
+" syntax sync minlines=10000 " 10000 lines
+" syntax sync fromstart      " Complete file
 
 set noshowmode " Hide vim mode text from last line
 
@@ -199,6 +202,7 @@ set statusline+=%#DiffChange#%{(mode()=='i')?'\ \ INSERT\ ':''}
 set statusline+=%#DiffDelete#%{(mode()=='r')?'\ \ REPLACE\ ':''}
 set statusline+=%#Visual#%{(mode()=='v:')?'\ \ VISUAL\ ':''}
 set statusline+=%#Cursor#
+" set statusline+=%*
 set statusline+=\ %t
 " set statusline+=\ %f
 set statusline+=\ %h%m%r%w
@@ -303,7 +307,7 @@ set termguicolors     " enable true colors support
 " let ayucolor="mirage" " for mirage version of theme
 " let ayucolor="dark"   " for dark version of theme
 " colorscheme ayu
-colorscheme night-owl
+colorscheme witching-hour
 
 " let schemes = [
 "   \'one',
@@ -377,8 +381,8 @@ set wildignore+=*/node_modules/*,*/bower_components/*,*/build/*
 
 set ignorecase " Case-insensitive searching.
 set smartcase  " But case-sensitive if expression contains a capital letter
-set incsearch  " search as characters are entered
-set hlsearch   " highlight matches
+set incsearch  " Incremental search, search as characters are entered
+set hlsearch   " Highlight matches
 set magic      " Enable extended regexes.
 set gdefault   " /g flag on search by default
 "set noautocmd
@@ -479,31 +483,6 @@ function! RipgrepFzf(query, fullscreen)
 endfunction
 command! -nargs=* -bang FRG call RipgrepFzf(<q-args>, <bang>0)
 
-
-" ------------------------------------------------------------------------------
-" ------------------------------------ CtrlP -----------------------------------
-" ------------------------------------------------------------------------------
-" let g:ctrlp_map = '<c-p>'
-" let g:ctrlp_cmd = 'CtrlP'
-
-" let g:ctrlp_working_path_mode = 'ra'
-" let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-
-" if has('win32')
-"   let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d' " Windows
-" else
-"   let g:ctrlp_user_command = 'find %s -type f' " MacOSX/Linux
-" endif
-
-" let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-
-" " Using ripgrep if avaliable
-" if executable('rg')
-"   let g:ctrlp_user_command = 'rg -F --files %s'
-"   let g:ctrlp_use_caching = 0
-" endif
-" " let g:ctrlp_max_files=0
-
 " ------------------------------------------------------------------------------
 " ------------------------------- Indent Guides --------------------------------
 " ------------------------------------------------------------------------------
@@ -568,7 +547,7 @@ function! s:on_lsp_buffer_enabled() abort
   setlocal omnifunc=lsp#complete
   setlocal signcolumn=yes
   if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
-  
+
   nmap <buffer> <C-]> <plug>(lsp-definition)
   nmap <buffer> <leader>cr <plug>(lsp-references)
   nmap <buffer> <leader>ci <plug>(lsp-implementation)
@@ -577,13 +556,13 @@ function! s:on_lsp_buffer_enabled() abort
   nmap <buffer> [d <Plug>(lsp-previous-diagnostic)
   nmap <buffer> ]d <Plug>(lsp-next-diagnostic)
   nmap <buffer> K <plug>(lsp-hover)
-  
+
   " let the language server automatically handle folding for you
-  set foldmethod=expr
-    \ foldexpr=lsp#ui#vim#folding#foldexpr()
-    \ foldtext=lsp#ui#vim#folding#foldtext()
+  " set foldmethod=expr
+  "   \ foldexpr=lsp#ui#vim#folding#foldexpr()
+  "   \ foldtext=lsp#ui#vim#folding#foldtext()
 endfunction
-  
+
 augroup lsp_install
   au!
   " call s:on_lsp_buffer_enabled only for languages that has the server registered.
@@ -677,6 +656,15 @@ nnoremap <leader>c* *``cgn
 " Same as above but in reverse order
 nnoremap <leader>c# *``cgN
 
+" Show syntax highlighting groups for word under cursor
+nmap <C-S-P> :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
+
 " ------------------------------------------------------------------------------
 " -------------------------------- Split window --------------------------------
 " ------------------------------------------------------------------------------
@@ -737,13 +725,16 @@ nmap <silent> ]Q :cfirst<CR>zv
 nmap <silent> [Q :clast<CR>zv
 
 " ------------------------------------------------------------------------------
-" -------------------------- Navigating between buffer -------------------------
+" ----------------------------------- Buffer -----------------------------------
 " ------------------------------------------------------------------------------
 " List buffer and prepare (buffer switch)
 " nnoremap <Leader>bs :ls<CR>:b<Space>
 
 " Delete all buffers but current (buffer only)
 nnoremap <silent> <Leader>bo :%bd\|e#\|bd# <CR>
+
+" Fix broken syntax highlighting
+nnoremap <silent> <Leader>br :syntax sync fromstart<CR>
 
 nmap <silent> ]b :bnext<CR>
 nmap <silent> [b :bprevious<CR>
@@ -830,16 +821,6 @@ vnoremap <silent> <leader>k :move '<-2<CR>gv=gv
 nnoremap <leader>cp :call popup_clear() <CR>
 
 " ------------------------------------------------------------------------------
-" ---------------------------------- Vim clap ----------------------------------
-" ------------------------------------------------------------------------------
-nnoremap <silent> <leader>F :Clap<CR>
-nnoremap <silent> <leader>f :Clap files<CR>
-nnoremap <silent> <leader>/ :Clap grep<CR>
-nnoremap <silent> <leader>* :Clap grep ++query=<cword><CR>
-vnoremap <silent> <leader>* :Clap grep ++query=@visual<CR>
-nnoremap <Leader>bs :Clap buffers<CR>
-
-" ------------------------------------------------------------------------------
 " ------------------------------------ FZF -------------------------------------
 " ------------------------------------------------------------------------------
 nnoremap <leader>F :FFiles<CR>
@@ -847,23 +828,8 @@ nnoremap <silent> <leader>/ :FRG<CR>
 " nnoremap <silent> <Leader>* :FRg <C-R><C-W><CR>
 nnoremap <silent> <Leader>* :exec "FRG ".expand("<cword>")<CR>
 nnoremap <Leader>fb :FBuffers<CR>
-nnoremap <Leader>fl :FLines<CR>
-nnoremap <Leader>fL :FBLines<CR>
-
-" ------------------------------------------------------------------------------
-" ------------------------------------ CtrlP -----------------------------------
-" ------------------------------------------------------------------------------
-" Open fuzzy search filename
-" nmap <silent> <leader>f :CtrlP<CR>
-
-" Open fuzzy search most recent files
-" nmap <silent> <leader>r :CtrlPMRU<CR>
-
-" Open fuzzy search buffers
-" nmap <silent> <leader>b :CtrlPBuffer<CR>
-"
-" Open fuzzy search tags
-" nmap <silent> <leader>b :CtrlPTag<CR>
+nnoremap <Leader>fL :FLines<CR>
+nnoremap <Leader>fl :FBLines<CR>
 
 " ------------------------------------------------------------------------------
 " ------------------------------------ ALE -------------------------------------
