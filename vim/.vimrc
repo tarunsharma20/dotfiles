@@ -43,10 +43,12 @@ Plug 'tarunsharma20/witching-hour'         " witching-hour
 " ------------------------------------------------------------------------------
 " ------------------------------------ LSP -------------------------------------
 " ------------------------------------------------------------------------------
+Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/asyncomplete-file.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 " ------------------------------------------------------------------------------
 " ---------------------------- Syntax Highlighting -----------------------------
@@ -412,9 +414,10 @@ set backspace=indent,eol,start " Make backspace behave as it is
 " <C-x><C-f> completes filepath, <C-x><C-]> completes based on tags,
 " <C-n> invokes keyword completion.
 " filetype plugin on
-" set completeopt=longest,menuone,menu
-" set completeopt=longest,menuone,menu,preview,popup
-" set omnifunc=syntaxcomplete#Complete
+set complete+=kspell
+" set completeopt=menuone,longest
+set completeopt=longest,menuone,menu,preview,popup
+set omnifunc=syntaxcomplete#Complete
 
 " Time Vim waits after you stop typing before it triggers the plugin.
 " Default updatetime is 4000 milliseconds
@@ -481,6 +484,7 @@ function! RipgrepFzf(query, fullscreen)
   let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
   call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
 endfunction
+
 command! -nargs=* -bang FRG call RipgrepFzf(<q-args>, <bang>0)
 
 " ------------------------------------------------------------------------------
@@ -541,6 +545,17 @@ function! LinterStatus() abort
 endfunction
 
 " ------------------------------------------------------------------------------
+" -------------------------------- Asyncomplete --------------------------------
+" ------------------------------------------------------------------------------
+" Register asyncomplete-file.vim
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+    \ 'name': 'file',
+    \ 'allowlist': ['*'],
+    \ 'priority': 10,
+    \ 'completor': function('asyncomplete#sources#file#completor')
+    \ }))
+
+" ------------------------------------------------------------------------------
 " ------------------------------------ LSP -------------------------------------
 " ------------------------------------------------------------------------------
 function! s:on_lsp_buffer_enabled() abort
@@ -549,9 +564,10 @@ function! s:on_lsp_buffer_enabled() abort
   if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
 
   nmap <buffer> <C-]> <plug>(lsp-definition)
-  nmap <buffer> <leader>cr <plug>(lsp-references)
-  nmap <buffer> <leader>ci <plug>(lsp-implementation)
-  nmap <buffer> <leader>t <plug>(lsp-type-definition)
+  nmap <buffer> <leader>gd <plug>(lsp-definition)
+  nmap <buffer> <leader>gr <plug>(lsp-references)
+  nmap <buffer> <leader>gi <plug>(lsp-implementation)
+  nmap <buffer> <leader>gt <plug>(lsp-type-definition)
   nmap <buffer> <leader>rn <plug>(lsp-rename)
   nmap <buffer> [d <Plug>(lsp-previous-diagnostic)
   nmap <buffer> ]d <Plug>(lsp-next-diagnostic)
