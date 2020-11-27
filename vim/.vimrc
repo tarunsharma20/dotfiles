@@ -22,6 +22,7 @@ Plug 'godlygeek/tabular'
 Plug 'ap/vim-buftabline'             " Shows only buffers in tabline
 " Plug 'pacha/vem-tabline'             " Shows buffers as well as tabs in tabline
 Plug 'tpope/vim-commentary'
+Plug 'christoomey/vim-tmux-navigator'
 
 " ------------------------------------------------------------------------------
 " -------------------------------- Color Scheme --------------------------------
@@ -266,6 +267,9 @@ augroup END
 " 5 -> blinking bar (xterm).
 " 6 -> steady bar (xterm).
 
+" Add setting below in .tmux.config to make it work in in tmux as well
+" set -ga terminal-overrides ',*:Ss=\E[%p1%d q:Se=\E[2 q'
+
 " ------------------------------------------------------------------------------
 " ------------------------------ Font Name & Size ------------------------------
 " ------------------------------------------------------------------------------
@@ -508,6 +512,13 @@ function! RipgrepFzf(query, fullscreen)
 endfunction
 
 command! -nargs=* -bang FRG call RipgrepFzf(<q-args>, <bang>0)
+
+" ------------------------------------------------------------------------------
+" -------------------------------- Buftabline ----------------------------------
+" ------------------------------------------------------------------------------
+let g:buftabline_numbers = 2
+let g:buftabline_indicators = 1
+let g:buftabline_separators = 0
 
 " ------------------------------------------------------------------------------
 " ------------------------------- Indent Guides --------------------------------
@@ -776,6 +787,14 @@ nnoremap <silent> <Leader>br :syntax sync fromstart<CR>
 
 nmap <silent> ]b :bnext<CR>
 nmap <silent> [b :bprevious<CR>
+nmap <silent> ]B :bfirst<CR>
+nmap <silent> [B :blast<CR>
+
+nmap <silent> <Leader>1 :bfirst<CR>
+
+for i in range(1, 8)
+  execute 'nmap <silent> <Leader>' . (i+1) . ' :bfirst<CR>:'. i .'bnext<CR>'
+endfor
 
 " ------------------------------------------------------------------------------
 " ------------------------------ Change fontsize -------------------------------
