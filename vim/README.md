@@ -6,7 +6,7 @@ Run command below in your terminal if you are in mac or linux, for windows use g
 rm -rf ~/.vim && \
 rm -f ~/.vimrc ~/.viminfo && \
 mkdir -p ~/.vim/autoload/ && \
-curl -o ~/.vimrc https://raw.githubusercontent.com/tarunsharma20/dotfiles/features/fzf-lsp/vim/.vimrc && \
+curl -o ~/.vimrc https://raw.githubusercontent.com/tarunsharma20/dotfiles/CI/vim/.vimrc && \
 curl -o ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && \
 vim -c 'PlugInstall'
 ```
