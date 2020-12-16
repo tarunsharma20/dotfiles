@@ -204,8 +204,13 @@ set statusline+=%#DiffAdd#%{(mode()=='n')?'\ \ NORMAL\ ':''}
 set statusline+=%#DiffChange#%{(mode()=='i')?'\ \ INSERT\ ':''}
 set statusline+=%#DiffDelete#%{(mode()=='r')?'\ \ REPLACE\ ':''}
 set statusline+=%#Visual#%{(mode()=='v:')?'\ \ VISUAL\ ':''}
+
+" Comment line below if your colorscheme support active statusline color
 set statusline+=%#Cursor#
+
+" Uncomment line below if your colorscheme support active statusline color
 " set statusline+=%*
+
 set statusline+=\ %t
 " set statusline+=\ %f
 set statusline+=\ %h%m%r%w
@@ -518,7 +523,7 @@ command! -nargs=* -bang FRG call RipgrepFzf(<q-args>, <bang>0)
 " ------------------------------------------------------------------------------
 let g:buftabline_numbers = 2
 let g:buftabline_indicators = 1
-let g:buftabline_separators = 0
+let g:buftabline_separators = 1
 
 " ------------------------------------------------------------------------------
 " ------------------------------- Indent Guides --------------------------------
