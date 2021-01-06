@@ -400,6 +400,11 @@ set foldlevelstart=10    " Open most folds by default
 set foldnestmax=10       " 10 nested fold max
 set foldmethod=indent    " Fold based on indent level
 
+augroup Folds
+  autocmd!
+  autocmd FileType vim setlocal foldmethod=marker
+augroup END
+
 " ------------------------------------------------------------------------------
 " ----------------------------------- Search -----------------------------------
 " ------------------------------------------------------------------------------
@@ -723,16 +728,16 @@ endfunc
 " -------------------------------- Split window --------------------------------
 " ------------------------------------------------------------------------------
 " Move cursor to right window
-nnoremap <C-l> <C-w>l
+nnoremap <C-l> :wincmd l<CR>
 
 " Move cursor to left window
-nnoremap <C-h> <C-w>h
+nnoremap <C-h> :wincmd h<CR>
 
 " Move cursor to window below
-nnoremap <C-j> <C-w>j
+nnoremap <C-j> :wincmd j<CR>
 
 " Move cursor to window top
-nnoremap <C-k> <C-w>k
+nnoremap <C-k> :wincmd k<CR>
 
 " Scale horizontal split window by 3 rows
 if has("gui_macvim")
@@ -795,11 +800,11 @@ nmap <silent> [b :bprevious<CR>
 nmap <silent> ]B :bfirst<CR>
 nmap <silent> [B :blast<CR>
 
-nmap <silent> <Leader>1 :bfirst<CR>
+" nmap <silent> <Leader>1 :bfirst<CR>
 
-for i in range(1, 8)
-  execute 'nmap <silent> <Leader>' . (i+1) . ' :bfirst<CR>:'. i .'bnext<CR>'
-endfor
+" for i in range(1, 8)
+"   execute 'nmap <silent> <Leader>' . (i+1) . ' :bfirst<CR>:'. i .'bnext<CR>'
+" endfor
 
 " ------------------------------------------------------------------------------
 " ------------------------------ Change fontsize -------------------------------
@@ -905,6 +910,53 @@ nmap <silent> [e <Plug>(ale_previous_wrap)
 " ------------------------------------------------------------------------------
 nnoremap <silent> ]h :GitGutterNextHunk<CR>
 nnoremap <silent> [h :GitGutterPrevHunk<CR>
+
+" ------------------------------------------------------------------------------
+" -------------------------------- Buftabline ----------------------------------
+" ------------------------------------------------------------------------------
+for i in range(1, 9)
+  execute 'nmap <silent> <Leader>' . (i) . ' <Plug>BufTabLine.Go('. i .')'
+endfor
+
+" ------------------------------------------------------------------------------
+" ------------------------------ Vim Presentation ------------------------------
+" ------------------------------------------------------------------------------
+autocmd BufNewFile,BufRead *.vpm call SetVimPresentationMode()
+
+function! SetVimPresentationMode()
+  nnoremap <buffer> <Right> :n<CR>
+  nnoremap <buffer> <Left> :N<CR>
+endfunction
+ 
+" ------------------------------------------------------------------------------
+" ------------------------------- Vim TODO List --------------------------------
+" ------------------------------------------------------------------------------
+autocmd BufNewFile,BufRead *.todo call SetVimToDoMode()
+
+function! SetVimToDoMode()
+  nnoremap <buffer><silent> o o[ ]<space>
+  nnoremap <buffer><silent> O O[ ]<space>
+  inoremap <buffer><silent> <CR> <Esc>o[ ]<space>
+  inoremap <buffer><silent> <C-j> <Esc>o[ ]<space>
+  nnoremap <buffer><silent> <CR> :call ToggleComplete()<CR>
+endfunction
+
+function! ToggleComplete()
+    " Get current line:
+    let l:line = getline('.')
+
+    " Get the char to test with the help of a pattern, ' ' or 'X':
+    " \zs and \ze lets you retrieve only the part between themselves:
+    let l:char = matchstr(l:line, '\[\zs.\ze]')
+
+    if l:char == 'X'
+        let l:char = ' '
+    else
+        let l:char = 'X'
+    endif
+
+    call setline(line('.'), substitute(l:line, '\[\zs.\ze]', l:char, ''))
+endfunction
 
 " ==============================================================================
 " =============================== Abbreviations ================================
