@@ -5,87 +5,78 @@ filetype on
 filetype off
 
 " ==============================================================================
-" ============================ Plugin Configuration ============================
-" ==============================================================================
- " Call the .vimrc.plug file
- " if filereadable(expand("~/.vimrc.plug"))
- "     source ~/.vimrc.plug
- " endif
+" ================================= Plugins ====================================
+" ========================================================================== {{{
 call plug#begin('~/.vim/plugged')
 
 " ------------------------------------------------------------------------------
 " ------------------------------- Miscellaneous --------------------------------
-" ------------------------------------------------------------------------------
+" -------------------------------------------------------------------------- {{{
 Plug 'Yggdroot/indentLine'
 Plug 'mattn/emmet-vim'
 Plug 'godlygeek/tabular'
-Plug 'ap/vim-buftabline'             " Shows only buffers in tabline
-" Plug 'pacha/vem-tabline'             " Shows buffers as well as tabs in tabline
+Plug 'ap/vim-buftabline'
 Plug 'tpope/vim-commentary'
 Plug 'christoomey/vim-tmux-navigator'
+" End of Miscellaneous }}}
 
 " ------------------------------------------------------------------------------
 " -------------------------------- Color Scheme --------------------------------
-" ------------------------------------------------------------------------------
-" Plug 'dracula/vim'                         " dracula (dark)
-" Plug 'nightsense/cosmic_latte'             " cosmic_latte (dark|light)
-" Plug 'antlypls/vim-colors-codeschool'      " codeschool
-" Plug 'ayu-theme/ayu-vim'                   " ayu
-" Plug 'gosukiwi/vim-atom-dark'              " atom-dark
-" Plug 'rakr/vim-one'                        " one (dark|light)
-" Plug 'mhartington/oceanic-next'            " OceanicNext | OceanicNextLight
-" Plug 'drewtempelmeyer/palenight.vim'       " palenight (dark)
-" Plug 'arcticicestudio/nord-vim'            " nord
-" Plug 'cocopon/iceberg.vim'                 " iceberg
-" Plug 'flrnd/plastic.vim'                   " plastic (dark)
-" Plug 'haishanh/night-owl.vim'              " night-owl
+" -------------------------------------------------------------------------- {{{
 Plug 'tarunsharma20/witching-hour'         " witching-hour
+" End of Color Scheme }}}
 
 " ------------------------------------------------------------------------------
 " ------------------------------------ LSP -------------------------------------
-" ------------------------------------------------------------------------------
+" -------------------------------------------------------------------------- {{{
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prabirshrestha/asyncomplete-file.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
+" End of LSP }}}
 
 " ------------------------------------------------------------------------------
 " ---------------------------- Syntax Highlighting -----------------------------
-" ------------------------------------------------------------------------------
+" -------------------------------------------------------------------------- {{{
 Plug 'sheerun/vim-polyglot'
 Plug 'lilydjwg/colorizer'
+" End of Syntax Highlighting }}}
 
 " ------------------------------------------------------------------------------
 " ---------------------------------- Linting -----------------------------------
-" ------------------------------------------------------------------------------
+" -------------------------------------------------------------------------- {{{
 Plug 'w0rp/ale'
 Plug 'prettier/vim-prettier'
+" End of Linting }}}
 
 " ------------------------------------------------------------------------------
 " ------------------------------ File Management -------------------------------
-" ------------------------------------------------------------------------------
-" Plug 'jremmen/vim-ripgrep'
+" -------------------------------------------------------------------------- {{{
+Plug 'jremmen/vim-ripgrep'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+" End of File Management }}}
 
 " ------------------------------------------------------------------------------
 " ------------------------------------ Git -------------------------------------
-" ------------------------------------------------------------------------------
+" -------------------------------------------------------------------------- {{{
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/gv.vim'
+" End of Git }}}
 
 call plug#end()
+" End of Plugins }}}
 
 " ==============================================================================
 " ================================= Behavioural ================================
-" ==============================================================================
+" ========================================================================== {{{
 
 " ------------------------------------------------------------------------------
 " -------------------------------- Files/Backup --------------------------------
-" ------------------------------------------------------------------------------
+" -------------------------------------------------------------------------- {{{
 set nobackup                       " Don't make backup before overwriting a file
 set noswapfile                     " Disable file swapping
 set nowritebackup                  " And again
@@ -97,10 +88,11 @@ endif
 
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
+" End of File/Backup }}}
 
 " ------------------------------------------------------------------------------
 " ------------------------------- Miscellaneous --------------------------------
-" ------------------------------------------------------------------------------
+" -------------------------------------------------------------------------- {{{
 set clipboard=unnamed             " Use system clipboard
 "
 " Remove conceal feature it's hiding double quotes in JSON
@@ -112,17 +104,13 @@ set spelllang=en_us
 set encoding=utf-8 nobomb " Set utf8 as standard encoding, BOM often causes trouble
 scriptencoding utf-8
 
-set history=1000          " Number of lines history to remember
+set history=1000            " Number of lines history to remember
 
-set visualbell       " Turn off sounds
-set ttyfast          " Speed up scrolling in vim buffer
-set lazyredraw       " Don't redraw while running macros in buffer
-" set redrawtime=10000 "The time in milliseconds for redrawing the display
-set hidden           " Switch between buffers without save files
-
-" Highlight syntax even in big file. It can make vim slow
-" syntax sync minlines=10000 " 10000 lines
-" syntax sync fromstart      " Complete file
+set visualbell              " Turn off sounds
+set ttyfast                 " Speed up scrolling in vim buffer
+set lazyredraw              " Don't redraw while running macros in buffer
+" set redrawtime=10000      " The time in milliseconds for redrawing the display
+set hidden                  " Switch between buffers without save files
 
 set noshowmode " Hide vim mode text from last line
 
@@ -142,29 +130,32 @@ endif
 " will automatically open the quickfix window whenever you do :vimgrep or other
 " commands that populate the quickfix/location list
 augroup qf
-    autocmd!
-    autocmd QuickFixCmdPost [^l]* cwindow
-    autocmd QuickFixCmdPost l*    cwindow
-    autocmd VimEnter        *     cwindow
+  autocmd!
+  autocmd QuickFixCmdPost [^l]* cwindow
+  autocmd QuickFixCmdPost l*    cwindow
+  autocmd VimEnter        *     cwindow
 augroup END
+" End of Miscellaneous }}}
+" End of Behavioural }}}
 
 " ==============================================================================
 " ============================== User Interface ================================
-" ==============================================================================
+" ========================================================================== {{{
 
 " ------------------------------------------------------------------------------
 " ----------------------------------- Ruler ------------------------------------
-" ------------------------------------------------------------------------------
+" -------------------------------------------------------------------------- {{{
 set ruler        " Always show cursor position
 set rulerformat=%=%h%m%r%w\ %(%c%V%),%l/%L\ %P
 set showmode     " Show the current mode
 set showcmd      " Show the last/incomplete command at bottom right of VIM
 set cmdheight=1  " Height of commandbar
 set laststatus=2 " Always show status line
+" End of Ruler }}}
 
 " ------------------------------------------------------------------------------
 " --------------------------------- Line Number --------------------------------
-" ------------------------------------------------------------------------------
+" -------------------------------------------------------------------------- {{{
 set number relativenumber " Show relative line numbers
 
 " Show absolute line number in insert mode, and hybrid(absolute + relative) in normal mode
@@ -173,10 +164,11 @@ augroup numbertoggle
   autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
   autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 augroup END
+" End of Line Number }}}
 
 " ------------------------------------------------------------------------------
 " --------------------------------- Indentation --------------------------------
-" ------------------------------------------------------------------------------
+" -------------------------------------------------------------------------- {{{
 filetype indent on        " Enable specific file based indentation
 
 set shiftwidth=2          " Allow >> and << indent/unindent 2 visual spaces
@@ -189,10 +181,11 @@ set smartindent           " Automatically inserts one extra level of indentation
 
 " Use the 'shiftwidth' setting for inserting tabs instead of 'tabstop'
 set smarttab
+" End of Indentation }}}
 
 " ------------------------------------------------------------------------------
 " --------------------------------- Status Bar ---------------------------------
-" ------------------------------------------------------------------------------
+" -------------------------------------------------------------------------- {{{
 function! ShowNewline() abort
   let s:newline_labels = {'unix': 'LF', 'mac': 'CR', 'dos': 'CRLF'}
   return get(s:newline_labels, &fileformat, &fileformat)
@@ -206,13 +199,12 @@ set statusline+=%#DiffDelete#%{(mode()=='r')?'\ \ REPLACE\ ':''}
 set statusline+=%#Visual#%{(mode()=='v:')?'\ \ VISUAL\ ':''}
 
 " Comment line below if your colorscheme support active statusline color
-set statusline+=%#Cursor#
+" set statusline+=%#Cursor#
 
 " Uncomment line below if your colorscheme support active statusline color
-" set statusline+=%*
+set statusline+=%*
 
 set statusline+=\ %t
-" set statusline+=\ %f
 set statusline+=\ %h%m%r%w
 
 set statusline+=%=
@@ -220,81 +212,28 @@ set statusline+=%=
 set statusline+=\ %{strlen(&ft)?&ft:'none'}
 set statusline+=\ \ %{ShowNewline()}
 set statusline+=\ \ %{strlen(&fileencoding)?toupper(&fileencoding):toupper(&encoding)}
-" set statusline+=\ \ %{&expandtab?'Spaces':'Tab'}
-" set statusline+=:
-" set statusline+=%{shiftwidth()}
-" set statusline+=\ \|
-" set statusline+=\ Ln:
-" set statusline+=%l
-" set statusline+=,\ Col:
-" set statusline+=%c
-" set statusline+=\ \|
-" set statusline+=\ %L
-" set statusline+=\ Lines
-" set statusline+=\ \|
-" set statusline+=\ %p%%
 set statusline+=\ \ %l:%c
 set statusline+=\ \ %{LinterStatus()}
 set statusline+=\ %#Visual#
 set statusline+=%{strlen(FugitiveHead())?'\ '.FugitiveHead().'\ ':''}
 set statusline+=%*
+" End of Status Bar }}}
 
 " ------------------------------------------------------------------------------
 " ------------------------------ Page Title & Tabs -----------------------------
-" ------------------------------------------------------------------------------
+" -------------------------------------------------------------------------- {{{
 set title  " Set the terminal's title
 set guitablabel=\[%N\]\ %t\ %M
-" set tabline=\[%N\]\ %t\ %M
-" set showtabline=1
 
 " Showing current file name and current working directory on buffer change
 autocmd BufEnter * let &titlestring = ' ' . expand("%:f") . ' - ' . fnamemodify(getcwd(), ':t')
-
-" ------------------------------------------------------------------------------
-" ----------------------------------- Cursor -----------------------------------
-" ------------------------------------------------------------------------------
-" Change cursor in terminal on switch between insert and other modes
-let &t_SI = "\e[6 q"
-let &t_EI = "\e[2 q"
-
-" Optionally reset the cursor on start:
-augroup myCmds
-au!
-autocmd VimEnter * silent !echo -ne "\e[2 q"
-augroup END
-
-" Other options
-" 0 -> blinking block.
-" 1 -> blinking block (default).
-" 2 -> steady block.
-" 3 -> blinking underline.
-" 4 -> steady underline.
-" 5 -> blinking bar (xterm).
-" 6 -> steady bar (xterm).
-
-" Add setting below in .tmux.config to make it work in in tmux as well
-" set -ga terminal-overrides ',*:Ss=\E[%p1%d q:Se=\E[2 q'
+" End of Page Title & Tabs }}}
 
 " ------------------------------------------------------------------------------
 " ------------------------------ Font Name & Size ------------------------------
-" ------------------------------------------------------------------------------
-" let g:fnt_name = 'Fira\ Code'
-" let g:fnt_size = 15
-" set guifont=Menlo:h11    " Set font for GUI
-
-if has("gui_running")
-  if has("gui_gtk2") || has("gui_gtk3")
-    let g:fnt_name = 'Inconsolata'
-    let g:fnt_size = 12
-  elseif has("gui_macvim")
-    let g:fnt_name = 'Menlo\ Regular'
-    let g:fnt_size = 15
-  elseif has("gui_win32")
-    " let g:fnt_name = 'Consolas'
-    let g:fnt_name = 'Menlo'
-    let g:fnt_size = 11
-  endif
-endif
+" -------------------------------------------------------------------------- {{{
+let g:fnt_name = 'Fira\ Code'
+let g:fnt_size = 15
 
 function! SetFont ()
   if has('gui_running')
@@ -321,51 +260,23 @@ call SetFont()
 if has("mac") || has("macunix")
   set macligatures  " Enable font ligatures in MacVim
 endif
+" End of Font Name & Size }}}
 
 " ------------------------------------------------------------------------------
 " -------------------------------- Color Scheme --------------------------------
-" ------------------------------------------------------------------------------
+" -------------------------------------------------------------------------- {{{
 syntax enable    " Enable syntax processing
 set t_Co=256
 
-" if has('gui_running')
-"   set background=light
-" else
-"   set background=dark
-" endif
-
 set termguicolors     " enable true colors support
 
-" let ayucolor="light"  " for light version of theme
-" let ayucolor="mirage" " for mirage version of theme
-" let ayucolor="dark"   " for dark version of theme
-" colorscheme ayu
 colorscheme witching-hour
-
-" let schemes = [
-"   \'one',
-"   \'OceanicNext',
-"   \'ayu',
-"   \'atom-dark',
-"   \'dracula',
-"   \'cosmic_latte',
-"   \'codeschool',
-"   \'palenight',
-"   \'nord',
-"   \'iceberg',
-"   \'plastic',
-"   \'night-owl'
-"   \]
-" let seconds = str2nr(strftime('%S'))
-
-" execute 'colorscheme '.schemes[seconds%len(schemes)]
-" redraw
-
 set background=dark
+" End of Color Scheme }}}
 
 " ------------------------------------------------------------------------------
 " ------------------------------- Miscellaneous --------------------------------
-" ------------------------------------------------------------------------------
+" -------------------------------------------------------------------------- {{{
 set lsp=0      " Number of space between lines (line spacing)
 set cursorline " Highlight  current line
 set wrap       " Turn on line wrapping.
@@ -376,22 +287,24 @@ set list       " Show white space characters
 set listchars=nbsp:¤,eol:¶,tab:→\ ,extends:»,precedes:«,trail:·
 let &showbreak = '↳ '
 
-set guioptions-=m   " Show/Hide menu bar
-set guioptions-=T   " Show/Hide toolbar
-" set guioptions-=r   " Show/Hide scrollbar
+if has('gui_running')
+  set guioptions-=m   " Show/Hide menu bar
+  set guioptions-=T   " Show/Hide toolbar
+  " set guioptions-=r   " Show/Hide scrollbar
+endif
 
-
-" set lines=35 columns=150  " Vim to open with a given size
 set textwidth=80          " Lines longer than 79 columns will be broken
 set colorcolumn=+1        " Display line at the edge of textwidth
+" End of Miscellaneous }}}
+" End of User Interface }}}
 
 " ==============================================================================
 " ============================= User Interaction ===============================
-" ==============================================================================
+" ========================================================================== {{{
 
 " ------------------------------------------------------------------------------
 " -------------------------------- Code Folding --------------------------------
-" ------------------------------------------------------------------------------
+" -------------------------------------------------------------------------- {{{
 set foldmethod=manual
 
 " Commenting code below to make linting fast
@@ -404,10 +317,11 @@ augroup Folds
   autocmd!
   autocmd FileType vim setlocal foldmethod=marker
 augroup END
+" End of Code Folding }}}
 
 " ------------------------------------------------------------------------------
 " ----------------------------------- Search -----------------------------------
-" ------------------------------------------------------------------------------
+" -------------------------------------------------------------------------- {{{
 set path+=**                   " Recursively traverse to find something
 set wildmenu                   " Visual autocomplete for command menu
 set wildmode=list:longest,full " wildmenu in special format (long format)
@@ -434,11 +348,11 @@ if executable('rg')
   set grepprg=rg\ --vimgrep\ --no-heading
   set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
+" End of Search }}}
 
 " ------------------------------------------------------------------------------
 " ------------------------------- Miscellaneous --------------------------------
-" ------------------------------------------------------------------------------
-
+" -------------------------------------------------------------------------- {{{
 set showmatch  " highlight matching brackets
 set splitright " :vsplit will open new window right of the current one
 set splitbelow " :split will open new window below the current one
@@ -455,11 +369,6 @@ set complete+=kspell
 set completeopt=longest,menuone,menu,preview,popup
 set omnifunc=syntaxcomplete#Complete
 
-" Time Vim waits after you stop typing before it triggers the plugin.
-" Default updatetime is 4000 milliseconds
-" set updatetime=300
-" set signcolumn=yes    " always show signcolumns
-" signcolumn no/yes/auto to disappear/appear/auto
 set scl=no
 set scl=yes
 set scl=auto
@@ -467,40 +376,24 @@ set scrolloff=3    " show context above/below cursorline.
 
 " Activating builtin macro matchit to enable jump in xml/html tags
 runtime macros/matchit.vim
+" End of Miscellaneous }}}
+" End of User Interaction }}}
 
 " ==============================================================================
-" ================================= Plugins ====================================
-" ==============================================================================
-
-" ------------------------------------------------------------------------------
-" ----------------------------------- NetRW ------------------------------------
-" ------------------------------------------------------------------------------
-" let g:netrw_banner = 0            " Remove the banner
-" let g:netrw_liststyle = 3         " Changing the directory
-" let g:netrw_browse_split = 4      " To make the selection permanent add
-" let g:netrw_altv = 1
-" let g:netrw_winsize = 25          " Set the width of the directory explorer
-" augroup ProjectDrawer
-  " autocmd!
-  " autocmd VimEnter * :Vexplore
-" augroup END
-
-" let g:netrw_browse_split = 0      " re-use the same window (default)
-" let g:netrw_browse_split = 1      " horizontally split the window
-" let g:netrw_browse_split = 2      " vertically split the window
-" let g:netrw_browse_split = 3      " open file in new tab
-" let g:netrw_browse_split = 4      " act like 'p' (ie. open preview window)
+" ============================ Plugin Configuration ============================
+" ========================================================================== {{{
 
 " ------------------------------------------------------------------------------
 " ----------------------------------- ripgrep ----------------------------------
-" ------------------------------------------------------------------------------
-" " use rg to search through ripgrep with smartcase enabled -S
-" let g:rg_command = 'rg --vimgrep -S'
-" let g:rg_highlight = 'true'
+" -------------------------------------------------------------------------- {{{
+" use rg to search through ripgrep with smartcase enabled -S
+let g:rg_command = 'rg --vimgrep -S'
+let g:rg_highlight = 'true'
+" End of ripgrep }}}
 
 " ------------------------------------------------------------------------------
 " ------------------------------------- FZF ------------------------------------
-" ------------------------------------------------------------------------------
+" -------------------------------------------------------------------------- {{{
 let g:fzf_command_prefix = 'F'
 let $FZF_DEFAULT_OPTS = '--layout=reverse --info=inline'
 
@@ -514,6 +407,7 @@ if executable('rg')
 endif
 
 function! RipgrepFzf(query, fullscreen)
+  " let command_fmt = 'rg --column --line-number --no-heading --fixed-strings --smart-case --hidden --follow --glob "!{.git,node_modules}/*" --color=always %s || true'
   let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
   let initial_command = printf(command_fmt, shellescape(a:query))
   let reload_command = printf(command_fmt, '{q}')
@@ -522,38 +416,37 @@ function! RipgrepFzf(query, fullscreen)
 endfunction
 
 command! -nargs=* -bang FRG call RipgrepFzf(<q-args>, <bang>0)
+" End of FZF }}}
 
 " ------------------------------------------------------------------------------
 " -------------------------------- Buftabline ----------------------------------
-" ------------------------------------------------------------------------------
+" -------------------------------------------------------------------------- {{{
 let g:buftabline_numbers = 2
 let g:buftabline_indicators = 1
 let g:buftabline_separators = 1
+" End of Buftabline }}}
 
 " ------------------------------------------------------------------------------
 " ------------------------------- Indent Guides --------------------------------
-" ------------------------------------------------------------------------------
+" -------------------------------------------------------------------------- {{{
 let g:indent_guides_guide_size = 1
+" End of Indent Guides }}}
 
 " ------------------------------------------------------------------------------
 " ----------------------------------- Emmet ------------------------------------
-" ------------------------------------------------------------------------------
+" -------------------------------------------------------------------------- {{{
 let g:user_emmet_leader_key='<Tab>'
 let g:user_emmet_setting = { 'javascript.jsx' : { 'extends': 'jsx', }, }
+" End of Emmet }}}
 
 " ------------------------------------------------------------------------------
 " ------------------------------------ Ale -------------------------------------
-" ------------------------------------------------------------------------------
+" -------------------------------------------------------------------------- {{{
 highlight clear ALEErrorSign " otherwise uses error bg color (typically red)
 highlight clear ALEWarningSign " otherwise uses error bg color (typically red)
 
-" highlight ALEErrorSign ctermfg=9 ctermbg=NONE guifg=#C30500 guibg=NONE
-" highlight ALEWarningSign ctermfg=11 ctermbg=NONE guifg=#ED6237 guibg=NONE
-
 let g:ale_sign_error = '❌'
 let g:ale_sign_warning = '🚸'
-
-"📄💡"📄💡▲✘⚠️!X⚠✗✓
 
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_filetype_changed = 0
@@ -562,7 +455,6 @@ let g:ale_lint_on_save = 1
 let g:ale_fix_on_save = 1 "Fix files on save
 let g:ale_linters_explicit = 1
 
-" let g:ale_statusline_format = ['X %d', '? %d', '']
 let g:ale_echo_msg_format = '%severity%: %linter% says - %s'
 let g:ale_linters = {
   \ 'javascript': ['eslint']
@@ -586,10 +478,11 @@ function! LinterStatus() abort
         \   all_errors
         \)
 endfunction
+" End of Ale }}}
 
 " ------------------------------------------------------------------------------
 " -------------------------------- Asyncomplete --------------------------------
-" ------------------------------------------------------------------------------
+" -------------------------------------------------------------------------- {{{
 " Register asyncomplete-file.vim
 au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
     \ 'name': 'file',
@@ -597,10 +490,11 @@ au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#source
     \ 'priority': 10,
     \ 'completor': function('asyncomplete#sources#file#completor')
     \ }))
+" End of Asyncomplete }}}
 
 " ------------------------------------------------------------------------------
 " ------------------------------------ LSP -------------------------------------
-" ------------------------------------------------------------------------------
+" -------------------------------------------------------------------------- {{{
 function! s:on_lsp_buffer_enabled() abort
   setlocal omnifunc=lsp#complete
   setlocal signcolumn=yes
@@ -616,45 +510,28 @@ function! s:on_lsp_buffer_enabled() abort
   nmap <buffer> ]d <Plug>(lsp-next-diagnostic)
   nmap <buffer> K <plug>(lsp-hover)
 
-  " let the language server automatically handle folding for you
-  " set foldmethod=expr
-  "   \ foldexpr=lsp#ui#vim#folding#foldexpr()
-  "   \ foldtext=lsp#ui#vim#folding#foldtext()
 endfunction
 
 augroup lsp_install
   au!
-  " call s:on_lsp_buffer_enabled only for languages that has the server registered.
   autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
 
-" let g:lsp_fold_enabled = 0                " To disable folding globally
-" let g:lsp_diagnostics_enabled = 0         " disable diagnostics support
-
 let g:lsp_signs_enabled = 1           " enable signs
 let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
-
-" let g:lsp_signs_error = {'text': '✗'}
-" let g:lsp_signs_warning = {'text': '‼', 'icon': '/path/to/some/icon'} " icons require GUI
-" let g:lsp_signs_hint = {'icon': '/path/to/some/other/icon'} " icons require GUI
 
 let g:lsp_signs_error = {'text': '✗'}
 let g:lsp_signs_warning = {'text': '⚠'} " icons require GUI
 let g:lsp_signs_hint = {'text': '💡'} " icons require GUI
 
-" Disable highlighting diagnostics
-" let g:lsp_highlights_enabled = 0
-" let g:lsp_textprop_enabled = 0
-
 " Highlight references to the symbol under the cursor
 let g:lsp_highlight_references_enabled = 1
-
-" To change the style of the highlighting
-" highlight lspReference ctermfg=red guifg=red ctermbg=green guibg=green
+" End of LSP }}}
+" End of Plugin Configuration }}}
 
 " ==============================================================================
 " ================================== Mappings ==================================
-" ==============================================================================
+" ========================================================================== {{{
 " map vs noremap
 "
 " map is recursive but noremap is non-recursive. In example below j will mapped
@@ -682,7 +559,7 @@ let mapleader="\<Space>"
 
 " ------------------------------------------------------------------------------
 " -------------------------------- Miscellaneous -------------------------------
-" ------------------------------------------------------------------------------
+" -------------------------------------------------------------------------- {{{
 
 " Disabling arrow keys
 nmap <Up>    <Nop>
@@ -723,10 +600,11 @@ function! <SID>SynStack()
   endif
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
+" End of Miscellaneous }}}
 
 " ------------------------------------------------------------------------------
 " -------------------------------- Split window --------------------------------
-" ------------------------------------------------------------------------------
+" -------------------------------------------------------------------------- {{{
 " Move cursor to right window
 nnoremap <C-l> :wincmd l<CR>
 
@@ -739,129 +617,73 @@ nnoremap <C-j> :wincmd j<CR>
 " Move cursor to window top
 nnoremap <C-k> :wincmd k<CR>
 
-" Scale horizontal split window by 3 rows
+" Scale-up/down horizontal/vertically split window by 3 rows/columns
 if has("gui_macvim")
   nnoremap <silent> <D-Up> :resize +3<cr>
-else
-  nnoremap <silent> <C-Up> :resize +3<cr>
-endif
-
-" Scale down horizontal split window by 3 rows
-if has("gui_macvim")
   nnoremap <silent> <D-Down> :resize -3<cr>
-else
-  nnoremap <silent> <C-Down> :resize -3<cr>
-endif
-
-" Scale vertical split window by 3 rows
-if has("gui_macvim")
   nnoremap <silent> <D-Right> :vertical resize +3<cr>
-else
-  nnoremap <silent> <C-Right> :vertical resize +3<cr>
-endif
-
-" Scale down vertical split window by 3 rows
-if has("gui_macvim")
   nnoremap <silent> <D-Left> :vertical resize -3<cr>
 else
+  nnoremap <silent> <C-Up> :resize +3<cr>
+  nnoremap <silent> <C-Down> :resize -3<cr>
+  nnoremap <silent> <C-Right> :vertical resize +3<cr>
   nnoremap <silent> <C-Left> :vertical resize -3<cr>
 endif
+" End of Split window }}}
 
 " ------------------------------------------------------------------------------
 " --------------------------- Navigating between tabs --------------------------
-" ------------------------------------------------------------------------------
+" -------------------------------------------------------------------------- {{{
 nmap <silent> ]t :tabnext<CR>
 nmap <silent> [t :tabprevious<CR>
 nmap <silent> ]T :tabfirst<CR>
 nmap <silent> [T :tablast<CR>
+" End of Navigating between tabs }}}
 
 " ------------------------------------------------------------------------------
 " ------------------------ Navigating the quickfix list ------------------------
-" ------------------------------------------------------------------------------
+" -------------------------------------------------------------------------- {{{
 nmap <silent> ]q :cnext<CR>zv
 nmap <silent> [q :cprevious<CR>zv
 nmap <silent> ]Q :cfirst<CR>zv
 nmap <silent> [Q :clast<CR>zv
+" End of Navigating the quickfix list }}}
 
 " ------------------------------------------------------------------------------
 " ----------------------------------- Buffer -----------------------------------
-" ------------------------------------------------------------------------------
-" List buffer and prepare (buffer switch)
-" nnoremap <Leader>bs :ls<CR>:b<Space>
-
+" -------------------------------------------------------------------------- {{{
 " Delete all buffers but current (buffer only)
 nnoremap <silent> <Leader>bo :%bd\|e#\|bd# <CR>
 
-" Fix broken syntax highlighting
+" Fix broken syntax highlighting (buffer refresh)
 nnoremap <silent> <Leader>br :syntax sync fromstart<CR>
 
 nmap <silent> ]b :bnext<CR>
 nmap <silent> [b :bprevious<CR>
 nmap <silent> ]B :bfirst<CR>
 nmap <silent> [B :blast<CR>
-
-" nmap <silent> <Leader>1 :bfirst<CR>
-
-" for i in range(1, 8)
-"   execute 'nmap <silent> <Leader>' . (i+1) . ' :bfirst<CR>:'. i .'bnext<CR>'
-" endfor
+" End of Buffer }}}
 
 " ------------------------------------------------------------------------------
 " ------------------------------ Change fontsize -------------------------------
-" ------------------------------------------------------------------------------
+" -------------------------------------------------------------------------- {{{
 nnoremap <silent> <leader>= :call FontScaleUp()<CR>
 nnoremap <silent> <leader>- :call FontScaleDown()<CR>
+" End of Change fontsize }}}
 
 " ------------------------------------------------------------------------------
 " ----------------------------------- NetRW ------------------------------------
-" ------------------------------------------------------------------------------
-" Toggle Vexplore
-" function! ToggleVExplorer()
-"   if exists("t:expl_buf_num")
-"     let expl_win_num = bufwinnr(t:expl_buf_num)
-"     let cur_win_num = winnr()
-
-"     if expl_win_num != -1
-"       while expl_win_num != cur_win_num
-"         exec "wincmd w"
-"         let cur_win_num = winnr()
-"       endwhile
-
-"       close
-"     endif
-
-"     unlet t:expl_buf_num
-"   else
-"     Vexplore
-"     let t:expl_buf_num = bufnr("%")
-"   endif
-" endfunction
-
-" Open exlorer in sidebar
-" map <silent> <leader>n :call ToggleVExplorer()<CR>
-
+" -------------------------------------------------------------------------- {{{
 " Open parent directory
 nnoremap <silent> - :Explore<CR>
 
 " Open root directory
 nnoremap <silent> _ :Ntree<CR>
-
-" ------------------------------------------------------------------------------
-" --------------------------------- Auto Pairs ---------------------------------
-" ------------------------------------------------------------------------------
-" inoremap " ""<left>
-" inoremap ' ''<left>
-" inoremap ` ``<left>
-" inoremap ( ()<left>
-" inoremap (<CR> (<CR>)<ESC>O
-" inoremap [ []<left>
-" inoremap [<CR> [<CR>]<ESC>O
-" inoremap { {}<left>
-" inoremap {<CR> {<CR>}<ESC>O
+" End of NetRW }}}
 
 " ------------------------------------------------------------------------------
 " ----------- Visually select text then press ~ to change text case ------------
-" ------------------------------------------------------------------------------
+" -------------------------------------------------------------------------- {{{
 function! TwiddleCase(str)
   if a:str ==# toupper(a:str)
     let result = tolower(a:str)
@@ -873,64 +695,73 @@ function! TwiddleCase(str)
   return result
 endfunction
 vnoremap ~ y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
+" End of Visually select text then press ~ to change text case }}}
 
 " ------------------------------------------------------------------------------
 " ---- Move current line or selected block up and down with Alt+j and Alt+k ----
-" ------------------------------------------------------------------------------
+" -------------------------------------------------------------------------- {{{
 nnoremap <silent> <leader>j :move .+1<CR>==
 nnoremap <silent> <leader>k :move .-2<CR>==
 vnoremap <silent> <leader>j :move '>+1<CR>gv=gv
 vnoremap <silent> <leader>k :move '<-2<CR>gv=gv
+" End of Move current line or selected block up and down with Alt+j and Alt+k }}}
 
 " ------------------------------------------------------------------------------
 " ----------------------------------- Popups -----------------------------------
-" ------------------------------------------------------------------------------
+" -------------------------------------------------------------------------- {{{
 nnoremap <leader>cp :call popup_clear() <CR>
+" End of Popups }}}
 
 " ------------------------------------------------------------------------------
 " ------------------------------------ FZF -------------------------------------
-" ------------------------------------------------------------------------------
-nnoremap <leader>F :FFiles<CR>
+" -------------------------------------------------------------------------- {{{
+nnoremap <leader>ff :FFiles<CR>
 nnoremap <silent> <leader>/ :FRG<CR>
-" nnoremap <silent> <Leader>* :FRg <C-R><C-W><CR>
 nnoremap <silent> <Leader>* :exec "FRG ".expand("<cword>")<CR>
 nnoremap <Leader>fb :FBuffers<CR>
 nnoremap <Leader>fL :FLines<CR>
 nnoremap <Leader>fl :FBLines<CR>
+" End of FZF }}}
 
 " ------------------------------------------------------------------------------
 " ------------------------------------ ALE -------------------------------------
-" ------------------------------------------------------------------------------
+" -------------------------------------------------------------------------- {{{
 nnoremap <silent> <leader>af :ALEFix<CR>
 nmap <silent> ]e <Plug>(ale_next_wrap)
 nmap <silent> [e <Plug>(ale_previous_wrap)
+" End of ALE }}}
 
 " ------------------------------------------------------------------------------
 " --------------------------------- Git Gutter ---------------------------------
-" ------------------------------------------------------------------------------
+" -------------------------------------------------------------------------- {{{
 nnoremap <silent> ]h :GitGutterNextHunk<CR>
 nnoremap <silent> [h :GitGutterPrevHunk<CR>
+" End of Git Gutter }}}
 
 " ------------------------------------------------------------------------------
 " -------------------------------- Buftabline ----------------------------------
-" ------------------------------------------------------------------------------
+" -------------------------------------------------------------------------- {{{
 for i in range(1, 9)
   execute 'nmap <silent> <Leader>' . (i) . ' <Plug>BufTabLine.Go('. i .')'
 endfor
+" End of BufTabLine }}}
 
 " ------------------------------------------------------------------------------
 " ------------------------------ Vim Presentation ------------------------------
-" ------------------------------------------------------------------------------
+" -------------------------------------------------------------------------- {{{
 autocmd BufNewFile,BufRead *.vpm call SetVimPresentationMode()
 
 function! SetVimPresentationMode()
+  set filetype=markdown
+
   nnoremap <buffer> <Right> :n<CR>
   nnoremap <buffer> <Left> :N<CR>
 endfunction
- 
+" End of Vim Presentation }}}
+
 " ------------------------------------------------------------------------------
 " ------------------------------- Vim TODO List --------------------------------
-" ------------------------------------------------------------------------------
+" -------------------------------------------------------------------------- {{{
 autocmd BufNewFile,BufRead *.todo call SetVimToDoMode()
 
 function! SetVimToDoMode()
@@ -957,34 +788,6 @@ function! ToggleComplete()
 
     call setline(line('.'), substitute(l:line, '\[\zs.\ze]', l:char, ''))
 endfunction
+" End of Vim TODO List }}}
+" End of Mappings }}}
 
-" ==============================================================================
-" =============================== Abbreviations ================================
-" ==============================================================================
-
-" --------- lipsum<Tab> drops some Lorem ipsum text into the document ----------
-" iabbrev lipsum
-"   \ Pellentesque habitant morbi tristique senectus et netus et malesuada fames
-"   \ ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget,
-"   \ tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
-"   \ ultricies mi vitae est. Mauris placerat eleifend leo.
-
-" ==============================================================================
-" ============================ Miscellaneous Stuff =============================
-" ==============================================================================
-
-"if has('win32')
-  " windows
-"elseif has('mac')
-  " for mac user
-"elseif has('unix')
-  " for unix
-"endif
-"if has('nvim')
-  " for neovim
-"endif
-
-" noremap d "_d
-" noremap c "_c
-" noremap r d
-" nnoremap <silent> <C-x><C-=> :call FontScaleUp()<CR>
