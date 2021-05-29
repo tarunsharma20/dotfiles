@@ -18,6 +18,7 @@ Plug 'godlygeek/tabular'
 Plug 'ap/vim-buftabline'
 Plug 'tpope/vim-commentary'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'vimwiki/vimwiki'
 " End of Miscellaneous }}}
 
 " ------------------------------------------------------------------------------
@@ -460,7 +461,7 @@ let g:ale_linters = {
   \ 'javascript': ['eslint']
   \ }
 let g:ale_fixers = {
-  \ 'javascript': ['eslint']
+  \ 'javascript': ['prettier', 'eslint']
   \ }
 
 " Will keep gutter open for error sign
@@ -527,6 +528,11 @@ let g:lsp_signs_hint = {'text': '💡'} " icons require GUI
 " Highlight references to the symbol under the cursor
 let g:lsp_highlight_references_enabled = 1
 " End of LSP }}}
+" ------------------------------------------------------------------------------
+" ---------------------------------- Prettier ----------------------------------
+" -------------------------------------------------------------------------- {{{
+let g:prettier#autoformat_config_files = ['~/.prettierrc.js']
+" End of Prettier }}}
 " End of Plugin Configuration }}}
 
 " ==============================================================================
