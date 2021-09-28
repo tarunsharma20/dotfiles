@@ -187,6 +187,36 @@ set smarttab
 " ------------------------------------------------------------------------------
 " --------------------------------- Status Bar ---------------------------------
 " -------------------------------------------------------------------------- {{{
+function! StatuslineMode()
+    let l:mode=mode()
+    if l:mode==#"n"
+        return "NORMAL"
+    elseif l:mode==?"v"
+        return "VISUAL"
+    elseif l:mode==#"i"
+        return "INSERT"
+    elseif l:mode==#"R"
+        return "REPLACE"
+    endif
+endfunction
+
+function! StatuslineGitBranch()
+  let b:gitbranch=""
+  if &modifiable
+    lcd %:p:h
+    let l:gitrevparse=system("git rev-parse --abbrev-ref HEAD")
+    lcd -
+    if l:gitrevparse!~"fatal: not a git repository"
+      let b:gitbranch=" ".substitute(l:gitrevparse, '\n', '', 'g')." "
+    endif
+  endif
+endfunction
+
+augroup GetGitBranch
+  autocmd!
+  autocmd VimEnter,WinEnter,BufEnter * call StatuslineGitBranch()
+augroup END
+
 function! ShowNewline() abort
   let s:newline_labels = {'unix': 'LF', 'mac': 'CR', 'dos': 'CRLF'}
   return get(s:newline_labels, &fileformat, &fileformat)
@@ -214,9 +244,9 @@ set statusline+=\ %{strlen(&ft)?&ft:'none'}
 set statusline+=\ \ %{ShowNewline()}
 set statusline+=\ \ %{strlen(&fileencoding)?toupper(&fileencoding):toupper(&encoding)}
 set statusline+=\ \ %l:%c
-set statusline+=\ \ %{LinterStatus()}
+set statusline+=\ \ %{LSPStatus()}
 set statusline+=\ %#Visual#
-set statusline+=%{strlen(FugitiveHead())?'\ '.FugitiveHead().'\ ':''}
+set statusline+=%{b:gitbranch}
 set statusline+=%*
 " End of Status Bar }}}
 
@@ -396,7 +426,8 @@ let g:rg_highlight = 'true'
 " ------------------------------------- FZF ------------------------------------
 " -------------------------------------------------------------------------- {{{
 let g:fzf_command_prefix = 'F'
-let $FZF_DEFAULT_OPTS = '--layout=reverse --info=inline'
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
+" let $FZF_DEFAULT_OPTS = '--layout=reverse --info=inline'
 
 " Tell FZF to use Rg
 if executable('rg')
@@ -527,12 +558,40 @@ let g:lsp_signs_hint = {'text': '💡'} " icons require GUI
 
 " Highlight references to the symbol under the cursor
 let g:lsp_highlight_references_enabled = 1
+
+function! LSPStatus() abort
+  let l:counts = lsp#get_buffer_diagnostics_counts()
+  let l:errors  = l:counts.error
+  let l:warnings  = l:counts.warning
+  let l:hints  = l:counts.hint
+  let l:informations  = l:counts.information
+
+  let l:total  = l:errors + l:warnings + l:hints + l:informations
+
+  return l:total == 0 ? 'OK' : printf(
+        \   'E %d  W %d  H %d  i %d',
+        \   l:errors,
+        \   l:warnings,
+        \   l:hints,
+        \   l:informations
+        \)
+endfunction
 " End of LSP }}}
+
 " ------------------------------------------------------------------------------
-" ---------------------------------- Prettier ----------------------------------
+" ---------------------------------- Vimwiki ----------------------------------
 " -------------------------------------------------------------------------- {{{
-let g:prettier#autoformat_config_files = ['~/.prettierrc.js']
-" End of Prettier }}}
+let g:vimwiki_global_ext=0
+
+" augroup vimwikiConceal
+"   autocmd!
+"   autocmd FileType vimwiki call matchadd('Conceal', '\[\ \]', 10, -1, {'conceal': '☐'})
+"   autocmd FileType vimwiki call matchadd('Conceal', '\[X\]', 10, -1, {'conceal': '☑'})
+"   autocmd FileType vimwiki call matchadd('Conceal', '\[-\]', 10, -1, {'conceal': '☒'})
+"   autocmd FileType vimwiki call matchadd('Conceal', '\[\.\]', 10, -1, {'conceal': '⊡'})
+"   autocmd FileType vimwiki call matchadd('Conceal', '\[o\]', 10, -1, {'conceal': '⬕'})
+" augroup END
+" End of Vimwiki }}}
 " End of Plugin Configuration }}}
 
 " ==============================================================================
@@ -606,6 +665,16 @@ function! <SID>SynStack()
   endif
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
+
+" Switch/Toggle conceallevel
+nnoremap <silent><Leader>sc :call ToggleConcealLevel()<CR>
+function! ToggleConcealLevel()
+  if &conceallevel == 0
+    setlocal conceallevel=3
+  else
+    setlocal conceallevel=0
+  endif
+endfunction
 " End of Miscellaneous }}}
 
 " ------------------------------------------------------------------------------
@@ -722,7 +791,7 @@ nnoremap <leader>cp :call popup_clear() <CR>
 " ------------------------------------ FZF -------------------------------------
 " -------------------------------------------------------------------------- {{{
 nnoremap <leader>ff :FFiles<CR>
-nnoremap <silent> <leader>/ :FRG<CR>
+nnoremap <silent> <leader>fg :FRG<CR>
 nnoremap <silent> <Leader>* :exec "FRG ".expand("<cword>")<CR>
 nnoremap <Leader>fb :FBuffers<CR>
 nnoremap <Leader>fL :FLines<CR>
@@ -797,3 +866,54 @@ endfunction
 " End of Vim TODO List }}}
 " End of Mappings }}}
 
+" Icons
+" ▶ » ◀ « ⤴ ➔ ➥ ⎇ ⊘ ¶ ρ ␊ ⎇ ρ Þ ∥ Ξ       
+
+" if has("nvim")
+"   let $PLUGIN_DIR = stdpath('data') . '/plugged'
+" elseif has('win32')
+"   let $PLUGIN_DIR = "~/vimfiles/plugged"
+" else
+"   let $PLUGIN_DIR = "~/.vim/plugged"
+" endif
+
+" call plug#begin($MYPLUGDIRECTORY)
+
+" if has("nvim")
+"   let s:plugin_dir = stdpath('data') . '/plugged'
+" elseif has('win32')
+"   let s:plugin_dir = "~/vimfiles/plugged"
+" else
+"   let s:plugin_dir = "~/.vim/plugged"
+" endif
+
+" call plug#begin(s:plugin_dir)
+
+function! FlashYankedText()
+    if (!exists('g:yankedTextMatches'))
+        let g:yankedTextMatches = []
+    endif
+
+    let matchId = matchadd('IncSearch', ".\\%>'\\[\\_.*\\%<']..")
+    let windowId = winnr()
+
+    call add(g:yankedTextMatches, [windowId, matchId])
+    call timer_start(500, 'DeleteTemporaryMatch')
+endfunction
+
+function! DeleteTemporaryMatch(timerId)
+    while !empty(g:yankedTextMatches)
+        let match = remove(g:yankedTextMatches, 0)
+        let windowID = match[0]
+        let matchID = match[1]
+
+        try
+            call matchdelete(matchID, windowID)
+        endtry
+    endwhile
+endfunction
+
+augroup highlightYankedText
+    autocmd!
+    autocmd TextYankPost * call FlashYankedText()
+augroup END
