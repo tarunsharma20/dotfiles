@@ -15,10 +15,12 @@ call plug#begin('~/.vim/plugged')
 Plug 'Yggdroot/indentLine'
 Plug 'mattn/emmet-vim'
 Plug 'godlygeek/tabular'
-Plug 'ap/vim-buftabline'
 Plug 'tpope/vim-commentary'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'vimwiki/vimwiki'
+Plug 'itchyny/lightline.vim'
+Plug 'mengelbrecht/lightline-bufferline'
+Plug 'lacygoill/vim-virtual-text'
 " End of Miscellaneous }}}
 
 " ------------------------------------------------------------------------------
@@ -30,7 +32,7 @@ Plug 'tarunsharma20/witching-hour'         " witching-hour
 " ------------------------------------------------------------------------------
 " ------------------------------------ LSP -------------------------------------
 " -------------------------------------------------------------------------- {{{
-Plug 'prabirshrestha/async.vim'
+" Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prabirshrestha/asyncomplete-file.vim'
@@ -48,16 +50,16 @@ Plug 'lilydjwg/colorizer'
 " ------------------------------------------------------------------------------
 " ---------------------------------- Linting -----------------------------------
 " -------------------------------------------------------------------------- {{{
-Plug 'w0rp/ale'
-Plug 'prettier/vim-prettier'
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 " End of Linting }}}
 
 " ------------------------------------------------------------------------------
 " ------------------------------ File Management -------------------------------
 " -------------------------------------------------------------------------- {{{
-Plug 'jremmen/vim-ripgrep'
+" Plug 'jremmen/vim-ripgrep'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'wookayin/fzf-ripgrep.vim'
 " End of File Management }}}
 
 " ------------------------------------------------------------------------------
@@ -97,8 +99,8 @@ set shortmess+=c
 set clipboard=unnamed             " Use system clipboard
 "
 " Remove conceal feature it's hiding double quotes in JSON
-set conceallevel=0
-set concealcursor=""
+" set conceallevel=0
+" set concealcursor=""
 
 set spell                 " spell checking
 set spelllang=en_us
@@ -187,68 +189,82 @@ set smarttab
 " ------------------------------------------------------------------------------
 " --------------------------------- Status Bar ---------------------------------
 " -------------------------------------------------------------------------- {{{
-function! StatuslineMode()
-    let l:mode=mode()
-    if l:mode==#"n"
-        return "NORMAL"
-    elseif l:mode==?"v"
-        return "VISUAL"
-    elseif l:mode==#"i"
-        return "INSERT"
-    elseif l:mode==#"R"
-        return "REPLACE"
-    endif
-endfunction
+" let g:currentmode={
+"     \ 'n'  : 'Normal',
+"     \ 'no' : 'Normal·Operator Pending',
+"     \ 'v'  : 'Visual',
+"     \ 'V'  : 'V·Line',
+"     \ "\<C-V>" : 'V·Block',
+"     \ 's'  : 'Select',
+"     \ 'S'  : 'S·Line',
+"     \ "\<C-S>" : 'S·Block',
+"     \ 'i'  : 'Insert',
+"     \ 'R'  : 'Replace',
+"     \ 'Rv' : 'V·Replace',
+"     \ 'c'  : 'Command',
+"     \ 'cv' : 'Vim Ex',
+"     \ 'ce' : 'Ex',
+"     \ 'r'  : 'Prompt',
+"     \ 'rm' : 'More',
+"     \ 'r?' : 'Confirm',
+"     \ '!'  : 'Shell',
+"     \ 't'  : 'Terminal'
+"     \}
 
-function! StatuslineGitBranch()
-  let b:gitbranch=""
-  if &modifiable
-    lcd %:p:h
-    let l:gitrevparse=system("git rev-parse --abbrev-ref HEAD")
-    lcd -
-    if l:gitrevparse!~"fatal: not a git repository"
-      let b:gitbranch=" ".substitute(l:gitrevparse, '\n', '', 'g')." "
-    endif
-  endif
-endfunction
+" function! StatuslineMode()
+"   let l:mode=mode()
+"   if l:mode==#"n"
+"     return "NORMAL"
+"   elseif l:mode==?"v"
+"     return "VISUAL"
+"   elseif l:mode==#"i"
+"     return "INSERT"
+"   elseif l:mode==#"R"
+"     return "REPLACE"
+"   endif
+" endfunction
 
-augroup GetGitBranch
-  autocmd!
-  autocmd VimEnter,WinEnter,BufEnter * call StatuslineGitBranch()
-augroup END
+" function! GitBranch()
+"   return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+" endfunction
 
-function! ShowNewline() abort
-  let s:newline_labels = {'unix': 'LF', 'mac': 'CR', 'dos': 'CRLF'}
-  return get(s:newline_labels, &fileformat, &fileformat)
-endfunction
+" function! StatuslineGit()
+"   let l:branchname = GitBranch()
+"   return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+" endfunction
 
-set statusline=
+" function! ShowNewline() abort
+"   let s:newline_labels = {'unix': 'LF', 'mac': 'CR', 'dos': 'CRLF'}
+"   return get(s:newline_labels, &fileformat, &fileformat)
+" endfunction
 
-set statusline+=%#DiffAdd#%{(mode()=='n')?'\ \ NORMAL\ ':''}
-set statusline+=%#DiffChange#%{(mode()=='i')?'\ \ INSERT\ ':''}
-set statusline+=%#DiffDelete#%{(mode()=='r')?'\ \ REPLACE\ ':''}
-set statusline+=%#Visual#%{(mode()=='v:')?'\ \ VISUAL\ ':''}
+" set statusline=
 
-" Comment line below if your colorscheme support active statusline color
-" set statusline+=%#Cursor#
+" set statusline+=%#DiffAdd#%{(mode()=='n')?'\ \ NORMAL\ ':''}
+" set statusline+=%#DiffChange#%{(mode()=='i')?'\ \ INSERT\ ':''}
+" set statusline+=%#DiffDelete#%{(mode()=='r')?'\ \ REPLACE\ ':''}
+" set statusline+=%#Visual#%{(mode()=='v:')?'\ \ VISUAL\ ':''}
 
-" Uncomment line below if your colorscheme support active statusline color
-set statusline+=%*
+" " Comment line below if your colorscheme support active statusline color
+" " set statusline+=%#Cursor#
 
-set statusline+=\ %t
-set statusline+=\ %h%m%r%w
+" " Uncomment line below if your colorscheme support active statusline color
+" set statusline+=%*
 
-set statusline+=%=
+" set statusline+=\ %t
+" set statusline+=\ %h%m%r%w
 
-set statusline+=\ %{strlen(&ft)?&ft:'none'}
-set statusline+=\ \ %{ShowNewline()}
-set statusline+=\ \ %{strlen(&fileencoding)?toupper(&fileencoding):toupper(&encoding)}
-set statusline+=\ \ %l:%c
-set statusline+=\ \ %{LSPStatus()}
-set statusline+=\ %#Visual#
-set statusline+=%{b:gitbranch}
-set statusline+=%*
-" End of Status Bar }}}
+" set statusline+=%=
+
+" set statusline+=\ %{strlen(&ft)?&ft:'none'}
+" set statusline+=\ \ %{ShowNewline()}
+" set statusline+=\ \ %{strlen(&fileencoding)?toupper(&fileencoding):toupper(&encoding)}
+" set statusline+=\ \ %l:%c
+" set statusline+=\ \ %{LSPStatus()}
+" set statusline+=\ %#Visual#
+" set statusline+=%{b:gitbranch}
+" set statusline+=%*
+" " End of Status Bar }}}
 
 " ------------------------------------------------------------------------------
 " ------------------------------ Page Title & Tabs -----------------------------
@@ -263,7 +279,7 @@ autocmd BufEnter * let &titlestring = ' ' . expand("%:f") . ' - ' . fnamemodify(
 " ------------------------------------------------------------------------------
 " ------------------------------ Font Name & Size ------------------------------
 " -------------------------------------------------------------------------- {{{
-let g:fnt_name = 'Fira\ Code'
+let g:fnt_name = 'FiraCode\ Nerd\ Font\ Mono'
 let g:fnt_size = 15
 
 function! SetFont ()
@@ -428,6 +444,7 @@ let g:rg_highlight = 'true'
 let g:fzf_command_prefix = 'F'
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
 " let $FZF_DEFAULT_OPTS = '--layout=reverse --info=inline'
+let $FZF_DEFAULT_OPTS = '--bind "ctrl-d:preview-down,ctrl-u:preview-up"'
 
 " Tell FZF to use Rg
 if executable('rg')
@@ -451,12 +468,57 @@ command! -nargs=* -bang FRG call RipgrepFzf(<q-args>, <bang>0)
 " End of FZF }}}
 
 " ------------------------------------------------------------------------------
-" -------------------------------- Buftabline ----------------------------------
+" -------------------------------- Lightline -----------------------------------
 " -------------------------------------------------------------------------- {{{
-let g:buftabline_numbers = 2
-let g:buftabline_indicators = 1
-let g:buftabline_separators = 1
-" End of Buftabline }}}
+set showtabline=2
+set laststatus=2
+
+let g:lightline = {
+  \ 'colorscheme': 'one',
+  \ 'active': {
+    \ 'left': [['mode'], ['readonly', 'filename']],
+    \ 'right': [['gitbranch'], ['lineinfo'], ['filetype', 'fileencoding', 'fileformat']]
+  \ },
+  \ 'tabline': {
+    \ 'left': [ ['buffers'] ],
+    \ 'right': [ ['close'] ]
+  \ },
+  \ 'component_function': {
+    \ 'gitbranch': 'FugitiveHead',
+    \ 'filename': 'LightlineFilename',
+    \ 'fileformat': 'ShowNewline'
+  \ },
+  \ 'component_expand': {
+    \ 'buffers': 'lightline#bufferline#buffers'
+  \ },
+  \ 'component_type': {
+    \ 'buffers': 'tabsel'
+  \ },
+  \ 'separator': { 'left': '', 'right': '' },
+  \ 'subseparator': { 'left': '', 'right': '' }
+\ }
+
+function! LightlineFilename()
+  let filename = expand('%:t') !=# '' ? expand('%:t') : '[No Name]'
+  let modified = &modified ? ' [+]' : ''
+  return filename . modified
+endfunction
+
+function! ShowNewline() abort
+  let s:newline_labels = {'unix': 'LF', 'mac': 'CR', 'dos': 'CRLF'}
+  return get(s:newline_labels, &fileformat, &fileformat)
+endfunction
+
+let g:lightline#bufferline#modified = ' [+]'
+let g:lightline#bufferline#read_only = ' [-]'
+let g:lightline#bufferline#show_number = 2
+
+let g:lightline#bufferline#composed_number_map = {
+\ 1:  '⑴ ', 2:  '⑵ ', 3:  '⑶ ', 4:  '⑷ ', 5:  '⑸ ',
+\ 6:  '⑹ ', 7:  '⑺ ', 8:  '⑻ ', 9:  '⑼ ', 10: '⑽ ',
+\ 11: '⑾ ', 12: '⑿ ', 13: '⒀ ', 14: '⒁ ', 15: '⒂ ',
+\ 16: '⒃ ', 17: '⒄ ', 18: '⒅ ', 19: '⒆ ', 20: '⒇ '}
+" End of Lightline }}}
 
 " ------------------------------------------------------------------------------
 " ------------------------------- Indent Guides --------------------------------
@@ -470,47 +532,6 @@ let g:indent_guides_guide_size = 1
 let g:user_emmet_leader_key='<Tab>'
 let g:user_emmet_setting = { 'javascript.jsx' : { 'extends': 'jsx', }, }
 " End of Emmet }}}
-
-" ------------------------------------------------------------------------------
-" ------------------------------------ Ale -------------------------------------
-" -------------------------------------------------------------------------- {{{
-highlight clear ALEErrorSign " otherwise uses error bg color (typically red)
-highlight clear ALEWarningSign " otherwise uses error bg color (typically red)
-
-let g:ale_sign_error = '❌'
-let g:ale_sign_warning = '🚸'
-
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_filetype_changed = 0
-let g:ale_lint_on_enter = 0
-let g:ale_lint_on_save = 1
-let g:ale_fix_on_save = 1 "Fix files on save
-let g:ale_linters_explicit = 1
-
-let g:ale_echo_msg_format = '%severity%: %linter% says - %s'
-let g:ale_linters = {
-  \ 'javascript': ['eslint']
-  \ }
-let g:ale_fixers = {
-  \ 'javascript': ['prettier', 'eslint']
-  \ }
-
-" Will keep gutter open for error sign
-let g:ale_sign_column_always = 1
-
-function! LinterStatus() abort
-  let l:counts = ale#statusline#Count(bufnr(''))
-
-  let l:all_errors = l:counts.error + l:counts.style_error
-  let l:all_non_errors = l:counts.total - l:all_errors
-
-  return l:counts.total == 0 ? 'OK' : printf(
-        \   '%d W, %d E',
-        \   all_non_errors,
-        \   all_errors
-        \)
-endfunction
-" End of Ale }}}
 
 " ------------------------------------------------------------------------------
 " -------------------------------- Asyncomplete --------------------------------
@@ -577,6 +598,15 @@ function! LSPStatus() abort
         \)
 endfunction
 " End of LSP }}}
+" ------------------------------------------------------------------------------
+" ---------------------------------- Prettier ----------------------------------
+" -------------------------------------------------------------------------- {{{
+let g:prettier#autoformat = 1
+let g:prettier#autoformat_require_pragma = 0
+
+" let g:prettier#autoformat = 0
+" autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
+" End of Prettier }}}
 
 " ------------------------------------------------------------------------------
 " ---------------------------------- Vimwiki ----------------------------------
@@ -641,6 +671,9 @@ vmap <Right> <Nop>
 
 " highlight last inserted text
 nnoremap gV '[v']
+
+" Making Y consistent with all the other capital letter commands.
+" nnoremap Y y$
 
 " Space open/closes folds
 " nnoremap <space> za
@@ -799,27 +832,29 @@ nnoremap <Leader>fl :FBLines<CR>
 " End of FZF }}}
 
 " ------------------------------------------------------------------------------
-" ------------------------------------ ALE -------------------------------------
-" -------------------------------------------------------------------------- {{{
-nnoremap <silent> <leader>af :ALEFix<CR>
-nmap <silent> ]e <Plug>(ale_next_wrap)
-nmap <silent> [e <Plug>(ale_previous_wrap)
-" End of ALE }}}
-
-" ------------------------------------------------------------------------------
 " --------------------------------- Git Gutter ---------------------------------
 " -------------------------------------------------------------------------- {{{
 nnoremap <silent> ]h :GitGutterNextHunk<CR>
 nnoremap <silent> [h :GitGutterPrevHunk<CR>
+
+" open 3 way git conflict
+nnoremap <silent> <leader>gc :Gdiffsplit!<CR>
+
+" fetches the hunk from the target parent
+nnoremap <silent> <leader>gt :diffget //2<CR>:diffupdate<CR>
+"
+" fetches the hunk from the merge parent (on the right)
+nnoremap <silent> <leader>gm :diffget //3<CR>:diffupdate<CR>
 " End of Git Gutter }}}
 
 " ------------------------------------------------------------------------------
-" -------------------------------- Buftabline ----------------------------------
+" ----------------------------- Lightline Buffer -------------------------------
 " -------------------------------------------------------------------------- {{{
 for i in range(1, 9)
-  execute 'nmap <silent> <Leader>' . (i) . ' <Plug>BufTabLine.Go('. i .')'
+  execute 'nmap <silent> <Leader>' . (i) . ' <Plug>lightline#bufferline#go('. i .')'
 endfor
-" End of BufTabLine }}}
+
+" End of Lightline Buffer }}}
 
 " ------------------------------------------------------------------------------
 " ------------------------------ Vim Presentation ------------------------------
@@ -898,7 +933,7 @@ function! FlashYankedText()
     let windowId = winnr()
 
     call add(g:yankedTextMatches, [windowId, matchId])
-    call timer_start(500, 'DeleteTemporaryMatch')
+    call timer_start(200, 'DeleteTemporaryMatch')
 endfunction
 
 function! DeleteTemporaryMatch(timerId)
@@ -917,3 +952,4 @@ augroup highlightYankedText
     autocmd!
     autocmd TextYankPost * call FlashYankedText()
 augroup END
+
