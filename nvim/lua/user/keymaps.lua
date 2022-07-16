@@ -1,10 +1,9 @@
 local utils = require('utils')
+
 local map = utils.map
 local unmap = utils.unmap
-local g = vim.g
-local fn = vim.fn
 
-g.mapleader = " "
+vim.g.mapleader = ' '
 
 -- -----------------------------------------------------------------------------
 -- ------------------------------- Miscellaneous -------------------------------
@@ -20,7 +19,7 @@ map('n', '<Right>', '<Nop>')
 map('v', '<Right>', '<Nop>')
 
 -- Re-setting custom mapping defined by neovim
-unmap('n', 'Y')
+-- unmap('n', 'Y')
 
 -- turn off search highlight
 map('n', '<leader><space>', '<cmd>nohlsearch<cr>')
@@ -31,15 +30,26 @@ map('n', '<leader>c*', '*``cgn')
 -- Same as above but in reverse order
 map('n', '<leader>c#', '*``cgN')
 
--- " Show syntax highlighting groups for word under cursor
--- nmap <C-S-P> :call <SID>SynStack()<CR>
--- function! <SID>SynStack()
---   if !exists("*synstack")
---     return
---   endif
---   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
--- endfunc
--- " End of Miscellaneous }}}
+-- Allow gf to open non-existent files
+map('n', 'gf', ':edit <cfile><CR>')
+
+-- Reselect visual selection after indenting
+map('v', '<', '<gv')
+map('v', '>', '>gv')
+map('v', '=', '=gv')
+
+vim.cmd[[
+  " Show syntax highlighting groups for word under cursor
+  nmap <C-S-P> :TSHighlightCapturesUnderCursor<CR>
+  " nmap <C-S-P> :call SynStack()<CR>
+  " function! SynStack()
+  "   if !exists("*synstack")
+  "     return
+  "   endif
+  "   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+  " endfunc
+  " End of Miscellaneous }}}
+]]
 
 -- -----------------------------------------------------------------------------
 -- ------------------------------- Split window --------------------------------
@@ -57,7 +67,7 @@ map('n', '<C-j>', '<cmd>wincmd j<cr>')
 map('n', '<C-k>', '<cmd>wincmd k<cr>')
 
 -- Scale-up/down horizontal/vertically split window by 3 rows/columns
-if fn.has("gui_macvim") == 1 then
+if vim.fn.has("gui_macvim") == 1 then
   map('n', '<D-Up>', '<cmd>resize +3<cr>')
   map('n', '<D-Down>', '<cmd>resize -3<cr>')
   map('n', '<D-Right>', '<cmd>vertical resize +3<cr>')
@@ -98,15 +108,22 @@ map('n', ']b', '<cmd>bnext<cr>')
 map('n', '[b', '<cmd>bprevious<cr>')
 map('n', '[B', '<cmd>bfirst<cr>')
 map('n', ']B', '<cmd>blast<cr>')
+map('n', 'bw', '<cmd>bprevious|bwipeout#<cr>')
+
+-- -----------------------------------------------------------------------------
+-- ----------------------------------- Marks -----------------------------------
+-- ------------------------------------------------------------------------- {{{
+-- Delete all marks
+map('n', '<Leader>md', '<cmd>delmarks A-Z0-9<cr>')
 
 -- -----------------------------------------------------------------------------
 -- ---------------------------------- NetRW ------------------------------------
 -- ------------------------------------------------------------------------- {{{
 -- Open parent directory
-map('n', '-', '<cmd>Explore<CR>')
+-- map('n', '-', '<cmd>Explore<CR>')
 
 -- Open root directory
-map('n', '_', '<cmd>Ntree<CR>')
+-- map('n', '_', '<cmd>Ntree<CR>')
 
 -- -----------------------------------------------------------------------------
 -- --- Move current line or selected block up and down with Alt+j and Alt+k ----
