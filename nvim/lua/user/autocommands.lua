@@ -1,28 +1,77 @@
-vim.cmd [[
-  " will automatically open the quickfix window whenever you do :vimgrep or other
-  " commands that populate the quickfix/location list
-  augroup qf
-  autocmd!
-  autocmd QuickFixCmdPost [^l]* cwindow
-  autocmd QuickFixCmdPost l*    cwindow
-  autocmd VimEnter        *     cwindow
-  augroup END
+local utils = require('utils')
 
-  set number relativenumber " Show relative line numbers
+local api = utils.api
+local wo = utils.wo
 
-  " Show absolute line number in insert mode, and hybrid(absolute + relative) in normal mode
-  augroup numbertoggle
-    autocmd!
-    autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-    autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
-  augroup END
+-- Highlight on yank
+local yankGroup = api.nvim_create_augroup("YankHighlight", { clear = true })
 
-  " Showing current file name and current working directory on buffer change
-  autocmd BufEnter * let &titlestring = ' ' . expand("%:f") . ' - ' . fnamemodify(getcwd(), ':t')
+api.nvim_create_autocmd("TextYankPost", {
+  command = "silent! lua vim.highlight.on_yank()",
+  group = yankGroup,
+})
 
-  " Highlight yanked text
-  augroup highlight_yank
-    autocmd!
-    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank({higroup = 'IncSearch', timeout = 200})
-  augroup END
-]]
+-- Go to last location when opening a buffer
+local lastLocation = api.nvim_create_augroup("GoToLastLocation", { clear = true })
+
+api.nvim_create_autocmd("BufReadPost", {
+  command = [[if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g`\"" | endif]],
+  group = lastLocation,
+})
+
+
+-- show cursor line only in active window
+local cursorGroup = api.nvim_create_augroup("CursorLine", { clear = true })
+
+api.nvim_create_autocmd(
+  { "InsertLeave", "WinEnter" },
+  { command = "set cursorline", group = cursorGroup }
+)
+
+api.nvim_create_autocmd(
+  { "InsertEnter", "WinLeave" },
+  { command = "set nocursorline", group = cursorGroup }
+)
+
+-- Show absolute line number in insert mode, and hybrid(absolute + relative) in normal mode
+wo.relativenumber = true
+local numberToggle = api.nvim_create_augroup("NumberToggle", { clear = true })
+
+api.nvim_create_autocmd(
+  { "BufEnter", "FocusGained", "InsertLeave" },
+  { command = "set relativenumber", group = numberToggle }
+)
+
+api.nvim_create_autocmd(
+  { "BufLeave", "FocusLost", "InsertEnter" },
+  { command = "set norelativenumber", group = numberToggle }
+)
+
+-- show cursor line only in active window
+local openTerminalInInsertMode = api.nvim_create_augroup("OpenTerminalInInsertMode", { clear = true })
+
+api.nvim_create_autocmd("TermOpen", {
+  command = "startinsert",
+  group = openTerminalInInsertMode
+})
+
+-- Showing current file name and current working directory on buffer change
+local titleString = api.nvim_create_augroup("TitleString", { clear = true })
+
+api.nvim_create_autocmd("BufEnter", {
+  command = [[let &titlestring = ' ' . expand("%:f") . ' - ' . fnamemodify(getcwd(), ':t')]],
+  group = titleString,
+})
+
+-- will automatically open the quickfix window whenever you do :vimgrep or other
+-- commands that populate the quickfix/location list
+wo.relativenumber = true
+local qf = api.nvim_create_augroup("Qf", { clear = true })
+
+api.nvim_create_autocmd("QuickFixCmdPost",
+  { pattern = {"[^l]*", "l*"}, command = "cwindow", group = qf }
+)
+
+api.nvim_create_autocmd("VimEnter",
+  { command = "cwindow", group = qf }
+)

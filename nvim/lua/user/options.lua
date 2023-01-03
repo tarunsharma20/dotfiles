@@ -1,4 +1,13 @@
-vim.cmd [[
+local utils = require('utils')
+
+local go = utils.go
+local bo = utils.bo
+local wo = utils.wo
+local opt = utils.opt
+local fn = utils.fn
+local cmd = utils.cmd
+
+cmd [[
   filetype on        " Turn on file type detection.
   filetype off       " Turn off file type detection.
   filetype plugin on " Turn on file type plugins. (By default enabled)
@@ -6,92 +15,99 @@ vim.cmd [[
   filetype indent on " Enable specific file based indentation (By default enabled)
 ]]
 
-local options = {
-  autoindent = true,                       -- Align the new line indent match with previous line (default true)
-  autoread = true,                         -- Autoupdate when file changed from outside (default true)
-  autowrite = false,                       -- Automatically :write
-  background = "dark",                     -- (default "dark")
-  backspace = {'indent', 'eol', 'start'},  -- Make backspace behave as it is (default "indent,eol,start")
-  backup = false,                          -- Creates a backup file
-  clipboard = "unnamedplus",               -- allows to access the system clipboard
-  cmdheight = 1,                           -- Height of commandbar
-  colorcolumn = '+1',                      -- Display line at the edge of textwidth
-  completeopt = {'longest', 'menuone', 'menu', 'preview'},
-  concealcursor = '',
-  conceallevel = 0,                        -- so that `` is visible in markdown files
-  cursorline = true,                       -- highlight the current line
-  expandtab = true,                        -- Turns tab into spaces
-  ffs = {'unix', 'dos', 'mac'},            -- Use Unix as the standard file type
-  fileencoding = "utf-8 nobomb",           -- Set utf8 as standard encoding, BOM often causes trouble
-  fileformats = {'unix', 'dos', 'mac'},    -- Use Unix as the standard file type
-  foldenable = true,                       -- Enable folding option
-  foldlevelstart = 10,                     -- Open most folds by default
-  foldmethod = 'indent',                   -- Fold based on indent level
-  foldnestmax = 10,                        -- 10 nested fold max
-  gdefault = true,                         -- /g flag on search by default
-  guifont = 'FiraCode\\ Nerd\\ Font\\ Mono:h14',               -- The font used in graphical applications
-  hidden = true,                           -- Switch between buffers without save files (default true)
-  history = 1000,                          -- Number of lines history to remember (default 10000)
-  hlsearch = true,                         -- highlight all matches on previous search pattern ( default true)
-  ignorecase = true,                       -- Case-insensitive searching.
-  incsearch = true,                        -- (default true)
-  laststatus = 3,                          -- Always show status line (default 2)
-  lazyredraw = true,                       -- Don't redraw while running macros in buffer
-  linespace = 0,                           -- Number of space between lines (line spacing)
-  list = true,                             -- Show white space characters
-  magic = true,                            -- Enable extended regexes.
-  mouse = "a",                             -- allow the mouse to be used
-  number = true,                           -- set numbered lines
-  numberwidth = 4,                         -- set number column width to 2 {default 4}
-  omnifunc = 'syntaxcomplete#Complete',
-  pumheight = 10,                          -- pop up menu height
-  relativenumber = false,                  -- set relative numbered lines
-  ruler = true,                            -- Always show cursor position (default true)
-  rulerformat = '%=%h%m%r%w\\ %(%c%V%),%l/%L\\ %P',
-  scrolloff = 3,                           -- show context above/below cursorline.
-  shiftround = true,                       -- Round indent to multiple of 'shiftwidth'
-  shiftwidth = 2,                          -- Allow >> and << indent/unindent 2 visual spaces
-  showcmd = true,                          -- Show the last/incomplete command at bottom right of VIM (default true)
-  showmatch = true,                        -- highlight matching brackets
-  showmode = false,                        -- Show the current mode
-  showtabline = 2,                         -- always show tabs
-  sidescrolloff = 8,
-  signcolumn = "yes",                      -- always show the sign column, otherwise it would shift the text each time
-  smartcase = true,                        -- case-sensitive if expression contains a capital letter
-  smartindent = true,                      -- Automatically inserts one extra level of indentation
-  smarttab = true,                         -- Use the 'shiftwidth' setting for inserting tabs instead of 'tabstop' (default true)
-  softtabstop = 2,                         -- Number of spaces in tab when editing
-  spell = true,                            -- spell checking
-  spelllang = 'en_us',
-  splitbelow = true,                       -- :split will open new window below the current one
-  splitright = true,                       -- :vsplit will open new window right of the current one
-  swapfile = false,                        -- Creates a swapfile
-  tabstop = 2,                             -- Number of visual spaces per tab
-  termguicolors = true,                    -- set term gui colors (most terminals support this)
-  textwidth = 80,                          -- Lines longer than 79 columns will be broken
-  timeoutlen = 1000,                        -- time to wait for a mapped sequence to complete (in milliseconds)
-  title = true,                            -- Set the terminal's title
-  ttyfast = true,                          -- Speed up scrolling in vim buffer ( default true )
-  undofile = true,                         -- enable persistent undo
-  updatetime = 300,                        -- faster completion (4000ms default)
-  wildmode = {'list:longest' , 'full'},    -- wildmenu in special format (long format)
-  wrap = false,                            -- Turn on line wrapping.
-  writebackup = false,                     -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
-}
+go.title = true                            -- Set the terminal's title | {boolean} (default off)
+bo.autoread = true                         -- Autoupdate when file changed from outside | {boolean} (default on)
+-- go.autoread = true                         -- Autoupdate when file changed from outside | {boolean} (default on)
+go.autowrite = false                       -- Automatically :write | {boolean} (default off)
+go.background = "dark"                     -- (default "dark") | {string} (default "dark")
+go.backspace = 'indent,eol,start'          -- Make backspace behave as it is | {string} (default "indent,eol,start")
+go.clipboard = "unnamedplus"               -- allows to access the system clipboard | {string} (default "")
+go.cmdheight = 1                           -- Height of commandbar | {number} (default 1)
+go.hidden = true                           -- Switch between buffers without save files (default true) | {boolean} (default on)
+go.history = 1000                          -- Number of lines history to remember | {number} (default 10000)
+go.laststatus = 3                          -- Always show status line | {number} (default 2)
+-- wo.winbar = '%f'                           -- Enables the window bar and determines its contents
+go.lazyredraw = true                       -- Don't redraw while running macros in buffer| {boolean} (default off)
+go.timeoutlen = 1000                       -- time to wait for a mapped sequence to complete (in milliseconds) | {number} (default 1000)
+go.updatetime = 300                        -- faster completion | {number} (default 4000)
+bo.undofile = true                         -- enable persistent undo | {boolean} (default off)
+go.showmatch = true                        -- highlight matching brackets | {boolean} (default off)
+go.showmode = false                        -- Show the current mode | {boolean} (default on)
+go.showcmd = true                          -- Show the last/incomplete command at bottom right of VIM | {boolean} (default off)
+go.showtabline = 2                         -- always show tabs | {number} (default 1)
+-- go.sidescrolloff = 8                       -- {number} (default 0)
+wo.sidescrolloff = 8                       -- {number} (default 0)
+wo.signcolumn = "yes"                      -- always show the sign column, otherwise it would shift the text each time | {string} (default "auto")
+wo.wrap = false                            -- Turn on line wrapping. | {boolean} (default on)
+wo.list = true                             -- Show white space characters | {boolean} (default off)
+-- go.scrolloff = 3                           -- show context above/below cursorline. | {number} (default 0)
+wo.scrolloff = 3                           -- show context above/below cursorline. | {number} (default 0)
 
-vim.opt.shortmess:append "c"  -- don't give |ins-completion-menu| messages.
-vim.opt.complete:append('kspell')
-vim.opt.path:append('**')  -- Recursively traverse to find something
+wo.concealcursor = ''                      -- {string} (default: "")
+wo.conceallevel = 0                        -- so that `` is visible in markdown files | {number} (default 0)
 
-for key, value in pairs(options) do
-  vim.opt[key] = value
-end
+bo.textwidth = 80                          -- Lines longer than 79 columns will be broken | {number} (default 0)
+wo.colorcolumn = '+1'                      -- Display line at the edge of textwidth, it might make screen redrawing slower | {string} (default "")
+wo.cursorline = true                       -- highlight the current line | {boolean} (default off)
 
-vim.cmd "set whichwrap+=<,>,[,],h,l"
-vim.cmd [[set iskeyword+=-]]
-vim.cmd [[set guifont=FiraCode\ Nerd\ Font\ Mono:h18]]
+bo.fileencoding = "utf-8 nobomb"           -- Set utf8 as standard encoding, BOM often causes trouble | {string} (default "")
+go.fileformats = 'unix,dos,mac'            -- Use Unix as the standard file type | {string}
+wo.spell = true                            -- spell checking | {boolean} (default off)
+bo.spelllang = 'en_us'                     -- {string} (default "en")
 
-vim.cmd [[
+wo.foldenable = true                       -- Enable folding option | {boolean} (default on)
+go.foldlevelstart = 10                     -- Open most folds by default | {number} (default -1)
+wo.foldmethod = 'indent'                   -- Fold based on indent level | {string} (default "manual")
+wo.foldnestmax = 10                        -- 10 nested fold max | {number} (default 20)
+
+go.gdefault = true                         -- /g flag on search by default | {boolean} (default off)
+go.hlsearch = true                         -- highlight all matches on previous search pattern | {boolean} (default true)
+go.ignorecase = true                       -- Case-insensitive searching. | {boolean} (default off)
+go.incsearch = true                        -- While typing a search command, show where the pattern as it was typed. | {boolean} (default on)
+go.magic = true                            -- Enable extended regexes. | {boolean} (default on)
+
+wo.number = true                           -- set numbered lines | {boolean} (default off)
+wo.relativenumber = false                  -- set relative numbered lines | {boolean} (default off)
+wo.numberwidth = 4                         -- set number column width | {number} {default 4}
+
+bo.omnifunc = 'syntaxcomplete#Complete'    -- {string} (default: empty)
+go.completeopt = 'longest,menuone,menu,preview' -- {string} (default: "menu,preview")
+go.wildmode = 'list:longest,full'          -- wildmenu in special format | {string} (default "full")
+go.pumheight = 10                          -- pop up menu height | {number} (default 0)
+go.ruler = true                            -- Always show cursor position | {boolean} (default on)
+go.rulerformat = '%=%h%m%r%w\\ %(%c%V%),%l/%L\\ %P' -- {string} (default empty)
+
+go.smartcase = true                        -- case-sensitive if expression contains a capital letter | {boolean} (default off)
+bo.smartindent = true                      -- Automatically inserts one extra level of indentation | {boolean} (default off)
+go.smarttab = true                         -- Use the 'shiftwidth' setting for inserting tabs instead of 'tabstop' | {bollean} (default off)
+bo.softtabstop = 2                         -- Number of spaces in tab when editing | {number} (default 0)
+bo.tabstop = 2                             -- Number of visual spaces per tab | {number} (default 8)
+go.shiftround = true                       -- Round indent to multiple of 'shiftwidth' | {boolean} (default off)
+bo.shiftwidth = 2                          -- Allow >> and << indent/unindent 2 visual spaces | {number} (default 8)
+bo.expandtab = true                        -- Turns tab into spaces | {boolean} (default off)
+bo.autoindent = true                       -- Align the new line indent match with previous line | {boolean} (default on)
+
+go.splitbelow = true                       -- :split will open new window below the current one | {boolean} (default off)
+go.splitright = true                       -- :vsplit will open new window right of the current one | {boolean} (default off)
+
+go.backup = false                          -- Creates a backup file | {boolean} (default off)
+go.writebackup = false                     -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited | {boolean} (default on)
+bo.swapfile = false                        -- Creates a swapfile | {boolean} (default on)
+go.termguicolors = true                    -- set term gui colors (most terminals support this) | {boolean} (default off)
+
+go.mouse = "a"                             -- allow the mouse to be used | {string} (default "")
+go.linespace = 0                           -- Number of space between lines. Only works in the GUI | {number} (default 0)
+-- go.guifont = 'FiraCode\\ Nerd\\ Font\\ Mono:h14'               -- The font used in graphical applications | {string} (default "")
+-- cmd [[set guifont=FiraCode\ Nerd\ Font\ Mono:h18]]
+
+opt.shortmess:append "c"  -- don't give |ins-completion-menu| messages.
+opt.complete:append('kspell')
+opt.path:append('**')  -- Recursively traverse to find something
+
+cmd "set whichwrap+=<,>,[,],h,l"
+cmd [[set iskeyword+=-]]
+
+cmd [[
 try
   colorscheme witching-hour
 catch /^Vim\%((\a\+)\)\=:E185/
@@ -101,31 +117,28 @@ endtry
 ]]
 
 -- Define symbols for listchars
-vim.cmd [[
+cmd [[
   set listchars=nbsp:¤,eol:¶,tab:→\ ,extends:»,precedes:«,trail:·
   let &showbreak = '↳ '
 ]]
 
 -- Ignore formats in wildmenu
-vim.opt.wildignore = {'*.dll', '*.o', '*.obj', '*.bak', '*.exe', '*.pyc', '*.swp', 'tags'}
-vim.opt.wildignore:append({'*.bmp', '*.gif', '*.ico', '*.jpg', '*.jpeg', '*.png'})
-vim.opt.wildignore:append({'*/node_modules/*', '*/bower_components/*', '*/build/*'})
+opt.wildignore = {'*.dll', '*.o', '*.obj', '*.bak', '*.exe', '*.pyc', '*.swp', 'tags'}
+opt.wildignore:append({'*.bmp', '*.gif', '*.ico', '*.jpg', '*.jpeg', '*.png'})
+opt.wildignore:append({'*/node_modules/*', '*/bower_components/*', '*/build/*'})
 
 -- Use git for search from grep command
-vim.opt.grepprg = 'git\\ --no-pager\\ grep\\ --no-color\\ -n\\ $*'
-vim.opt.grepformat = {'%f:%l:%m', '%m\\ %f\\ match%ts', '%f'}
+-- go.grepprg = 'git\\ --no-pager\\ grep\\ --no-color\\ -n\\ $*'
+bo.grepprg = 'git\\ --no-pager\\ grep\\ --no-color\\ -n\\ $*'
+go.grepformat = '%f:%l:%m,%m\\ %f\\ match%ts,%f'
 
 -- Use ripgrep for search if available
-if vim.fn.executable('rg') then
-  vim.opt.grepprg = 'rg\\ --vimgrep\\ --no-heading'
-  vim.opt.grepformat = '%f:%l:%c:%m,%f:%l:%m'
+if fn.executable('rg') then
+  -- go.grepprg = 'rg\\ --vimgrep\\ --no-heading'
+  bo.grepprg = 'rg\\ --vimgrep\\ --no-heading'
+  go.grepformat = '%f:%l:%c:%m,%f:%l:%m'
 end
 -- End of Search }}}
 
 -- Icons
 -- ▶ » ◀ « ⤴ ➔ ➥ ⎇ ⊘ ¶ ρ ␊ ⎇ ρ Þ ∥ Ξ       
-vim.cmd [[
-if exists('g:neovide')
-  let g:neovide_cursor_vfx_mode = "ripple"
-endif
-]]

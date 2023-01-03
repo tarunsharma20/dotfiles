@@ -29,7 +29,7 @@ endif
 
 " Toggle treeview
 if exists(':GuiTreeviewToggle')
-  nnoremap <silent> <leader>e :GuiTreeviewToggle<CR>
+  " nnoremap <silent> <leader>e :GuiTreeviewToggle<CR>
 endif
 
 
@@ -41,11 +41,15 @@ snoremap <silent><RightMouse> <C-G>:call GuiShowContextMenu()<CR>gv
 
 if exists('g:neovide')
   noremap <C-6> <C-^>
+  " noremap p o<Esc>vpyy
+  " noremap P O<Esc>vpyy
 
-  let g:neovide_cursor_vfx_mode="ripple"
+  set guifont=FiraCode\ Nerd\ Font\ Mono:h16
+
+  let g:neovide_cursor_vfx_mode=ripple
   " let g:neovide_cursor_animation_length=0.05
   let g:neovide_cursor_trail_length=0
-  let g:neovide_cursor_animate_command_line='false'
-  let g:neovide_remember_window_size='v:true'
+  let g:neovide_cursor_animate_command_line=false
+  let g:neovide_fullscreen=v:true
+  " let g:neovide_remember_window_size=v:true
 endif
-

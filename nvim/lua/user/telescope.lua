@@ -2,7 +2,7 @@ local telescope = require('telescope')
 local actions = require('telescope.actions')
 local utils = require('utils')
 
-local map = utils.map
+local keymap = utils.keymap
 
 telescope.setup {
   defaults = {
@@ -59,12 +59,12 @@ telescope.load_extension('fzf')
 telescope.load_extension('project')
 telescope.load_extension('file_browser')
 
--- map('n', '<leader>ff', '<cmd>Telescope find_files hidden=true no_ignore=true<cr>')
--- map('n', '<leader>fc', '<cmd>lua require("telescope.builtin").find_files{cwd = "~/.config/nvim"}<cr>')
+keymap('n', '<leader>ff', '<cmd>Telescope find_files hidden=true no_ignore=true<cr>')
+keymap('n', '<leader>fc', '<cmd>lua require("telescope.builtin").find_files{cwd = "~/.config/nvim"}<cr>')
 
--- map('n', '<leader>fg', '<cmd>Telescope live_grep<cr>')
--- map('n', '<leader>f*', '<cmd>Telescope grep_string<cr>')
--- map('n', '<leader>fb', '<cmd>Telescope buffers<cr>')
-map('n', '<leader>fp', '<cmd>Telescope project<cr>')
--- map('n', '<leader>fe', '<cmd>Telescope file_browser<cr>')
--- map('n', '<leader>fr', '<cmd>lua require("telescope").extensions.live_grep_raw.live_grep_raw()<cr>')
+keymap('n', '<leader>fg', '<cmd>Telescope live_grep<cr>')
+keymap('n', '<leader>f*', '<cmd>Telescope grep_string<cr>')
+keymap('n', '<leader>fb', '<cmd>Telescope buffers<cr>')
+keymap('n', '<leader>fp', '<cmd>Telescope project<cr>')
+keymap('n', '<leader>fe', '<cmd>Telescope file_browser<cr>')
+keymap('n', '<leader>fr', '<cmd>lua require("telescope").extensions.live_grep_raw.live_grep_raw()<cr>')

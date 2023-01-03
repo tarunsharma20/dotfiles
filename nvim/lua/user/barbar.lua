@@ -1,5 +1,5 @@
 local utils = require('utils')
-local map = utils.map
+local keymap = utils.keymap
 
 vim.g.bufferline = {
   -- Enable/disable animations
@@ -70,34 +70,37 @@ vim.g.bufferline = {
 
 -- Mappings
 -- Move to previous/next
-map('n', '[b', ':BufferPrevious<CR>')
-map('n', ']b', ':BufferNext<CR>')
+keymap('n', '[b', ':BufferPrevious<cr>')
+keymap('n', ']b', ':BufferNext<cr>')
 -- Re-order to previous/next
-map('n', '[B', ':BufferMovePrevious<CR>')
-map('n', ']B', ':BufferMoveNext<CR>')
+keymap('n', '[B', ':BufferFirst<cr>')
+keymap('n', ']B', ':BufferLast<cr>')
+-- keymap('n', '[B', ':BufferMovePrevious<cr>')
+-- keymap('n', ']B', ':BufferMoveNext<cr>')
+
 -- Goto buffer in position...
-map('n', '<leader>1', ':BufferGoto 1<CR>')
-map('n', '<leader>2', ':BufferGoto 2<CR>')
-map('n', '<leader>3', ':BufferGoto 3<CR>')
-map('n', '<leader>4', ':BufferGoto 4<CR>')
-map('n', '<leader>5', ':BufferGoto 5<CR>')
-map('n', '<leader>6', ':BufferGoto 6<CR>')
-map('n', '<leader>7', ':BufferGoto 7<CR>')
-map('n', '<leader>8', ':BufferGoto 8<CR>')
-map('n', '<leader>9', ':BufferGoto 9<CR>')
-map('n', '<leader>0', ':BufferLast<CR>')
+keymap('n', '<leader>1', ':BufferGoto 1<cr>')
+keymap('n', '<leader>2', ':BufferGoto 2<cr>')
+keymap('n', '<leader>3', ':BufferGoto 3<cr>')
+keymap('n', '<leader>4', ':BufferGoto 4<cr>')
+keymap('n', '<leader>5', ':BufferGoto 5<cr>')
+keymap('n', '<leader>6', ':BufferGoto 6<cr>')
+keymap('n', '<leader>7', ':BufferGoto 7<cr>')
+keymap('n', '<leader>8', ':BufferGoto 8<cr>')
+keymap('n', '<leader>9', ':BufferGoto 9<cr>')
+keymap('n', '<leader>0', ':BufferLast<cr>')
 -- Close buffer
--- map('n', '<leader>bc', ':BufferClose<CR>')
+-- keymap('n', '<leader>bc', ':BufferClose<cr>')
 -- Wipeout buffer
---                 :BufferWipeout<CR>
+--                 :BufferWipeout<cr>
 -- Close commands
---                 :BufferCloseAllButCurrent<CR>
---                 :BufferCloseBuffersLeft<CR>
---                 :BufferCloseBuffersRight<CR>
+--                 :BufferCloseAllButCurrent<cr>
+--                 :BufferCloseBuffersLeft<cr>
+--                 :BufferCloseBuffersRight<cr>
 -- Magic buffer-picking mode
-map('n', '<leader>bp', ':BufferPick<CR>')
+keymap('n', '<leader>bp', ':BufferPick<cr>')
 -- Sort automatically by...
--- map('n', '<Space>bb', ':BufferOrderByBufferNumber<CR>')
--- map('n', '<Space>bd', ':BufferOrderByDirectory<CR>')
--- map('n', '<Space>bl', ':BufferOrderByLanguage<CR>')
+-- keymap('n', '<Space>bb', ':BufferOrderByBufferNumber<cr>')
+-- keymap('n', '<Space>bd', ':BufferOrderByDirectory<cr>')
+-- keymap('n', '<Space>bl', ':BufferOrderByLanguage<cr>')
 

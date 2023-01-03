@@ -1,12 +1,12 @@
 local utils = require('utils')
 
-local map = utils.map
+local keymap = utils.keymap
 
 -- Open parent directory
-map('n', '-', '<cmd>Explore<CR>')
+keymap('n', '-', '<cmd>Explore<cr>')
 
 -- Open root directory
-map('n', '_', '<cmd>Ntree<CR>')
+keymap('n', '_', '<cmd>Ntree<cr>')
 
 -- vim.cmd [[
 --   let g:netrw_banner=0

@@ -8,20 +8,20 @@ vim.cmd[[
 ]]
 
 local utils = require('utils')
-local map = utils.map
+local keymap = utils.keymap
 
--- map('n', ']h', '<cmd>GitGutterNextHunk<CR>')
--- map('n', '[h', '<cmd>GitGutterPrevHunk<CR>')
+-- keymap('n', ']h', '<cmd>GitGutterNextHunk<cr>')
+-- keymap('n', '[h', '<cmd>GitGutterPrevHunk<cr>')
 
 -- open 3 way git conflict
-map('n', '<leader>gd', '<cmd>Gvdiffsplit!<CR>')
+keymap('n', '<leader>gd', '<cmd>Gvdiffsplit!<cr>')
 
 -- fetches the hunk from the target parent
-map('n', '<leader>gt', '<cmd>diffget //2<CR><cmd>diffupdate<CR>')
-map('n', '<leader>gh', '<cmd>diffget //2<CR><cmd>diffupdate<CR>')
--- map('n', '<leader>gk', '<cmd>diffget //2<CR><cmd>diffupdate<CR>')
+keymap('n', '<leader>gt', '<cmd>diffget //2<cr><cmd>diffupdate<cr>')
+keymap('n', '<leader>gh', '<cmd>diffget //2<cr><cmd>diffupdate<cr>')
+-- keymap('n', '<leader>gk', '<cmd>diffget //2<cr><cmd>diffupdate<cr>')
 
 -- fetches the hunk from the merge parent (on the right)
-map('n', '<leader>gm', '<cmd>diffget //3<CR><cmd>diffupdate<CR>')
-map('n', '<leader>gl', '<cmd>diffget //3<CR><cmd>diffupdate<CR>')
--- map('n', '<leader>gj', '<cmd>diffget //3<CR><cmd>diffupdate<CR>')
+keymap('n', '<leader>gm', '<cmd>diffget //3<cr><cmd>diffupdate<cr>')
+keymap('n', '<leader>gl', '<cmd>diffget //3<cr><cmd>diffupdate<cr>')
+-- keymap('n', '<leader>gj', '<cmd>diffget //3<cr><cmd>diffupdate<cr>')

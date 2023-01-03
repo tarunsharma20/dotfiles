@@ -1,4 +1,7 @@
-local fn = vim.fn
+local utils = require('utils')
+
+local fn = utils.fn
+local api = utils.api
 
 -- Automatically install packer
 local install_path = fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
@@ -16,12 +19,11 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 -- Autocommand that reloads neovim whenever you save the plugins.lua file
-vim.cmd [[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerSync
-  augroup end
-]]
+local packerUserConfig = api.nvim_create_augroup("PackerUserConfig", { clear = true })
+
+api.nvim_create_autocmd("BufWritePost",
+  { pattern = "plugins.lua", command = "source <afile> | PackerSync", group = packerUserConfig }
+)
 
 -- Use a protected call so we don't error out on first use
 local status_ok, packer = pcall(require, "packer")
@@ -56,18 +58,21 @@ return packer.startup(function(use)
   use 'christoomey/vim-tmux-navigator'
   use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', }
   use 'nvim-treesitter/nvim-treesitter-refactor'
-  use 'nvim-treesitter/playground'
+  -- use 'nvim-treesitter/playground'
   use 'tarunsharma20/witching-hour' -- colorscheme
   -- use 'LunarVim/darkplus.nvim' -- colorscheme
-  use 'lilydjwg/colorizer'
+  use 'norcalli/nvim-colorizer.lua'
+  -- use 'jose-elias-alvarez/null-ls.nvim'
   use 'sbdchd/neoformat'
   -- use 'sunjon/shade.nvim'
   use 'chentoast/marks.nvim'
   use 'folke/which-key.nvim'
 
   -- LSP
+  use 'williamboman/mason.nvim'
+  use 'williamboman/mason-lspconfig.nvim'
   use 'neovim/nvim-lspconfig'
-  use 'williamboman/nvim-lsp-installer'
+  -- use 'williamboman/nvim-lsp-installer'
   -- use "jose-elias-alvarez/null-ls.nvim" -- formatters and linters
 
   -- autocomplete
@@ -80,11 +85,13 @@ return packer.startup(function(use)
 
   -- git
   use 'tpope/vim-fugitive'
-  use 'airblade/vim-gitgutter'
+  -- use 'airblade/vim-gitgutter'
+  use 'lewis6991/gitsigns.nvim'
+
 
   -- file explorer
   -- use 'tamago324/lir.nvim'
-  -- use 'kyazdani42/nvim-tree.lua'
+  use 'kyazdani42/nvim-tree.lua'
   use 'justinmk/vim-dirvish'
   use { 'roginfarrer/vim-dirvish-dovish', branch = 'main' } -- depend on https://formulae.brew.sh/formula/trash
 

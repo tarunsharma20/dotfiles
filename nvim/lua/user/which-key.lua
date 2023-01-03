@@ -65,6 +65,16 @@ which_key.register({
   },
 })
 
+-- Terminal
+which_key.register({
+  ['<leader>t'] = {
+    name = '+Terminal',
+    o = 'Open terminal',
+    s = 'Open terminal horizontal below',
+    v = 'Open terminal vertical split',
+  },
+})
+
 -- Git
 which_key.register({
   ['<leader>'] = {
