@@ -62,8 +62,7 @@ return packer.startup(function(use)
   use 'tarunsharma20/witching-hour' -- colorscheme
   -- use 'LunarVim/darkplus.nvim' -- colorscheme
   use 'norcalli/nvim-colorizer.lua'
-  -- use 'jose-elias-alvarez/null-ls.nvim'
-  use 'sbdchd/neoformat'
+  -- use 'sbdchd/neoformat'
   -- use 'sunjon/shade.nvim'
   use 'chentoast/marks.nvim'
   use 'folke/which-key.nvim'
@@ -73,7 +72,7 @@ return packer.startup(function(use)
   use 'williamboman/mason-lspconfig.nvim'
   use 'neovim/nvim-lspconfig'
   -- use 'williamboman/nvim-lsp-installer'
-  -- use "jose-elias-alvarez/null-ls.nvim" -- formatters and linters
+  use "jose-elias-alvarez/null-ls.nvim" -- formatters and linters
 
   -- autocomplete
   use 'hrsh7th/nvim-cmp'
