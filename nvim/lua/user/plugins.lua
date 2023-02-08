@@ -1,125 +1,116 @@
-local utils = require('utils')
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
-local fn = utils.fn
-local api = utils.api
-
--- Automatically install packer
-local install_path = fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
-if fn.empty(fn.glob(install_path)) > 0 then
-  PACKER_BOOTSTRAP = fn.system {
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
     "git",
     "clone",
-    "--depth",
-    "1",
-    "https://github.com/wbthomason/packer.nvim",
-    install_path,
-  }
-  print "Installing packer close and reopen Neovim..."
-  vim.cmd [[packadd packer.nvim]]
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
 end
+vim.opt.rtp:prepend(lazypath)
 
--- Autocommand that reloads neovim whenever you save the plugins.lua file
-local packerUserConfig = api.nvim_create_augroup("PackerUserConfig", { clear = true })
+-- setting <space> as the leader key
+-- It must be defined before plugins are required
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+vim.g.user_emmet_leader_key='<Tab>'
 
-api.nvim_create_autocmd("BufWritePost",
-  { pattern = "plugins.lua", command = "source <afile> | PackerSync", group = packerUserConfig }
-)
-
--- Use a protected call so we don't error out on first use
-local status_ok, packer = pcall(require, "packer")
-if not status_ok then
-  return
-end
-
--- Have packer use a popup window
-packer.init {
-  display = {
-    open_fn = function()
-      return require("packer.util").float { border = "rounded" }
+require('lazy').setup({
+  -- colorscheme
+  {
+    'tarunsharma20/witching-hour',
+    lazy = false,
+    priority = 1000, -- make sure to load this before all the other start plugins
+    config = function()
+      vim.cmd([[colorscheme witching-hour]])
     end,
   },
-}
+  -- {
+  --   'LunarVim/darkplus.nvim',
+  --   lazy = false,
+  --   priority = 1000, -- make sure to load this before all the other start plugins
+  --   config = function()
+  --     vim.cmd([[colorscheme darkplus]])
+  --   end,
+  -- },
 
--- Install your plugins here
-return packer.startup(function(use)
-  use 'wbthomason/packer.nvim'
+-- -----------------------------------------------------------------------------
+-- ------------------------------ Miscellaneous --------------------------------
+-- -----------------------------------------------------------------------------
+  'lukas-reineke/indent-blankline.nvim',
+  'tpope/vim-commentary',
+  'tpope/vim-surround',
+  'tpope/vim-repeat',
+  'mattn/emmet-vim',
+  -- 'godlygeek/tabular',
+  'vimwiki/vimwiki',
+  'kyazdani42/nvim-web-devicons',
+  'nvim-lualine/lualine.nvim',
+  'romgrk/barbar.nvim',
+  'christoomey/vim-tmux-navigator',
+  {
+    'nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdate',
+  },
+  'nvim-treesitter/nvim-treesitter-refactor',
+  -- 'nvim-treesitter/playground',
+  'norcalli/nvim-colorizer.lua',
+  -- 'sbdchd/neoformat',
+  'chentoast/marks.nvim',
+  { 'folke/which-key.nvim', lazy = true },
 
--- miscellaneous
-  use 'lukas-reineke/indent-blankline.nvim'
-  use 'tpope/vim-commentary'
-  use 'tpope/vim-surround'
-  use 'tpope/vim-repeat'
-  use 'mattn/emmet-vim'
-  -- use 'godlygeek/tabular'
-  use 'vimwiki/vimwiki'
-  use 'kyazdani42/nvim-web-devicons'
-  use 'nvim-lualine/lualine.nvim'
-  use 'romgrk/barbar.nvim'
-  use 'christoomey/vim-tmux-navigator'
-  use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', }
-  use 'nvim-treesitter/nvim-treesitter-refactor'
-  -- use 'nvim-treesitter/playground'
-  use 'tarunsharma20/witching-hour' -- colorscheme
-  -- use 'LunarVim/darkplus.nvim' -- colorscheme
-  use 'norcalli/nvim-colorizer.lua'
-  -- use 'sbdchd/neoformat'
-  -- use 'sunjon/shade.nvim'
-  use 'chentoast/marks.nvim'
-  use 'folke/which-key.nvim'
+-- -----------------------------------------------------------------------------
+-- ----------------------------------- LSP -------------------------------------
+-- -----------------------------------------------------------------------------
+  'williamboman/mason.nvim',
+  'williamboman/mason-lspconfig.nvim',
+  'neovim/nvim-lspconfig',
+  {
+    'jose-elias-alvarez/null-ls.nvim', -- formatters and linters
+    lazy = false
+  },
 
-  -- LSP
-  use 'williamboman/mason.nvim'
-  use 'williamboman/mason-lspconfig.nvim'
-  use 'neovim/nvim-lspconfig'
-  -- use 'williamboman/nvim-lsp-installer'
-  use "jose-elias-alvarez/null-ls.nvim" -- formatters and linters
+-- -----------------------------------------------------------------------------
+-- ------------------------------ Autocomplete ---------------------------------
+-- -----------------------------------------------------------------------------
+  {
+    'hrsh7th/nvim-cmp',
+    lazy = false,
+    dependencies = {
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
+      'hrsh7th/cmp-cmdline',
+      'L3MON4D3/LuaSnip',
+      'hrsh7th/cmp-nvim-lsp'
+    }
+  },
 
-  -- autocomplete
-  use 'hrsh7th/nvim-cmp'
-  use 'hrsh7th/cmp-buffer'
-  use 'hrsh7th/cmp-path'
-  use 'hrsh7th/cmp-cmdline'
-  use 'L3MON4D3/LuaSnip'
-  use 'hrsh7th/cmp-nvim-lsp'
-
-  -- git
-  use 'tpope/vim-fugitive'
-  -- use 'airblade/vim-gitgutter'
-  use 'lewis6991/gitsigns.nvim'
+-- -----------------------------------------------------------------------------
+-- ----------------------------------- Git -------------------------------------
+-- -----------------------------------------------------------------------------
+  'tpope/vim-fugitive',
+  'lewis6991/gitsigns.nvim',
 
 
-  -- file explorer
-  -- use 'tamago324/lir.nvim'
-  use 'kyazdani42/nvim-tree.lua'
-  use 'justinmk/vim-dirvish'
-  use { 'roginfarrer/vim-dirvish-dovish', branch = 'main' } -- depend on https://formulae.brew.sh/formula/trash
+-- -----------------------------------------------------------------------------
+-- ------------------------------ File Explorer --------------------------------
+-- -----------------------------------------------------------------------------
+  'kyazdani42/nvim-tree.lua',
+  'justinmk/vim-dirvish',
+  { 'roginfarrer/vim-dirvish-dovish', branch = 'main' }, -- depend on https://formulae.brew.sh/formula/trash
 
-  -- telescope
-  -- use {
-  --   'nvim-telescope/telescope.nvim',
-  --   requires = { {'nvim-lua/plenary.nvim'} }
-  -- }
-  -- use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-  -- use 'nvim-telescope/telescope-project.nvim'
-  -- use 'nvim-telescope/telescope-live-grep-raw.nvim'
-  -- use 'nvim-telescope/telescope-file-browser.nvim'
-
-  -- fzf
-  use 'nvim-lua/plenary.nvim'
-  use { 'junegunn/fzf', run = './install --bin' }
-  -- use 'junegunn/fzf.vim'
-  use 'ibhagwan/fzf-lua'
-
-  -- use {
-  --   'goolord/alpha-nvim',
-  --   config = function ()
-  --     require'alpha'.setup(require'alpha.themes.dashboard'.config)
-  --   end
-  -- }
-
-  -- Automatically set up your configuration after cloning packer.nvim
-  -- Put this at the end after all plugins
-  if PACKER_BOOTSTRAP then
-    require('packer').sync()
-  end
-end)
+-- -----------------------------------------------------------------------------
+-- -------------------------------- Telescope ----------------------------------
+-- -----------------------------------------------------------------------------
+  {
+    'nvim-telescope/telescope.nvim',
+    dependencies = {'nvim-lua/plenary.nvim'},
+  },
+  { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+  'nvim-telescope/telescope-project.nvim',
+  'nvim-telescope/telescope-file-browser.nvim',
+  'nvim-telescope/telescope-live-grep-args.nvim',
+})

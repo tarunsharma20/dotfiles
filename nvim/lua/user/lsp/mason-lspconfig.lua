@@ -5,6 +5,18 @@ require('mason-lspconfig').setup_handlers {
     lspconfig[server_name].setup {}
   end,
 
+  ['sumneko_lua'] = function()
+    lspconfig.sumneko_lua.setup({
+      settings = {
+        Lua = {
+          diagnostics = {
+            globals = { 'vim', 'use' }
+          }
+        }
+      }
+    })
+  end,
+
   ['tsserver'] = function()
     lspconfig.tsserver.setup({
       settings = {

@@ -9,7 +9,7 @@ set mouse=a
 if exists(':GuiFont')
   " Use GuiFont! to ignore font errors
   " GuiFont {font_name}:h{size}
-  GuiFont FiraCode\ Nerd\ Font\ Mono:h15
+  GuiFont JetBrainsMono\ Nerd\ Font\ Mono:h15
 endif
 
 " Disable GUI Tabline

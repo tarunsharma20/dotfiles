@@ -50,14 +50,13 @@ which_key.register({
 which_key.register({
   ['<leader>f'] = {
     name = '+Fuzzy',
-    a = 'Find LSP actions',
+    -- a = 'Find LSP actions',
     b = 'Find buffer',
     c = 'Find config',
     C = 'Find color schemes',
     f = 'Find file',
     g = 'Fuzzy search',
-    G = 'Last search',
-    l = 'Fuzzy Live search',
+    G = 'Fuzzy search with rg flags',
     m = 'Find marks',
     p = 'Find project',
     r = 'Resume last search',

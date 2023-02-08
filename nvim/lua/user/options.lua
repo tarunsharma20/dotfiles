@@ -107,14 +107,14 @@ opt.path:append('**')  -- Recursively traverse to find something
 cmd "set whichwrap+=<,>,[,],h,l"
 cmd [[set iskeyword+=-]]
 
-cmd [[
-try
-  colorscheme witching-hour
-catch /^Vim\%((\a\+)\)\=:E185/
-  colorscheme default
-  set background=dark
-endtry
-]]
+-- cmd [[
+-- try
+--   colorscheme witching-hour
+-- catch /^Vim\%((\a\+)\)\=:E185/
+--   colorscheme default
+--   set background=dark
+-- endtry
+-- ]]
 
 -- Define symbols for listchars
 cmd [[

@@ -82,7 +82,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     bufmap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
     bufmap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
     bufmap('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<cr>')
-    bufmap('n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<cr>')
+    bufmap('n', '<leader>lf', '<cmd>lua vim.lsp.buf.formatting()<cr>')
   end
 })
 
