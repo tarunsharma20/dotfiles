@@ -44,7 +44,7 @@ if exists('g:neovide')
   " noremap p o<Esc>vpyy
   " noremap P O<Esc>vpyy
 
-  set guifont=FiraCode\ Nerd\ Font\ Mono:h16
+  set guifont=JetBrainsMono\ Nerd\ Font\ Mono:h15
 
   let g:neovide_cursor_vfx_mode=ripple
   " let g:neovide_cursor_animation_length=0.05
