@@ -1,50 +1,39 @@
-return {
-  'nvim-treesitter/nvim-treesitter',
-  build = ':TSUpdate',
-  dependencies = {
-    'nvim-treesitter/nvim-treesitter-refactor',
-    'nvim-treesitter/playground',
+vim.pack.add({
+  { src = "https://github.com/nvim-treesitter/nvim-treesitter", run = ":TSUpdate" },
+})
+
+require("nvim-treesitter.configs").setup({
+  ensure_installed = {
+    'bash',
+    'c',
+    'gitcommit',
+    'graphql',
+    'html',
+    'javascript',
+    'json',
+    'json5',
+    'jsonc',
+    'lua',
+    'markdown',
+    'markdown_inline',
+    'python',
+    'query',
+    'regex',
+    'rust',
+    'scss',
+    'toml',
+    'tsx',
+    'typescript',
+    'vim',
+    'vimdoc',
+    'yaml',
   },
-  config = function ()
-    local treesitter = require('nvim-treesitter.configs')
+  sync_install = false,
+  auto_install = true,
+  highlight = { enable = true },
+  indent = { enable = true },
+})
 
-    treesitter.setup {
-      -- One of "all", "maintained" (parsers with maintainers), or a list of languages
-      ensure_installed = 'all',
-
-      -- Install languages synchronously (only applied to `ensure_installed`)
-      -- sync_install = false,
-
-      -- List of parsers to ignore installing
-      -- ignore_install = {''},
-
-      highlight = {
-        -- `false` will disable the whole extension
-        enable = true,
-
-        -- list of language that will be disabled
-        disable = {''},
-
-        -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-        -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-        -- Using this option may slow down your editor, and you may see some duplicate highlights.
-        -- Instead of true it can also be a list of languages
-        additional_vim_regex_highlighting = true, -- for spellcheck
-      },
-      indent = {
-        enable = true
-      },
-      rainbow = {
-        enable = true,
-      },
-      refactor = {
-        highlight_definitions = {
-          enable = true,
-          -- Set to false if you have an `updatetime` of ~100.
-          clear_on_cursor_move = true,
-        },
-        -- highlight_current_scope = { enable = true },
-      },
-    }
-  end
-}
+vim.o.foldmethod = 'expr'
+vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.o.foldlevel = 99

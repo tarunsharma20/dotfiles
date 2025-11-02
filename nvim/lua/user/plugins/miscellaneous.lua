@@ -1,28 +1,29 @@
-return {
-  -- colorscheme
-  {
-    'tarunsharma20/witching-hour',
-    lazy = false,
-    priority = 1000, -- make sure to load this before all the other start plugins
-    config = function()
-      vim.cmd([[colorscheme witching-hour]])
-    end,
-  },
-  -- {
-  --   'LunarVim/darkplus.nvim',
-  --   lazy = false,
-  --   priority = 1000, -- make sure to load this before all the other start plugins
-  --   config = function()
-  --     vim.cmd([[colorscheme darkplus]])
-  --   end,
-  -- },
-  'lukas-reineke/indent-blankline.nvim',
-  'tpope/vim-commentary',
-  'tpope/vim-surround',
-  'tpope/vim-fugitive',
-  'tpope/vim-repeat',
-  'godlygeek/tabular',
-  'kyazdani42/nvim-web-devicons',
-  'christoomey/vim-tmux-navigator',
-  -- 'Bekaboo/dropbar.nvim'
-}
+vim.pack.add({
+  { src = "https://github.com/projekt0n/github-nvim-theme", name = "github-theme" },
+  "https://github.com/tpope/vim-surround",
+  "https://github.com/tpope/vim-fugitive",
+  "https://github.com/tpope/vim-repeat",
+  "https://github.com/nvimdev/indentmini.nvim",
+  "https://github.com/nvim-tree/nvim-web-devicons",
+  "https://github.com/romgrk/barbar.nvim",
+  "https://github.com/norcalli/nvim-colorizer.lua",
+  "https://github.com/mattn/emmet-vim",
+  "https://github.com/folke/which-key.nvim",
+})
+
+vim.cmd("colorscheme github_dark_default")
+
+require('barbar').setup({
+  icons = { buffer_index = true },
+})
+
+require('colorizer').setup({
+  "*",    -- Highlight all files, but customize some others.
+  "!vim", -- Exclude vim from highlighting.
+})
+
+require("indentmini").setup()
+vim.cmd.highlight("IndentLine guifg=#1a293b")
+vim.cmd.highlight("IndentLineCurrent guifg=#336d9f")
+
+vim.g.user_emmet_leader_key = '<Tab>'
