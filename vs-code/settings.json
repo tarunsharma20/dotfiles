@@ -1,0 +1,174 @@
+{
+	"editor.formatOnSaveMode": "modifications",
+	"editor.formatOnSave": true,
+	"editor.defaultFormatter": "biomejs.biome",
+	"editor.tabSize": 2,
+	"workbench.editor.showTabIndex": true,
+	"workbench.editor.empty.hint": "hidden",
+  
+	// "vim.smartRelativeLine": true
+	"vim.easymotion": true,
+	"vim.incsearch": true,
+	"vim.useSystemClipboard": true,
+	"vim.useCtrlKeys": true,
+	"vim.hlsearch": true,
+	"vim.leader": "<space>",
+	"vim.normalModeKeyBindings": [
+		// LSP
+		{
+			"before": ["g", "r", "n"],
+			"commands": ["editor.action.rename"]
+		},
+		{
+			"before": ["g", "r", "a"],
+			"commands": ["editor.action.quickFix"]
+		},
+		{
+			"before": ["g", "r", "r"],
+			"commands": ["editor.action.referenceSearch.trigger"]
+		},
+		{
+			"before": ["g", "r", "i"],
+			"commands": ["editor.action.goToImplementation"]
+		},
+		{
+			"before": ["g", "r", "p", "i"],
+			"commands": ["editor.action.peekImplementation"]
+		},
+		{
+			"before": ["g", "r", "t"],
+			"commands": ["editor.action.goToTypeDefinition"]
+		},
+		{
+			"before": ["g", "r", "p", "t"],
+			"commands": ["editor.action.peekTypeDefinition"]
+		},
+		// {
+		//   "before": ["g", "p", "d"],
+		//   "commands": ["editor.action.peekDefinition"]
+		// },
+		// {
+		//   "before": ["g", "O"],
+		//   "commands": ["editor.action.showDefinitionPreviewHover"]
+		// },
+
+		{
+			"before": ["<leader>", "e"],
+			"commands": [
+				"workbench.view.explorer"
+			]
+		},
+
+		// Fuzzy find
+		{
+			"before": ["<leader>", "f", "f"],
+			"commands": [
+				"workbench.action.quickOpen"
+			]
+		},
+		{
+			"before": ["<leader>", "f", "b"],
+			"commands": [
+				"workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup"
+			]
+		},
+
+		// Close buffer(s)
+		{
+			"before": ["<leader>", "b", "o"],
+			"commands": [
+				"workbench.action.closeOtherEditors",
+				"workbench.action.closeEditorsInOtherGroups"
+			]
+		},
+		{
+			"before": ["<leader>", "b", "w"],
+			"commands": ["workbench.action.closeEditorInAllGroups"]
+		},
+
+		// File navigation
+		{
+			"before": ["<c-6>"],
+			"commands": [
+				"workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup"
+			]
+		},
+		{
+			"before": ["[", "b"],
+			"commands": ["workbench.action.previousEditorInGroup"]
+		},
+		{
+			"before": ["]", "b"],
+			"commands": ["workbench.action.nextEditorInGroup"]
+		},
+		{
+			"before": ["[", "B"],
+			"commands": ["workbench.action.firstEditorInGroup"]
+		},
+		{
+			"before": ["]", "B"],
+			"commands": ["workbench.action.lastEditorInGroup"]
+		},
+		{
+			"before": ["<leader>", "1"],
+			"commands": ["workbench.action.openEditorAtIndex1"]
+		},
+		{
+			"before": ["<leader>", "2"],
+			"commands": ["workbench.action.openEditorAtIndex2"]
+		},
+		{
+			"before": ["<leader>", "3"],
+			"commands": ["workbench.action.openEditorAtIndex3"]
+		},
+		{
+			"before": ["<leader>", "4"],
+			"commands": ["workbench.action.openEditorAtIndex4"]
+		},
+		{
+			"before": ["<leader>", "5"],
+			"commands": ["workbench.action.openEditorAtIndex5"]
+		},
+		{
+			"before": ["<leader>", "6"],
+			"commands": ["workbench.action.openEditorAtIndex6"]
+		},
+		{
+			"before": ["<leader>", "7"],
+			"commands": ["workbench.action.openEditorAtIndex7"]
+		},
+		{
+			"before": ["<leader>", "8"],
+			"commands": ["workbench.action.openEditorAtIndex8"]
+		},
+		{
+			"before": ["<leader>", "9"],
+			"commands": ["workbench.action.openEditorAtIndex9"]
+		},
+
+		// Error navigation
+		{
+			"before": ["]", "d"],
+			"commands": [
+				"editor.action.marker.next"
+			]
+		},
+		{
+			"before": ["[", "d"],
+			"commands": [
+				"editor.action.marker.prev"
+			]
+		},
+
+		// Split
+		{
+			"before": ["<C-w>", "c"],
+			"commands": ["workbench.action.closeEditorsInGroup"]
+		},
+
+		{
+			"before": ["-"],
+			"commands": ["breadcrumbs.focusAndSelect"],
+		},
+	],
+}
